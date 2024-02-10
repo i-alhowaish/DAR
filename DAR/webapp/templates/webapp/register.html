@@ -1,0 +1,36 @@
+{% extends 'webapp/base.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/register-styles.css' %}">
+
+{% endblock %}
+{% block content %}
+<main class="main-container">
+  <section class="register-section">
+   
+    <div class="center-container">
+      <div class="form-container">
+        <p class="form-title">إنشاء حساب</p>
+        <form class="form-dar">
+          <input type="text" class="input-field-dar" placeholder="إسمك الأول">
+          <input type="text" class="input-field-dar" placeholder="إسم العائلة">
+          <input type="email" class="input-field-dar" placeholder="الإيميل">
+          <input type="password" class="input-field-dar" placeholder="الرمز السري">
+          <button class="form-btn-dar">إنشاء حساب</button>
+        </form>
+        <p class="sign-up-label">
+          لديك حساب؟ <span class="sign-up-link" onclick="">سجل دخول</span>
+        </p>
+        
+      </div>
+    </div>
+ 
+  </section>
+</main>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/register.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,84 @@
+
+.center-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+
+.form-container {
+  width: 350px;
+  height: 380px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px 30px;
+ 
+}
+
+.form-title {
+  text-align: center;
+  margin: 10px 0 30px 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+
+.form-dar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+
+.input-field-dar {
+  border-radius: 20px;
+  border: 1px solid #c0c0c0;
+  outline: 0 !important;
+  box-sizing: border-box;
+  padding: 12px 15px;
+}
+
+/* .input-field-dar::placeholder {
+  font-weight: 500;
+  font-size: 1.1em;
+} */
+
+.form-btn-dar {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 0 !important;
+  outline: 0 !important;
+  background: #e79106;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-weight: 700;
+  font-size: medium;
+}
+
+.form-btn-dar:active {
+  box-shadow: none;
+}
+
+.sign-up-label {
+  margin: 0;
+  font-size: 12px;
+  color: #747474;
+}
+
+.sign-up-link {
+  margin-left: 1px;
+  font-size: 12px;
+  text-decoration: underline;
+  text-decoration-color: #14213d;
+  color: #14213d;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+

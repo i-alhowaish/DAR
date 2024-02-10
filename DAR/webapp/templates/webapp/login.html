@@ -1,0 +1,41 @@
+{% extends 'webapp/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}">
+
+{% endblock %}
+{% block content %}
+<main class="main-container">
+  <section class="login-section">
+   
+     <div class="center-container">
+        <div class="form-container">
+           <p class="form-title">تسجيل الدخول</p>
+           <form class="form-dar" action="" method="post" autocomplete="off">
+            {% csrf_token %}
+            {% render_field form.username placeholder="الإيميل" class+="input-field-dar" %}
+            {% render_field form.password placeholder="الرمز السري" class+="input-field-dar" %}
+            
+              <!-- <input type="email" class="input-field-dar" placeholder="الإيميل">
+              <input type="password" class="input-field-dar" placeholder="الرمز السري"> -->
+
+              <button class="form-btn-dar">دخول</button>
+           </form>
+           <p class="sign-up-label">
+              ليس لديك حساب؟ <span class="sign-up-link">إنشاء حساب</span>
+           </p>
+
+        </div>
+     </div>
+     
+  </section>
+</main>
+
+{% endblock %}
+
+
+{% block script %}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock %}
