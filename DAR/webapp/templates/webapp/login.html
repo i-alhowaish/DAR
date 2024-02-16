@@ -15,7 +15,7 @@
            <p class="form-title">تسجيل الدخول</p>
            <form class="form-dar" action="" method="post" autocomplete="off">
             {% csrf_token %}
-            {% render_field form.username placeholder="الإيميل" class+="input-field-dar" %}
+            {% render_field form.username placeholder="اسم المستخدم" class+="input-field-dar" %}
             {% render_field form.password placeholder="الرمز السري" class+="input-field-dar" %}
             
               <!-- <input type="email" class="input-field-dar" placeholder="الإيميل">
@@ -26,6 +26,33 @@
            <p class="sign-up-label">
               ليس لديك حساب؟ <span class="sign-up-link">إنشاء حساب</span>
            </p>
+           <div class="container">
+
+            <br>
+
+            <!-- Notification messages -->
+
+            {% for message in messages %}
+
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+
+
+                    <p id="message-timer" class="alert alert-error float-center text-center message-text"> 
+
+                        <i class="fa fa-check" aria-hidden="true"></i> &nbsp; {{message}}
+
+                    </p>
+
+
+                {% endif %}
+
+
+            {% endfor %}
+
+
+           
+
+        </div>
 
         </div>
      </div>

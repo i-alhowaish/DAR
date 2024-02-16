@@ -28,7 +28,7 @@
            {% if user.is_authenticated %}
            <li class="dropdown__item">
               <div class="nav__link">
-                 اهلا, عمر <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                 اهلا, {{user.first_name}} <i class="ri-arrow-down-s-line dropdown__arrow"></i>
               </div>
 
               <ul class="dropdown__menu">
@@ -43,6 +43,11 @@
                        <i class="ri-lock-line"></i> إضافة عقار
                     </a>
                  </li>
+                 <li>
+                  <a href="{% url 'userlogout' %}" class="dropdown__link">
+                     <i class="ri-lock-line"></i> تسجيل خروج
+                  </a>
+               </li>
 
               </ul>
               {% else %}

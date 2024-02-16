@@ -1,6 +1,7 @@
 {% extends 'webapp/base.html' %}
 
 {% load static %}
+{% load widget_tweaks %}
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/register-styles.css' %}">
 
@@ -12,17 +13,60 @@
     <div class="center-container">
       <div class="form-container">
         <p class="form-title">إنشاء حساب</p>
-        <form class="form-dar">
+        <!-- <form class="form-dar">
           <input type="text" class="input-field-dar" placeholder="إسمك الأول">
           <input type="text" class="input-field-dar" placeholder="إسم العائلة">
           <input type="email" class="input-field-dar" placeholder="الإيميل">
           <input type="password" class="input-field-dar" placeholder="الرمز السري">
           <button class="form-btn-dar">إنشاء حساب</button>
-        </form>
+        </form> -->
+        <form class="form-dar" action="" method="post" autocomplete="off">
+          {% csrf_token %}
+          {% render_field form.first_name placeholder="اسمك الأول" class+="input-field-dar" %}
+          {% render_field form.last_name placeholder="إسمك العائلة" class+="input-field-dar" %}
+          {% render_field form.username placeholder="اسم المستخدم" class+="input-field-dar" %}
+          {% render_field form.email placeholder="الإيميل" class+="input-field-dar" %}
+          {% render_field form.phone_number placeholder="رقم الجوال" class+="input-field-dar" %}
+          {% render_field form.password1 placeholder="الرمز السري" class+="input-field-dar" %}
+          {% render_field form.password2 placeholder="تأكيد الرمز السري" class+="input-field-dar" %}
+
+          
+            <!-- <input type="email" class="input-field-dar" placeholder="الإيميل">
+            <input type="password" class="input-field-dar" placeholder="الرمز السري"> -->
+
+            <button class="form-btn-dar">دخول</button>
+         </form>
         <p class="sign-up-label">
           لديك حساب؟ <span class="sign-up-link" onclick="">سجل دخول</span>
+
         </p>
-        
+        <div class="container">
+
+            <br>
+
+            <!-- Notification messages -->
+
+            {% for message in messages %}
+
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+
+
+                    <p id="message-timer" class="alert alert-error float-center text-center message-text"> 
+
+                        <i class="fa fa-check" aria-hidden="true"></i> &nbsp; {{message}}
+
+                    </p>
+
+
+                {% endif %}
+
+
+            {% endfor %}
+
+
+           
+
+        </div>
       </div>
     </div>
  
