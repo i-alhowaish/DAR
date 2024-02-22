@@ -1,8 +1,96 @@
 
 {% extends 'webapp/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/landing.css' %}">
+{% endblock %}
 
 {% block content %}
+<header class="masthead" " 
+style=" background-image: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75) ), url({% static 'images/main-background.jpg' %});">
+  <div class="container">
+      <div class="masthead-subheading">اهلا بكم في</div>
+      <div class="masthead-heading ">منصة دار العقارية</div>
+      <a class="btn-dar" href="{% url 'login' %}">إبدأ</a>
+  </div>
+</header>
 
-<h1>Testing ((this going to be home page))</h1>
 
+
+ <div class="main">
+  <section class="dar-cards" id="services">
+    <h2 class="service-title">خدماتنا</h2>
+    <div class="content">
+      <!--card 1-->
+      <div class="dar-card">
+        <div class="icon"><i class="fa-solid fa-wrench"></i></div>
+        <div class="info">
+          <h3>تخصيص صفحتك</h3>
+          <p>بإمكانك تخصيص صفحتك الشخصية بما يتناسب مع هويتك</p>
+        </div>
+      </div>
+      
+       <!--card 2-->
+       <div class="dar-card">
+        <div class="icon"><i class="ri-line-chart-fill"></i></div>
+        <div class="info">
+          <h3>التحليل</h3>
+          <p>إتاحة الإطلاع على تقارير تفاعلية للسوق العقاري</p>
+        </div>
+      </div>
+       <!--card 3-->
+       <div class="dar-card">
+        <div class="icon"><i class="ri-image-add-line"></i></div>
+        <div class="info">
+          <h3>إضافة عقارك</h3>
+          <p>بإمكانك اضافة العقار الخاص بك وعرضه ومشاركته في المنصة</p>
+        </div>
+      </div>
+      <div class="dar-card">
+        <div class="icon"><i class="ri-road-map-line"></i></div>
+        <div class="info">
+          <h3>خيارات واسعة</h3>
+          <p>منصتنا تتيح لك خيارات واسعة في انحاء المملكة</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="projects" id="projects">
+    <h2 class="service-title">فريق دار الرائع</h2>
+    <div class="dar-container content">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="team-member">
+            <img class="mx-auto rounded-circle" src="{% static 'images/team/omar-pic.jpg' %}" alt="..." />
+            <h4>عمر العجاجي</h4>
+            <p >مؤسس</p>
+            <a class="btn btn-dark btn-social mx-2" href="https://wa.me/966569112166"><i class="fa-brands fa-whatsapp"></i></a>
+            <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/omar-alajaji/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="team-member">
+          <img class="mx-auto rounded-circle" src="{% static 'images/team/ziyad-pic.jpg' %}" alt="..." />
+          <h4>زياد الخزيم</h4>
+          <p >مؤسس</p>
+          <a class="btn btn-dark btn-social mx-2" href="https://wa.me/966553431816"><i class="fa-brands fa-whatsapp"></i></a>
+          <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/ziyad-alkhuzaim-93b2b7247/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="team-member">
+            <img class="mx-auto rounded-circle" src="{% static 'images/team/ibrahim-pic.jpg' %}" alt="..." />
+            <h4>إبراهيم الهويش</h4>
+            <p>مؤسس</p>
+            <a class="btn btn-dark btn-social mx-2" href="https://wa.me/966582853422"><i class="fa-brands fa-whatsapp"></i></a>
+            <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/ibrahim-alhowaish-a87aa6237/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+</div>
 {% endblock %}

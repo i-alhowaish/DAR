@@ -4,10 +4,10 @@
 {% load widget_tweaks %}
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}">
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
 {% endblock %}
 {% block content %}
-<main class="main-container">
+<div id="page-container" class="main-container ">
   <section class="login-section">
    
      <div class="center-container">
@@ -37,7 +37,7 @@
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
 
 
-                    <p id="message-timer" class="alert alert-error float-center text-center message-text"> 
+                    <p id="message-timer" class="alert alert-danger float-center text-center message-text-black"> 
 
                         <i class="fa fa-check" aria-hidden="true"></i> &nbsp; {{message}}
 
@@ -58,7 +58,7 @@
      </div>
      
   </section>
-</main>
+</div>
 
 {% endblock %}
 
