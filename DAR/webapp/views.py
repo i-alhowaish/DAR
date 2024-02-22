@@ -7,6 +7,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import *
+from django.contrib.auth.decorators import login_required
+from .forms import *
 
 from django.contrib import messages
 
@@ -102,3 +104,25 @@ def userlogout(request):
     messages.success(request, "Logout success!")
 
     return redirect("")
+
+@login_required(login_url='login')  # Use the name of your login URL
+def add_property(request):
+    if request.method == 'POST':
+        property_form = PropertyForm(request.POST)
+        if property_form.is_valid():
+            new_property = property_form.save(commit=False)
+            new_property.uid = request.user  # Assign the logged in user
+            new_property.save()
+            
+            images_files = request.FILES.getlist('images')
+            for image_file in images_files:
+                PropertyImages.objects.create(property=new_property, image=image_file)
+            
+            return redirect('some_view')  # Redirect to a new URL after successful creation
+    else:
+        property_form = PropertyForm()
+        images_form = PropertyImagesForm()  # This form might not be directly used in the template but initialized here if needed
+        
+    return render(request, 'webapp/add_property.html', {'property_form': property_form, 'images_form': images_form})
+
+     
