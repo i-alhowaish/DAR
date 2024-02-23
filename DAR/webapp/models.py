@@ -57,7 +57,15 @@ class Property(models.Model):
     pid = models.AutoField(primary_key=True)
     uid = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
-    type = models.CharField(max_length=100)
+    Type_Choices=[
+        ('Apartment','شقة'),
+        ('House','فلة'),
+        ('Farm','مزرعة'),
+        ('Floor','دور'),
+        ('Istrahah','استراحة'),
+        ('Land','أرض')
+          ]
+    type = models.CharField(max_length=100,choices=Type_Choices)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     furnished = models.BooleanField()
     number_of_bathrooms = models.IntegerField(null=True, blank=True)
@@ -69,9 +77,13 @@ class Property(models.Model):
     length = models.DecimalField(max_digits=10, decimal_places=2)
     width = models.DecimalField(max_digits=10, decimal_places=2)
     number_of_sides = models.IntegerField(null=True, blank=True)
-    facade = models.CharField(max_length=100, blank=True, null=True)
+    # facade = models.CharField(max_length=100, blank=True, null=True)
     number_of_rooms = models.IntegerField(null=True, blank=True)
-    sell_or_rent = models.CharField(max_length=50)
+    SELL_OR_RENT_CHOICES = [
+        ('sell', 'Sell'),
+        ('rent', 'Rent'),
+    ]
+    sell_or_rent = models.CharField(max_length=50, choices=SELL_OR_RENT_CHOICES)
     number_of_parkings = models.IntegerField(null=True, blank=True)
     number_of_bedrooms = models.IntegerField(null=True, blank=True)
     year_built = models.IntegerField(null=True, blank=True)
