@@ -9,6 +9,7 @@ from django.urls import reverse
 from .models import *
 from django.contrib.auth.decorators import login_required
 from .forms import *
+import json 
 
 from django.contrib import messages
 
@@ -121,7 +122,7 @@ def add_property(request):
             #return redirect('some_view')  # Redirect to a new URL after successful creation
             
             
-            images360_files = request.FILES.getlist('images')
+            images360_files = request.FILES.getlist('images360')
             for image_file in images360_files:
                 PropertyImages360.objects.create(property360=new_property, image360=image_file)
             
@@ -130,6 +131,9 @@ def add_property(request):
         property_form = PropertyForm()
         images_form = PropertyImagesForm()  # This form might not be directly used in the template but initialized here if needed
         image360_form = PropertyImages360Form()
-    return render(request, 'webapp/add_property.html', {'property_form': property_form, 'images_form': images_form})
+        with open('locationsJSON/location1.json') as file :
+            data = json.load(file)
+    
+    return render(request, 'webapp/add_property.html', {'property_form': property_form, 'images_form': images_form, 'json_data':data ,'images360_form':image360_form })
 
      

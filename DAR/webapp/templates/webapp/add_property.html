@@ -50,7 +50,7 @@
               </div>
   
               
-              <input type="file" id="inp_images360" name="images" multiple="" class="d-none"
+              <input type="file" id="inp_images360" name="images360" multiple="" class="d-none"
               accept="image/jpeg, image/png, image/jpg" onchange="img_select360()" />
   
             <button type="button" class="Upload-btn" onclick="document.getElementById('inp_images360').click()">
@@ -194,6 +194,7 @@
                 {% render_field property_form.width step="1" class+="form-control" id="yearBuilt" name="yearBuilt" min="0" %}
 
               </div>
+              <pre id="json-data">{{ json_data }}</pre>
               
   
               <button class="form-btn-dar">إضافة</button>
@@ -210,7 +211,7 @@
 {% block script %}
 <script src="{% static 'js/add_property.js' %}"></script>
 <script src="{% static 'js/validate_add_property.js' %}"></script>
-
+<script src="{% static 'js/dropdownlocatins.js' %}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

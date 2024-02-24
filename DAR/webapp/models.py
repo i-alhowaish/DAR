@@ -138,7 +138,7 @@ class Subscription(models.Model):
     
     
 class PropertyImages360(models.Model):
-    property360 = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
+    property360 = models.ForeignKey(Property, related_name='images360', on_delete=models.CASCADE)
     image360 = models.ImageField(upload_to='property_images360/')
 
     

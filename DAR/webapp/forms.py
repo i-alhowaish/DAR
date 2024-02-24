@@ -54,7 +54,7 @@ class PropertyImagesForm(forms.ModelForm):
 
 class PropertyImages360Form(forms.ModelForm):
     class Meta:
-        model = PropertyImages
+        model = PropertyImages360
         fields = ['image360']
         #'multiple': True,
         widgets = {
