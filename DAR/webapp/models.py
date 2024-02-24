@@ -2,6 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
+from . import locations
+
+
+
+REGION_CHOICES = locations.load_choices_from_json('locationsJSON/regions_lite.json', 'name_ar', 'name_ar')
+CITY_CHOICES = locations.load_choices_from_json('locationsJSON/cities_lite.json', 'name_ar', 'name_ar')
+NEIGHBORHOOD_CHOICES = locations.load_choices_from_json('locationsJSON/districts_lite.json', 'name_ar', 'name_ar')
+
+
+
 
 # Create your models here.
 # class Course(models.Model):
@@ -69,10 +79,11 @@ class Property(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     furnished = models.BooleanField()
     number_of_bathrooms = models.IntegerField(null=True, blank=True)
-    region = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    street = models.CharField(max_length=100,)
-    neighborhood = models.CharField(max_length=100)
+    
+    region = models.CharField(max_length=100, choices=REGION_CHOICES)
+    city = models.CharField(max_length=100, choices=CITY_CHOICES)
+    street = models.CharField(max_length=100)
+    neighborhood = models.CharField(max_length=100, choices=NEIGHBORHOOD_CHOICES)
     coordinate = models.CharField(max_length=100, blank=True, null=True)
     length = models.DecimalField(max_digits=10, decimal_places=2)
     width = models.DecimalField(max_digits=10, decimal_places=2)
@@ -80,8 +91,8 @@ class Property(models.Model):
     # facade = models.CharField(max_length=100, blank=True, null=True)
     number_of_rooms = models.IntegerField(null=True, blank=True)
     SELL_OR_RENT_CHOICES = [
-        ('sell', 'Sell'),
-        ('rent', 'Rent'),
+        ('sell', 'بيع'),
+        ('rent', 'اجار'),
     ]
     sell_or_rent = models.CharField(max_length=50, choices=SELL_OR_RENT_CHOICES)
     number_of_parkings = models.IntegerField(null=True, blank=True)
