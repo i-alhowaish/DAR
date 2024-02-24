@@ -136,3 +136,9 @@ class Subscription(models.Model):
     sid = models.AutoField(primary_key=True)
     duration = models.IntegerField()
     
+    
+class PropertyImages360(models.Model):
+    property360 = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
+    image360 = models.ImageField(upload_to='property_images360/')
+
+    

@@ -50,3 +50,13 @@ class PropertyImagesForm(forms.ModelForm):
         widgets = {
             'image': forms.FileInput(attrs={ 'accept': 'image/jpeg,image/png,image/jpg'}),
         }
+
+
+class PropertyImages360Form(forms.ModelForm):
+    class Meta:
+        model = PropertyImages
+        fields = ['image360']
+        #'multiple': True,
+        widgets = {
+            'image360': forms.FileInput(attrs={ 'accept': 'image/jpeg,image/png,image/jpg'}),
+        }
