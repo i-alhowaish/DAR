@@ -133,7 +133,10 @@
                 <!-- <select class="form-control" id="citySelect" name="city">
                  
                 </select> -->
-                {% render_field property_form.city class+="form-control" id="citySelect" name="city" %}
+                <div id="citydiv">
+
+                </div>
+                
 
               </div>
   
@@ -141,7 +144,10 @@
               <div class="form-group mb-3">
                 <label for="neighborhoodSelect mb-2">الحي</label>
                 <!-- <input type="text" class="form-control" id="streetInput" name="street"> -->
-                {% render_field property_form.neighborhood class+="form-control" id="neighborhoodSelect" name="neighborhood" %}
+                <div id="distdiv">
+
+                </div>
+               
 
               </div>
               <div class="form-group mb-3">
@@ -194,7 +200,7 @@
                 {% render_field property_form.width step="1" class+="form-control" id="yearBuilt" name="yearBuilt" min="0" %}
 
               </div>
-              <pre id="json-data">{{ json_data }}</pre>
+              
               
   
               <button class="form-btn-dar">إضافة</button>
@@ -211,7 +217,7 @@
 {% block script %}
 <script src="{% static 'js/add_property.js' %}"></script>
 <script src="{% static 'js/validate_add_property.js' %}"></script>
-<script src="{% static 'js/dropdownlocatins.js' %}"></script>
+<script src="{% static 'js/dropdown.js' %}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

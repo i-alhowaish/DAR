@@ -14,7 +14,15 @@ import json
 from django.contrib import messages
 
 # Create your views here.
+from django.http import JsonResponse
+import os
 
+
+def jdata(request):
+    file_path = 'locationsJSON/location1.json'
+    with open(file_path) as json_file:
+        data = json.load(json_file)#json_file.read()
+    return JsonResponse(data, safe=False)
 
 def index(request):
     return render(request, 'webapp/index.html')
@@ -131,9 +139,8 @@ def add_property(request):
         property_form = PropertyForm()
         images_form = PropertyImagesForm()  # This form might not be directly used in the template but initialized here if needed
         image360_form = PropertyImages360Form()
-        with open('locationsJSON/location1.json') as file :
-            data = json.load(file)
+        
     
-    return render(request, 'webapp/add_property.html', {'property_form': property_form, 'images_form': images_form, 'json_data':data ,'images360_form':image360_form })
+    return render(request, 'webapp/add_property.html', {'property_form': property_form, 'images_form': images_form, 'images360_form':image360_form })
 
      

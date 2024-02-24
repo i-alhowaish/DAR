@@ -5,8 +5,8 @@ const citydropwon = document.querySelector('#citySelect');
 
 const dist = document.querySelector('#neighborhoodSelect');
 
-citydropwon.innerHTML = '';
-dist.innerHTML ='';
+citydropwon.innerHTML =  document.createElement("select");
+dist.innerHTML =document.createElement("select");
 //var j= document.querySelector('#json-data');
 var j = JSON.parse(document.getElementById('json-data').textContent);
 
@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded',function(){
 document.addEventListener('DOMContentLoaded',function(){
     document.querySelector('#citySelect').onchange=populatedist();
 });
+
+
 
 
 function populatedist() {
@@ -36,6 +38,7 @@ function populatedist() {
         neighborhoodDropdown.add(option);
     });
 }
+
 function populatecity() {
     
     var selected = document.querySelector('#regionSelect').value;

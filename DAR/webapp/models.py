@@ -83,7 +83,7 @@ class Property(models.Model):
     region = models.CharField(max_length=100, choices=REGION_CHOICES)
     city = models.CharField(max_length=100, choices=CITY_CHOICES)
     street = models.CharField(max_length=100)
-    neighborhood = models.CharField(max_length=100, choices=NEIGHBORHOOD_CHOICES)
+    neighborhood = models.CharField(max_length=100, choices=NEIGHBORHOOD_CHOICES,null=True, blank=True)
     coordinate = models.CharField(max_length=100, blank=True, null=True)
     length = models.DecimalField(max_digits=10, decimal_places=2)
     width = models.DecimalField(max_digits=10, decimal_places=2)
