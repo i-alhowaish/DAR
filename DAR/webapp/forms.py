@@ -60,3 +60,35 @@ class PropertyImages360Form(forms.ModelForm):
         widgets = {
             'image360': forms.FileInput(attrs={ 'accept': 'image/jpeg,image/png,image/jpg'}),
         }
+
+
+
+class updatePropertyForm(forms.ModelForm):
+    class Meta:
+        model = Property
+        fields = [
+            'description', 'type', 'price', 'furnished', 'number_of_bathrooms',
+            'region', 'city', 'street', 'neighborhood', 'coordinate', 'length', 
+            'width', 'number_of_sides', 'number_of_rooms', 'sell_or_rent', 
+            'number_of_parkings', 'number_of_bedrooms', 'year_built'
+        ]
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4, 'cols': 15}),
+            'type': forms.Select(),
+            'price': forms.NumberInput(),
+            'furnished': forms.CheckboxInput(),
+            'number_of_bathrooms': forms.NumberInput(),
+            'region': forms.Select(),
+            'city': forms.Select(),
+            'street': forms.TextInput(),
+            'neighborhood': forms.Select(),
+            'coordinate': forms.TextInput(),
+            'length': forms.NumberInput(),
+            'width': forms.NumberInput(),
+            'number_of_sides': forms.NumberInput(),
+            'number_of_rooms': forms.NumberInput(),
+            'sell_or_rent': forms.Select(),
+            'number_of_parkings': forms.NumberInput(),
+            'number_of_bedrooms': forms.NumberInput(),
+            'year_built': forms.NumberInput(),
+        }

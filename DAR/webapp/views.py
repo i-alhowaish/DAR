@@ -10,8 +10,13 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from .forms import *
 import json 
-
 from django.contrib import messages
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Property, PropertyImages, PropertyImages360
+from .forms import updatePropertyForm, PropertyImagesForm, PropertyImages360Form
+
 
 # Create your views here.
 from django.http import JsonResponse
@@ -144,3 +149,79 @@ def add_property(request):
     return render(request, 'webapp/add_property.html', {'property_form': property_form, 'images_form': images_form, 'images360_form':image360_form })
 
      
+
+
+@login_required(login_url='login')
+def update_property(request, property_id):
+    property_instance = get_object_or_404(Property, pk=property_id)
+    
+    if request.method == 'POST':
+        property_form = updatePropertyForm(request.POST, request.FILES, instance=property_instance)
+        
+        if property_form.is_valid():
+            updated_property = property_form.save()
+            
+            # Handling standard images update or addition
+            images_files = request.FILES.getlist('image')  # Adjust the name if necessary
+            for image_file in images_files:
+                PropertyImages.objects.create(property=updated_property, image=image_file)
+            
+            # Handling 360 images update or addition
+            images360_files = request.FILES.getlist('image360')  # Adjust the name if necessary
+            for image_file in images360_files:
+                PropertyImages360.objects.create(property360=updated_property, image360=image_file)
+            
+            return redirect('property_detail', pk=updated_property.pk)  # Redirect to the property detail page
+    else:
+        property_form = updatePropertyForm(instance=property_instance)
+        # Loading existing images is not directly handled here, assuming it's managed through the template or another mechanism
+
+    context = {
+        'property_form': property_form,
+        'property_id': property_id,
+        # Context for existing images can be added if needed for display or management
+    }
+    
+    return render(request, 'your_template/update_property.html', context)
+
+
+# @login_required(login_url='login')  # Use the name of your login URL
+# def update_property(request, property_id):
+#     property_instance = get_object_or_404(Property, pk=property_id)
+    
+#     if request.method == 'POST':
+#         property_form = PropertyForm(request.POST, instance=property_instance)
+#         if property_form.is_valid():
+#             updated_property = property_form.save()
+            
+#             images_files = request.FILES.getlist('images')
+#             PropertyImages.objects.filter(property=updated_property).delete()  # Optionally delete existing images to replace them
+#             for image_file in images_files:
+#                 PropertyImages.objects.create(property=updated_property, image=image_file)
+            
+#             images360_files = request.FILES.getlist('images360')
+#             PropertyImages360.objects.filter(property360=updated_property).delete()  # Optionally delete existing 360 images to replace them
+#             for image_file in images360_files:
+#                 PropertyImages360.objects.create(property360=updated_property, image360=image_file)
+            
+#             return redirect('some_view')  # Redirect to a new URL after successful update
+#     else:
+#         property_form = PropertyForm(instance=property_instance)
+#         # images_form and images360_form might not be directly used if you're handling file inputs separately
+#         images_form = PropertyImagesForm()  # Initialize if needed for template
+#         images360_form = PropertyImages360Form()  # Initialize if needed for template
+
+#     # Fetch existing images if you want to display them in the template
+#     existing_images = PropertyImages.objects.filter(property=property_instance)
+#     existing_images360 = PropertyImages360.objects.filter(property360=property_instance)
+
+#     context = {
+#         'property_form': property_form,
+#         'images_form': images_form,
+#         'images360_form': images360_form,
+#         'existing_images': existing_images,
+#         'existing_images360': existing_images360,
+#         'property_id': property_id  # Pass property ID to template for use in form action URL
+#     }
+    
+#     return render(request, 'webapp/update_property.html', context)   
