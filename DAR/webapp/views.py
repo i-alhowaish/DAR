@@ -122,8 +122,10 @@ def userlogout(request):
 @login_required(login_url='login')  # Use the name of your login URL
 def add_property(request):
     if request.method == 'POST':
+        print('form is post')
         property_form = PropertyForm(request.POST)
         if property_form.is_valid():
+            print('form is post')
             new_property = property_form.save(commit=False)
             new_property.uid = request.user  # Assign the logged in user
             new_property.save()

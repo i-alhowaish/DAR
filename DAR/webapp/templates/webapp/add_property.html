@@ -37,8 +37,9 @@
               </div>
   
   
-              <input type="file" id="inp_images" name="images" multiple="" class="d-none"
-                accept="image/jpeg, image/png, image/jpg" onchange="img_select()" />
+              <!-- <input type="file" id="inp_images" name="images" multiple="" class="d-none"
+                accept="image/jpeg, image/png, image/jpg" onchange="img_select()" /> -->
+                {% render_field images_form.image id="inp_images" name="images" multiple="" class+="d-none" accept="image/jpeg, image/png, image/jpg" onchange="img_select()" %}
   
               <button type="button" class="Upload-btn" onclick="document.getElementById('inp_images').click()">
                 <i class="fa-regular fa-file-image"></i> إضافة الصور
