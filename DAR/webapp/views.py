@@ -133,6 +133,7 @@ def add_property(request):
             images_files = request.FILES.getlist('images')
             for image_file in images_files:
                 PropertyImages.objects.create(property=new_property, image=image_file)
+                
             
             #return redirect('some_view')  # Redirect to a new URL after successful creation
             
@@ -146,9 +147,7 @@ def add_property(request):
         property_form = PropertyForm()
         images_form = PropertyImagesForm()  # This form might not be directly used in the template but initialized here if needed
         image360_form = PropertyImages360Form()
-        
-    
-    return render(request, 'webapp/add_property.html', {'property_form': property_form, 'images_form': images_form, 'images360_form':image360_form })
+        return render(request, 'webapp/add_property.html', {'property_form': property_form, 'images_form': images_form, 'images360_form':image360_form })
 
      
 
@@ -164,7 +163,7 @@ def update_property(request, property_id):
             updated_property = property_form.save()
             
             # Handling standard images update or addition
-            images_files = request.FILES.getlist('image')  # Adjust the name if necessary
+            images_files = request.FILES.getlist('images')  # Adjust the name if necessary
             for image_file in images_files:
                 PropertyImages.objects.create(property=updated_property, image=image_file)
             
