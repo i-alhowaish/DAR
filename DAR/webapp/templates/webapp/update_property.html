@@ -1,0 +1,229 @@
+{% extends 'webapp/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/add_property.css' %}">
+
+{% endblock %}
+    <!-- <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ property_form.as_p }}
+
+        <input type="file" name="images" multiple>
+        <button type="submit">Upload</button> 
+
+        
+
+    </form> -->
+
+
+{% block content %}
+<div class="main-container">
+
+    <section class="login-section">
+
+        <div class="center-container">
+          <div class="form-container">
+            <p class="form-title">تعديل إعلان عقار</p>
+            <form class="form-dar" method="post" id="form" enctype="multipart/form-data">
+                {% csrf_token %}
+  
+  
+              <div class="mb-3">
+                <label for="" class="form-label">وصف العقار</label>
+                <!-- <input class="form-control text-area" rows="3"></input> -->
+                {% render_field property_form.description class+="form-control text-area" rows="3" %}
+              </div>
+  
+  
+              <input type="file" id="inp_images" name="images" multiple="" class="d-none"
+                accept="image/jpeg, image/png, image/jpg" onchange="img_select()" />
+                
+  
+              <button type="button" class="Upload-btn" onclick="document.getElementById('inp_images').click()">
+                <i class="fa-regular fa-file-image"></i> إضافة الصور
+              </button>
+  
+              <div class="place-imgs mb-3" id="img_box">
+                <h6 class="empty-hd">لا يوجد صور الان</h6>
+                <!-- 🛑content come from js -->
+              </div>
+  
+              
+              <input type="file" id="inp_images360" name="images360" multiple="" class="d-none"
+              accept="image/jpeg, image/png, image/jpg" onchange="img_select360()" />
+  
+            <button type="button" class="Upload-btn" onclick="document.getElementById('inp_images360').click()">
+              <i class="fa-regular fa-file-image"></i> إضافة صور بانورامية (اختياري)
+            </button>
+  
+            <div class="place-imgs" id="img_box360">
+              <h6 class="empty-hd">لا يوجد صور الان</h6>
+              <!-- 🛑content come from js -->
+            </div>
+  
+  
+              <div class="form-group mb-3">
+                <label for="typeSelect">نوع العقار</label>
+                <!-- <select class="form-control" id="typeSelect" name="type">
+                  <option value="villa">فلة</option>
+                  <option value="apartment">شقة</option>
+                  <option value="floor">دور</option>
+                  <option value="land">أرض</option>
+                </select> -->
+                {% render_field property_form.type class+="form-control" id="typeSelect" name="type" %}
+
+              </div>
+  
+              <div class="form-group mb-3">
+                <label for="priceInput mb-2">السعر</label>
+                <!-- <input type="number" step="0.01" class="form-control" id="priceInput" name="price"> -->
+                {% render_field property_form.price class+="form-control" step="0.1" id="priceInput" name="price" min="0"%}
+
+              </div>
+              <div class="form-group mb-3">
+                <label for="lengthInput mb-2">الطول (م)</label>
+                <!-- <input type="number" step="0.01" class="form-control" id="lengthInput" name="length"> -->
+                {% render_field property_form.length step="0.1" class+="form-control" id="lengthInput" name="length" min="1"%}
+              </div>
+  
+              <div class="form-group mb-3">
+                <label for="widthInput mb-2">العرض (م)</label>
+                <!-- <input type="number" step="0.01" class="form-control" id="widthInput" name="width"> -->
+                {% render_field property_form.width step="0.1" class+="form-control" id="widthInput" name="length" min="1"%}
+
+              </div>
+              
+              <!-- <div class="form-group mb-3">
+                <label for="totalInput mb-2">المساحة (م&#178;)</label>
+                <input type="number" step="0.01" class="form-control" id="totalInput" name="total">
+              </div> -->
+  
+              <div class="form-group mb-3">
+                <label for="bedroomInput mb-2">عدد الغرف</label>
+                <!-- <input type="number" class="form-control" id="bedroomInput" name="bedroom"> -->
+                {% render_field property_form.number_of_rooms class+="form-control" id="bedroomInput" name="bedroom" min="0"%}
+              </div>
+  
+              <div class="form-group mb-3">
+                <label for="bathroomsInput mb-2">عدد دورات المياة</label>
+                <!-- <input type="number" class="form-control" id="bathroomsInput" name="bathrooms"> -->
+                {% render_field property_form.number_of_bedrooms class+="form-control" id="bathroomsInput" name="bathrooms" min="0"%}
+              </div>
+  
+  
+              <div class="checkbox mb-3">
+                <!-- <input type="checkbox" id="furnishedCheckbox" name="furnished"> -->
+                {% render_field property_form.furnished id="furnishedCheckbox" name="furnished" %}
+                <label for="furnishedCheckbox">مؤثثة</label>
+                
+              </div>
+  
+              <div class="form-group mb-3">
+                <label for="regionSelect mb-2">المنطقة</label>
+                <!-- <select class="form-control" id="regionSelect" name="region">
+                </select> -->
+                {% render_field property_form.region class+="form-control" id="regionSelect" name="region" %}
+
+              </div>
+  
+              <!-- Cities -->
+              <div class="form-group mb-3">
+                <label for="citySelect mb-2">المدينة</label>
+                
+                <!-- <select class="form-control" id="citySelect" name="city">
+                 
+                </select> -->
+                <div id="citydiv">
+                    {% render_field property_form.city class+="form-control" id="citySelect" name="city" %}
+
+                </div>
+                
+
+              </div>
+  
+              <!-- NEIGHBORHOOD -->
+              <div class="form-group mb-3">
+                <label for="neighborhoodSelect mb-2">الحي</label>
+                <!-- <input type="text" class="form-control" id="streetInput" name="street"> -->
+                <div id="distdiv">
+                    {% render_field property_form.neighborhood class+="form-control" id="neighborhoodSelect" name="neighborhood" %}
+
+                </div>
+               
+
+              </div>
+              <div class="form-group mb-3">
+                <label for="neighborhoodSelect mb-2">الشارع</label>
+                <!-- <input type="text" class="form-control" id="streetInput" name="street"> -->
+                {% render_field property_form.street class+="form-control" id="streetInput" name="street" %}
+
+              </div>              
+  
+              <!-- Google Map Link -->
+              <div class="form-group mb-3">
+                <label for="mapLinkInput mb-2">رابط قوقل ماب</label>
+                <!-- <input type="url" class="form-control" id="mapLinkInput" name="mapLink"> -->
+                {% render_field property_form.coordinate class+="form-control" id="mapLinkInput" name="mapLink" %}
+              </div>
+  
+              <!-- NUmber of Sides -->
+              <div class="form-group">
+                <label for="sidesInput">عدد الواجهات</label>
+                <!-- <input type="number" class="form-control" id="sidesInput" name="sides" min="1" max="4"> -->
+                {% render_field property_form.number_of_sides type="number" class+="form-control" id="sidesInput" name="sides" min="1" max="4" %}
+              </div>
+              
+  
+              <!-- Sell or Rent -->
+              <!-- <div class="form-group mb-3">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="sellRentOptions" id="sellOption" value="sell">
+                  <label class="form-check-label" for="sellOption">بيع</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="sellRentOptions" id="rentOption" value="rent">
+                  <label class="form-check-label" for="rentOption">اجار</label>
+                </div>
+              </div> -->
+              <div class="form-group mb-3">
+                <label for="sellOrRent">نوع العرض</label>
+                <!-- <select class="form-control" id="typeSelect" name="type">
+                  <option value="villa">فلة</option>
+                  <option value="apartment">شقة</option>
+                  <option value="floor">دور</option>
+                  <option value="land">أرض</option>
+                </select> -->
+                {% render_field property_form.sell_or_rent class+="form-control" id="sellOrRent" name="type" %}
+
+              </div>
+              <div class="form-group mb-3">
+                <label for="widthInput mb-2">عمر العقار (بالسنوات)</label>
+                <!-- <input type="number"  class="form-control" id="widthInput" name="width"> -->
+                {% render_field property_form.width step="1" class+="form-control" id="yearBuilt" name="yearBuilt" min="0" %}
+
+              </div>
+              
+              
+  
+              <button class="form-btn-dar">إضافة</button>
+            </form>
+          </div>
+        </div>
+  
+  
+      </section>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'js/dropdownupdate.js' %}"></script>
+<!-- <script src="{% static 'js/add_property.js' %}"></script>
+<script src="{% static 'js/validate_add_property.js' %}"></script> -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
