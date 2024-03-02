@@ -183,7 +183,7 @@ def update_property(request, property_id):
         # Context for existing images can be added if needed for display or management
     }
     
-    return render(request, 'your_template/update_property.html', context)
+    return render(request, 'webapp/update_property.html', context)
 
 
 # @login_required(login_url='login')  # Use the name of your login URL
