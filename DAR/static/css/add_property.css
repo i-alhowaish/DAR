@@ -201,3 +201,33 @@ img{
   margin-bottom: 10em;
 }
 
+
+.image-upload-container {
+  margin: 20px;
+}
+
+.preview-image {
+  width: 150px;
+  margin: 10px;
+  position: relative;
+  display: inline-block;
+}
+
+.preview-image img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
