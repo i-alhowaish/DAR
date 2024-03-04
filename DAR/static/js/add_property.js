@@ -7,8 +7,12 @@ document.getElementById('inp_images').addEventListener('change', function(event)
 
 function updateFileArray(newFiles) {
     // Append new files to the currentFiles array
-    currentFiles = []
+    //currentFiles = []
     currentFiles = currentFiles.concat(Array.from(newFiles));
+    console.log(currentFiles);
+    const dataTransfer = new DataTransfer();
+    currentFiles.forEach(file => dataTransfer.items.add(file));
+    document.getElementById('inp_images').files = dataTransfer.files;
 }
 
 function renderPreviews() {
@@ -58,8 +62,11 @@ document.getElementById('inp_images360').addEventListener('change', function(eve
 
 function updateFileArray360(newFiles) {
     // Append new files to the currentFiles360 array
-    currentFiles360 = []
+    //currentFiles360 = []
     currentFiles360 = currentFiles360.concat(Array.from(newFiles));
+    const dataTransfer = new DataTransfer();
+    currentFiles360.forEach(file => dataTransfer.items.add(file));
+    document.getElementById('inp_images360').files = dataTransfer.files;
 }
 
 function renderPreviews360() {
