@@ -101,7 +101,7 @@ class Property(models.Model):
 
 class PropertyImages(models.Model):
     property = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='property_images/')
+    image = models.ImageField(upload_to='static/property_images/')
 
 class Report(models.Model):
     uid = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -139,6 +139,6 @@ class Subscription(models.Model):
     
 class PropertyImages360(models.Model):
     property360 = models.ForeignKey(Property, related_name='images360', on_delete=models.CASCADE)
-    image360 = models.ImageField(upload_to='property_images360/')
+    image360 = models.ImageField(upload_to='static/property_images360/')
 
     

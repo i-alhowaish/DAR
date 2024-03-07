@@ -37,7 +37,7 @@
               </div>
   
   
-              <input type="file" id="inp_images" name="images" multiple="" class="d-none"
+              <input type="file" id="inp_images" name="images" multiple="" 
                 accept="image/jpeg, image/png, image/jpg" onchange="img_select()" />
                 
   
@@ -48,10 +48,21 @@
               <div class="place-imgs mb-3" id="img_box">
                 <h6 class="empty-hd">لا يوجد صور الان</h6>
                 <!-- 🛑content come from js -->
+                <div id="existingImages">
+                  {% for image in existing_images %}
+                  <div class="existing-image-wrapper" data-image-id="{{ image.id }}">
+                      <img src="{{ image.image.url }}" alt="Existing Image">
+                      
+                  </div>
+                  {% endfor %}
+                </div>
+                <div id="newimages">
+              
+                </div>
               </div>
   
               
-              <input type="file" id="inp_images360" name="images360" multiple="" class="d-none"
+              <input type="file" id="inp_images360" name="images360" multiple="" 
               accept="image/jpeg, image/png, image/jpg" onchange="img_select360()" />
   
             <button type="button" class="Upload-btn" onclick="document.getElementById('inp_images360').click()">
@@ -61,6 +72,18 @@
             <div class="place-imgs" id="img_box360">
               <h6 class="empty-hd">لا يوجد صور الان</h6>
               <!-- 🛑content come from js -->
+              <div id="existingImages360">
+                
+                {% for image360 in existing_images360 %}
+                <div class="existing-image360-wrapper" data-image-id="{{ image360.id }}">
+                    <img src="{{ image360.image360.url }}" alt="Existing 360 Image">
+                    
+                </div>
+                {% endfor %}
+            </div>
+            <div id="newimages360">
+              
+            </div>
             </div>
   
   
@@ -221,8 +244,8 @@
 {% block script %}
 
 <script src="{% static 'js/dropdownupdate.js' %}"></script>
-<!-- <script src="{% static 'js/add_property.js' %}"></script>
-<script src="{% static 'js/validate_add_property.js' %}"></script> -->
+<script src="{% static 'js/update_property.js' %}"></script>
+<script src="{% static 'js/validate_add_property.js' %}"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

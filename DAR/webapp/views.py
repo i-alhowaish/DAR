@@ -163,12 +163,18 @@ def update_property(request, property_id):
             updated_property = property_form.save()
             
             # Handling standard images update or addition
-            images_files = request.FILES.getlist('images')  # Adjust the name if necessary
+            # PropertyImages.objects.filter(property=updated_property).delete()
+            images_to_delete = request.POST.getlist('delete_images')
+            PropertyImages.objects.filter(id__in=images_to_delete).delete()
+
+            images_files = request.FILES.getlist('images')
             for image_file in images_files:
                 PropertyImages.objects.create(property=updated_property, image=image_file)
             
             # Handling 360 images update or addition
-            images360_files = request.FILES.getlist('image360')  # Adjust the name if necessary
+            images_to_delete360 = request.POST.getlist('delete_images360')
+            PropertyImages360.objects.filter(id__in=images_to_delete360).delete()
+            images360_files = request.FILES.getlist('images360')
             for image_file in images360_files:
                 PropertyImages360.objects.create(property360=updated_property, image360=image_file)
             
@@ -176,10 +182,15 @@ def update_property(request, property_id):
     else:
         property_form = updatePropertyForm(instance=property_instance)
         # Loading existing images is not directly handled here, assuming it's managed through the template or another mechanism
+    existing_images = PropertyImages.objects.filter(property=property_instance)
+    existing_images360 = PropertyImages360.objects.filter(property360=property_instance)
 
     context = {
         'property_form': property_form,
         'property_id': property_id,
+        'existing_images':existing_images,
+        'existing_images360':existing_images360
+
         # Context for existing images can be added if needed for display or management
     }
     
