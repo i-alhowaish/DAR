@@ -110,6 +110,10 @@ document.getElementById('inp_images').addEventListener('change', function(event)
 function renderexcist(files, previewBoxId) {
     const previewContainer = document.getElementById(previewBoxId);
     previewContainer.innerHTML = ''; // Clear existing previews
+    if (files.length == 0){
+        previewContainer.remove();
+        return
+    }
 
     files.forEach((image, index) => {
         const previewWrapper = document.createElement('div');

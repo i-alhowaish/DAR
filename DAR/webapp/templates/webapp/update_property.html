@@ -37,53 +37,57 @@
               </div>
   
   
-              <input type="file" id="inp_images" name="images" multiple="" 
+              <input type="file" id="inp_images" name="images" multiple="" class="d-none"
                 accept="image/jpeg, image/png, image/jpg" onchange="img_select()" />
                 
   
               <button type="button" class="Upload-btn" onclick="document.getElementById('inp_images').click()">
                 <i class="fa-regular fa-file-image"></i> إضافة الصور
               </button>
+              
+              <div class="place-imgs mb-3" id="existingImages">
+                
+                <h6 class="empty-hd">لا يوجد صور الان</h6>
+                {% for image in existing_images %}
+                <div class="existing-image-wrapper" data-image-id="{{ image.id }}">
+                    <img src="{{ image.image.url }}" alt="Existing Image">
+                    
+                </div>
+                {% endfor %}
+              </div>
+              
   
-              <div class="place-imgs mb-3" id="img_box">
+              <div class="place-imgs mb-3" id="newimages">
                 <h6 class="empty-hd">لا يوجد صور الان</h6>
                 <!-- 🛑content come from js -->
-                <div id="existingImages">
-                  {% for image in existing_images %}
-                  <div class="existing-image-wrapper" data-image-id="{{ image.id }}">
-                      <img src="{{ image.image.url }}" alt="Existing Image">
-                      
-                  </div>
-                  {% endfor %}
-                </div>
-                <div id="newimages">
-              
-                </div>
+                
+    
               </div>
   
               
-              <input type="file" id="inp_images360" name="images360" multiple="" 
+              <input type="file" id="inp_images360" name="images360" multiple="" class="d-none"
               accept="image/jpeg, image/png, image/jpg" onchange="img_select360()" />
   
             <button type="button" class="Upload-btn" onclick="document.getElementById('inp_images360').click()">
               <i class="fa-regular fa-file-image"></i> إضافة صور بانورامية (اختياري)
             </button>
+            
+            <div class="place-imgs" id="existingImages360">
+              <h6 class="empty-hd">لا يوجد صور الان</h6>
+                
+              {% for image360 in existing_images360 %}
+              <div class="existing-image360-wrapper" data-image-id="{{ image360.id }}">
+                  <img src="{{ image360.image360.url }}" alt="Existing 360 Image">
+                  
+              </div>
+              {% endfor %}
+          </div>
   
-            <div class="place-imgs" id="img_box360">
+            <div class="place-imgs" id="newimages360">
               <h6 class="empty-hd">لا يوجد صور الان</h6>
               <!-- 🛑content come from js -->
-              <div id="existingImages360">
-                
-                {% for image360 in existing_images360 %}
-                <div class="existing-image360-wrapper" data-image-id="{{ image360.id }}">
-                    <img src="{{ image360.image360.url }}" alt="Existing 360 Image">
-                    
-                </div>
-                {% endfor %}
-            </div>
-            <div id="newimages360">
               
-            </div>
+          
             </div>
   
   
