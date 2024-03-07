@@ -9,4 +9,5 @@ urlpatterns = [
   path('add_property', views.add_property, name="add_property"),
   path('jdata',views.jdata,name='jdata'),
   path('update_property/<int:property_id>', views.update_property, name="update_property"),
+  path('settings', views.settings, name="settings"),
 ]

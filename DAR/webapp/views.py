@@ -18,6 +18,15 @@ from .models import Property, PropertyImages, PropertyImages360
 from .forms import updatePropertyForm, PropertyImagesForm, PropertyImages360Form
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import UserSettingsForm
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import UserSettingsForm
+
 # Create your views here.
 from django.http import JsonResponse
 import os
@@ -237,3 +246,18 @@ def update_property(request, property_id):
 #     }
     
 #     return render(request, 'webapp/update_property.html', context)   
+
+
+
+
+@login_required
+def user_settings(request):
+    if request.method == 'POST':
+        form = UserSettingsForm(request.POST, instance=request.user, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your settings have been updated.')
+            return redirect('settings_url_name')  # Adjust as needed
+    else:
+        form = UserSettingsForm(instance=request.user, user=request.user)
+    return render(request, 'path/to/your_template.html', {'form': form})
