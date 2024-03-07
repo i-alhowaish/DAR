@@ -5,6 +5,13 @@ from django import forms
 from django.forms.widgets import PasswordInput, TextInput,EmailInput
 from .models import *
 from django import forms
+
+
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import authenticate
+from .models import UserProfile
 '''
 # This how in Django Course Video he made the User record
 
@@ -91,4 +98,61 @@ class updatePropertyForm(forms.ModelForm):
             'number_of_parkings': forms.NumberInput(),
             'number_of_bedrooms': forms.NumberInput(),
             'year_built': forms.NumberInput(),
+        }
+
+
+        
+
+class UserSettingsForm(forms.ModelForm):
+    old_password = forms.CharField(label='Old Password', widget=forms.PasswordInput(), required=False)
+    new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput(), required=False)
+    new_password2 = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput(), required=False)
+    phone_number = forms.CharField(max_length=20, required=False)
+    color_of_profile = forms.CharField(max_length=7, required=False)
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+    def __init__(self, user=None, *args, **kwargs):
+        super(UserSettingsForm, self).__init__(*args, **kwargs)
+        self.user = user
+        if self.instance:
+            profile, created = UserProfile.objects.get_or_create(user=self.instance)
+            self.fields['phone_number'].initial = profile.phone_number
+            self.fields['color_of_profile'].initial = profile.color_of_profile
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data.get("old_password")
+        if not self.user.check_password(old_password):
+            raise forms.ValidationError("Your old password was entered incorrectly. Please enter it again.")
+        return old_password
+
+    def clean_new_password2(self):
+        new_password1 = self.cleaned_data.get("new_password1")
+        new_password2 = self.cleaned_data.get("new_password2")
+        if new_password1 and new_password2 and new_password1 != new_password2:
+            raise forms.ValidationError("The two new password fields didn't match.")
+        return new_password2
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if self.cleaned_data["new_password1"]:
+            user.set_password(self.cleaned_data["new_password1"])
+        if commit:
+            user.save()
+        profile = UserProfile.objects.get(user=user)
+        profile.phone_number = self.cleaned_data['phone_number']
+        profile.color_of_profile = self.cleaned_data['color_of_profile']
+        profile.save()
+        return user
+
+
+class userImages(forms.ModelForm):
+    class Meta:
+        model = userImages
+        fields = ['userimage']
+        #'multiple': True,
+        widgets = {
+            'userimage': forms.FileInput(attrs={ 'accept': 'image/jpeg,image/png,image/jpg'}),
         }
