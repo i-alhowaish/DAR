@@ -250,8 +250,8 @@ def update_property(request, property_id):
 
 
 
-@login_required
-def user_settings(request):
+@login_required(login_url='login')
+def settings(request):
     if request.method == 'POST':
         form = UserSettingsForm(request.POST, instance=request.user, user=request.user)
         if form.is_valid():

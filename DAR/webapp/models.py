@@ -142,5 +142,5 @@ class PropertyImages360(models.Model):
     image360 = models.ImageField(upload_to='static/property_images360/')
 
 class userImages(models.Model):
-property = models.ForeignKey(User, related_name='userimages', on_delete=models.CASCADE)
-userimage = models.ImageField(upload_to='user_images/')
+    uid = models.ForeignKey(User, related_name='userimages', on_delete=models.CASCADE)
+    userimage = models.ImageField(upload_to='static/user_images/')
