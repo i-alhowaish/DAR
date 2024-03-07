@@ -118,7 +118,7 @@ class UserSettingsForm(forms.ModelForm):
         super(UserSettingsForm, self).__init__(*args, **kwargs)
         self.user = user
         if self.instance:
-            profile, created = UserProfile.objects.get_or_create(user=self.instance)
+            profile, created = User.objects.get_or_create(user=self.instance)
             self.fields['phone_number'].initial = profile.phone_number
             self.fields['color_of_profile'].initial = profile.color_of_profile
 
@@ -141,7 +141,7 @@ class UserSettingsForm(forms.ModelForm):
             user.set_password(self.cleaned_data["new_password1"])
         if commit:
             user.save()
-        profile = UserProfile.objects.get(user=user)
+        profile = User.objects.get(user=user)
         profile.phone_number = self.cleaned_data['phone_number']
         profile.color_of_profile = self.cleaned_data['color_of_profile']
         profile.save()

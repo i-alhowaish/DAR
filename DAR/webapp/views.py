@@ -260,4 +260,4 @@ def settings(request):
             return redirect('settings_url_name')  # Adjust as needed
     else:
         form = UserSettingsForm(instance=request.user, user=request.user)
-    return render(request, 'path/to/your_template.html', {'form': form})
+    return render(request, 'webapp/settings.html', {'form': form})
