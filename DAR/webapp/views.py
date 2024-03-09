@@ -27,6 +27,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserSettingsForm
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 from django.http import JsonResponse
 import os
@@ -250,14 +254,40 @@ def update_property(request, property_id):
 
 
 
+# @login_required(login_url='login')
+# def settings(request):
+#     if request.method == 'POST':
+#         form = UserSettingsForm(request.POST, instance=request.user, user=request.user)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Your settings have been updated.')
+#             return redirect('settings_url_name')  # Adjust as needed
+#     else:
+#         form = UserSettingsForm(instance=request.user, user=request.user)
+#     return render(request, 'webapp/settings.html', {'form': form})
+
+# @login_required(login_url='login')
+# def settings(request):
+    
+#     return render(request, 'webapp/settings.html')
+
+
+
 @login_required(login_url='login')
 def settings(request):
     if request.method == 'POST':
-        form = UserSettingsForm(request.POST, instance=request.user, user=request.user)
+        form = UserSettingsForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            # Example: Save "color of account" to the session
+            request.session['color_of_account'] = form.cleaned_data['color_of_account']
             messages.success(request, 'Your settings have been updated.')
-            return redirect('settings_url_name')  # Adjust as needed
+            return redirect('settings')  # Redirect to a confirmation or the settings page itself
     else:
-        form = UserSettingsForm(instance=request.user, user=request.user)
+        form = UserSettingsForm(instance=request.user)
+        # Optional: Initialize form with session data
+        if 'color_of_account' in request.session:
+            form.fields['color_of_account'].initial = request.session['color_of_account']
+    
     return render(request, 'webapp/settings.html', {'form': form})
+
