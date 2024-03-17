@@ -286,8 +286,8 @@ def settings(request):
     else:
         form = UserSettingsForm(instance=request.user)
         # Optional: Initialize form with session data
-        if 'color_of_account' in request.session:
-            form.fields['color_of_account'].initial = request.session['color_of_account']
+        #if 'color_of_account' in request.session:
+            #form.fields['color_of_account'].initial = request.session['color_of_account']
     
     return render(request, 'webapp/settings.html', {'form': form})
 

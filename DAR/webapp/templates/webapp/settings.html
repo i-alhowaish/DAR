@@ -34,13 +34,17 @@
       <input type="color" class="form-control form-control-color w-100" id="ColorInput" value="#563d7c" title="Choose your color">
 
         <label>إسمك الأول</label>
-        <input type="text" class="input-field-dar">
+        <!-- <input type="text" class="input-field-dar"> -->
+        {% render_field form.first_name class+="input-field-dar" %}
         <label>إسمك العائلة</label>
-        <input type="text" class="input-field-dar">
+        <!-- <input type="text" class="input-field-dar"> -->
+        {% render_field form.last_name class+="input-field-dar" %}
         <label>إسمك المستخدم</label>
         <input type="text" class="input-field-dar">
+        {% render_field form.username class+="input-field-dar" %}
         <label>رقم الجوال</label>
         <input type="number" class="input-field-dar">
+        
         <label>الإيميل</label>
         <input type="email" class="input-field-dar">
         <label>كلمة المرور السابقة</label>
