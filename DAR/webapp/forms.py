@@ -36,12 +36,13 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(widget=PasswordInput())
 
 class RegisterForm(UserCreationForm):
-    phone_number = forms.CharField(widget=TextInput(),max_length=15,required=False)
+    # phone_number = forms.CharField(widget=TextInput(),max_length=15,required=False)
    
 
     class Meta:
         model = User
-        fields = ["username", "password1","password2", "first_name", "last_name", "email", "phone_number"]
+        #phone_number
+        fields = ["username", "password1","password2", "first_name", "last_name", "email"]
 
 class PropertyForm(forms.ModelForm):
     class Meta:
@@ -153,16 +154,30 @@ class updatePropertyForm(forms.ModelForm):
 #         return user
 
 class UserSettingsForm(UserChangeForm):
-    color_of_account = forms.CharField(max_length=7, required=False, widget=forms.TextInput(attrs={'type': 'color'}))
+    # color_of_account = forms.CharField(max_length=7, required=False, widget=forms.TextInput(attrs={'type': 'color'}))
+
+    # class Meta:
+    #     model = User
+    #     fields = ["username", "first_name", "last_name", "email"]
+    #     # Exclude password as we're not changing it here
+
+    # def __init__(self, *args, **kwargs):
+    #     super(UserSettingsForm, self).__init__(*args, **kwargs)
+    #     # Optional: Initialize 'color_of_account' with existing session data if present
+    phone_number = forms.CharField(max_length=10, required=False)
+    color_of_account = forms.CharField(max_length=15, required=False, widget=forms.TextInput(attrs={'type': 'color'}))
 
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name", "email"]
-        # Exclude password as we're not changing it here
 
     def __init__(self, *args, **kwargs):
         super(UserSettingsForm, self).__init__(*args, **kwargs)
-        # Optional: Initialize 'color_of_account' with existing session data if present
+        if 'instance' in kwargs:
+            profile = kwargs['instance'].profile
+            self.fields['phone_number'].initial = profile.phone_number
+            self.fields['color_of_account'].initial = profile.color
+
 
 
 

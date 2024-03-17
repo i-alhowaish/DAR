@@ -11,8 +11,13 @@ class PropertyImagesAdmin(admin.ModelAdmin):
     list_display=('image','property')
 class PropertyImages360Admin(admin.ModelAdmin):
     list_display=('image360','property360')
+class ProfileAdmin(admin.ModelAdmin):
+    list_display=('user','phone_number','color')
+
+
 
 # # Register your models here.
+admin.site.register(Profile,ProfileAdmin)
 admin.site.register(Property,PropertyAdmin)
 admin.site.register(PropertyImages,PropertyImagesAdmin)
 admin.site.register(PropertyImages360,PropertyImages360Admin)

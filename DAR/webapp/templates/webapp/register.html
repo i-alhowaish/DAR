@@ -28,7 +28,8 @@
           {% render_field form.last_name placeholder="إسمك العائلة" class+="input-field-dar" %}
           {% render_field form.username placeholder="اسم المستخدم" class+="input-field-dar" %}
           {% render_field form.email placeholder="الإيميل" class+="input-field-dar" %}
-          {% render_field form.phone_number placeholder="رقم الجوال" class+="input-field-dar" %}
+          <!-- {% render_field form.phone_number placeholder="رقم الجوال" class+="input-field-dar" %} -->
+          <input type="text" name="phone_number" id="phone_number" maxlength="15" placeholder="رقم الجوال" class="input-field-dar">
           {% render_field form.password1 placeholder="الرمز السري" class+="input-field-dar" %}
           {% render_field form.password2 placeholder="تأكيد الرمز السري" class+="input-field-dar" %}
 

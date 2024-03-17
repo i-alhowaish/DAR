@@ -63,9 +63,15 @@ NEIGHBORHOOD_CHOICES = locations.load_choices_from_json('locationsJSON/districts
 #     number_of_parkings = models.IntegerField()
 #     number_of_bedrooms = models.IntegerField()
 #     year_built = models.IntegerField()
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=10, blank=True, null=True)
+    color = models.CharField(max_length=15, blank=True, null=True)
+
 class Property(models.Model):
     pid = models.AutoField(primary_key=True)
-    uid = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    uid = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     Type_Choices=[
         ('Apartment','شقة'),
@@ -104,13 +110,13 @@ class PropertyImages(models.Model):
     image = models.ImageField(upload_to='static/property_images/')
 
 class Report(models.Model):
-    uid = models.ForeignKey(User, on_delete=models.CASCADE)
+    uid = models.ForeignKey(Profile, on_delete=models.CASCADE)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     date = models.DateField()
     description = models.TextField()
 
 class Favorite(models.Model):
-    uid = models.ForeignKey(User, on_delete=models.CASCADE)
+    uid = models.ForeignKey(Profile, on_delete=models.CASCADE)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
 
 class Contact(models.Model):
@@ -142,5 +148,5 @@ class PropertyImages360(models.Model):
     image360 = models.ImageField(upload_to='static/property_images360/')
 
 class userImages(models.Model):
-    uid = models.ForeignKey(User, related_name='userimages', on_delete=models.CASCADE)
+    uid = models.ForeignKey(Profile, related_name='userimages', on_delete=models.CASCADE)
     userimage = models.ImageField(upload_to='static/user_images/')

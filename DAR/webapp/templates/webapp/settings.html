@@ -31,33 +31,48 @@
           </div>
       </div>
       <label for="ColorInput">إختر لون صفحتك الشخصية</label>
-      <input type="color" class="form-control form-control-color w-100" id="ColorInput" value="#563d7c" title="Choose your color">
+      <!-- <input type="color" class="form-control form-control-color w-100" id="ColorInput" value="#563d7c" title="Choose your color"> -->
+      {% render_field user_form.color_of_account class+="form-control form-control-color w-100" id="ColorInput" value="#563d7c" title="Choose your color" %}
+
 
         <label>إسمك الأول</label>
         <!-- <input type="text" class="input-field-dar"> -->
-        {% render_field form.first_name class+="input-field-dar" %}
+        {% render_field user_form.first_name class+="input-field-dar" %}
         <label>إسمك العائلة</label>
         <!-- <input type="text" class="input-field-dar"> -->
-        {% render_field form.last_name class+="input-field-dar" %}
+        {% render_field user_form.last_name class+="input-field-dar" %}
         <label>إسمك المستخدم</label>
-        <input type="text" class="input-field-dar">
-        {% render_field form.username class+="input-field-dar" %}
+        <!-- <input type="text" class="input-field-dar"> -->
+        {% render_field user_form.username class+="input-field-dar" %}
         <label>رقم الجوال</label>
-        <input type="number" class="input-field-dar">
+        <!-- <input type="number" class="input-field-dar"> -->
+        {% render_field user_form.phone_number class+="input-field-dar" %}
         
         <label>الإيميل</label>
-        <input type="email" class="input-field-dar">
+        <!-- <input type="email" class="input-field-dar"> -->
+        {% render_field user_form.email class+="input-field-dar" %}
         <label>كلمة المرور السابقة</label>
-        <input type="password" class="input-field-dar">
+        <!-- <input type="password" class="input-field-dar"> -->
+        <input type="password" name="old_password" id="old_password" class="input-field-dar">
+        <!-- {% render_field password_form.old_password class+="input-field-dar" %} -->
         <label>كلمة المرور</label>
-        <input type="password" class="input-field-dar">
-        <label>كلمة المرور مرة اخرى</label>
-        <input type="password" class="input-field-dar">
 
+        <!-- <input type="password" class="input-field-dar"> -->
+        <input type="password" name="new_password1" id="new_password1" class="input-field-dar">
+        <!-- {% render_field password_form.new_password1 class+="input-field-dar" %} -->
+        <label>كلمة المرور مرة اخرى</label>
+        <!-- <input type="password" class="input-field-dar"> -->
+        <input type="password" name="new_password2" id="new_password2" class="input-field-dar">
+        <!-- {% render_field password_form.new_password2 class+="input-field-dar" %} -->
+        
       
-        <button class="form-btn-dar">التعديل</button>
+        <button class="form-btn-dar" name="change_details">التعديل</button>
+        
 
       </form>
+      
+
+      
       
 
     </div>

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import LoginForm,RegisterForm
 from django.contrib.auth.models import auth
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
@@ -82,7 +82,12 @@ def register(request):
 
         if form.is_valid():
             print('form is valid')
-            form.save()
+            u=form.save()
+            phone_number = request.POST.get('phone_number', '')
+            p = Profile(phone_number=phone_number,user=u)
+            p.save()
+            # u.profile.phone_number = phone_number
+            # u.profile.save()
             return redirect("login")
         #print('form is invalid')
         k=form.errors.as_data()
@@ -275,19 +280,51 @@ def update_property(request, property_id):
 
 @login_required(login_url='login')
 def settings(request):
-    if request.method == 'POST':
-        form = UserSettingsForm(request.POST, instance=request.user)
-        if form.is_valid():
-            user = form.save()
-            # Example: Save "color of account" to the session
-            request.session['color_of_account'] = form.cleaned_data['color_of_account']
-            messages.success(request, 'Your settings have been updated.')
-            return redirect('settings')  # Redirect to a confirmation or the settings page itself
-    else:
-        form = UserSettingsForm(instance=request.user)
-        # Optional: Initialize form with session data
-        #if 'color_of_account' in request.session:
-            #form.fields['color_of_account'].initial = request.session['color_of_account']
+    # if request.method == 'POST':
+    #     form = UserSettingsForm(request.POST, instance=request.user)
+    #     if form.is_valid():
+    #         user = form.save()
+    #         # Example: Save "color of account" to the session
+    #         # request.session['color_of_account'] = form.cleaned_data['color_of_account']
+    #         messages.success(request, 'Your settings have been updated.')
+    #         return redirect('settings')  # Redirect to a confirmation or the settings page itself
+    # else:
+    #     form = UserSettingsForm(instance=request.user)
+    #     # Optional: Initialize form with session data
+    #     #if 'color_of_account' in request.session:
+    #         #form.fields['color_of_account'].initial = request.session['color_of_account']
     
-    return render(request, 'webapp/settings.html', {'form': form})
+    # return render(request, 'webapp/settings.html', {'form': form})
+    user_form = UserSettingsForm(request.POST or None, instance=request.user)
+    password_change_attempted = 'old_password' in request.POST and request.POST['old_password']
+
+    if request.method == 'POST':
+        if user_form.is_valid():
+            user_form.save()
+            profile, created = Profile.objects.get_or_create(user=request.user)
+            profile.phone_number = user_form.cleaned_data['phone_number']
+            profile.color = user_form.cleaned_data['color_of_account']
+            profile.save()
+            messages.success(request, 'Your settings have been updated.')
+
+        if password_change_attempted:
+            password_form = PasswordChangeForm(user=request.user, data=request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Your password was successfully updated.')
+            else:
+                messages.error(request, 'There was an error changing your password.')
+
+        return redirect('settings')
+       
+    else:
+        user_form = UserSettingsForm(instance=request.user)
+        password_form = PasswordChangeForm(user=request.user)
+    
+    context = {
+        'user_form': user_form,
+        'password_form': password_form,
+    }
+    return render(request, 'webapp/settings.html', context)
 
