@@ -1,0 +1,84 @@
+
+.page-title{
+  text-align: center;
+  font-size: 26;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+.page-sub-title{
+  font-size: 18;
+  font-weight: 500;
+}
+
+.logo{
+  width: 75px;
+  height: 75px;
+}
+.center-element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo {
+  display: inline;
+  padding: 0;
+  border-radius: 50%;
+}
+.userinfo{
+  text-align: center;
+}
+.property-header, .property-information, .property-location, .property-image360{
+  margin-bottom: 20px;
+}
+.property-header h3, .owner-name {
+  width: auto;
+  font-size: 16px;
+  padding: 0;
+  padding-top: 1  10px;
+  margin: 0;
+}
+
+.property-header a, .socials a{
+  font-size: 20px;
+
+}
+
+.property-owner {
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+}
+.userinfo{
+  margin-right: 20px;
+}
+
+.fa-square-whatsapp{
+  color: green;
+}
+
+
+.p-description{
+  font-size: 12px;
+  background-color: rgb(245, 245, 245);
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+table *{
+  font-size: 12px;
+}
+
+.table-headers {
+  font-weight: 500;
+}
+
+.table td, .table th {
+  border: none;
+}
+
+
+
+
+
+#map { height: 250px; }
