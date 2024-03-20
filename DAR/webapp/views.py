@@ -308,6 +308,11 @@ def settings(request):
             image_file = request.FILES.get('image')
             if image_file:  # Check if file uploaded
                 profile.userimage = image_file
+            else :
+                want_to_delete=request.POST.getlist('deletion')
+                if want_to_delete:
+                    profile.userimage = image_file
+
             profile.save()
             messages.success(request, 'Your settings have been updated.')
 

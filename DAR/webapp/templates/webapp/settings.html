@@ -15,7 +15,7 @@
   <div class="center-container">
     <div class="form-container">
 
-      <form  class="form-dar" action="" method="post" autocomplete="off" enctype="multipart/form-data">
+      <form   id="form" class="form-dar" action="" method="post" autocomplete="off" enctype="multipart/form-data">
            {% csrf_token %}
         <div class="container">
           <h1>التعديل على ملفك الشخصي</h1>
@@ -28,6 +28,7 @@
                   <div id="imagePreview" style="background-image: url({{ image }});">
                   
                   </div>
+                  <button type="button" onclick="removeimage()"></button>
               </div>
           </div>
       </div>
@@ -98,4 +99,17 @@ src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
 integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
 crossorigin="anonymous"
 ></script>
+<script>
+  function removeimage(){
+    const deletionField = document.createElement('input');
+    deletionField.type = 'hidden';
+    deletionField.name = 'deletion';
+    document.getElementById('form').appendChild(deletionField);
+    prev = document.getElementById('imagePreview');
+    prev.style="background-image: url(https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg);"
+    document.getElementById('imageUpload').value = ''; // Set the value to empty string
+
+
+  }
+</script>
 {% endblock %}
