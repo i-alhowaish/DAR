@@ -1,0 +1,211 @@
+{% extends 'webapp/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/property-360-imgs.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/property-slider.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/property-information.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}">
+
+
+{% endblock %}
+
+{% block content %}
+
+<div id="page-container" class="main-container" style="margin-bottom: 5em;">
+  <section class="register-section">
+    <div class="center-container">
+      <div class="form-container" style="width: 50em;">
+        <h1 class="page-title">معلومات العقار</h1>
+        <div class="property-header row center-element">
+
+          <div class="property-images">
+            <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9OusbTAzhrIEpjootHCVVS_lU9AVWnD0PrRqQ5gDXHQ&s" alt=""> -->
+
+            <div class="wrap">
+              <div id="arrow-left" class="arrow"></div>
+              <div id="slider">
+                <div class="slide">
+                  <div class="slide-content">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9OusbTAzhrIEpjootHCVVS_lU9AVWnD0PrRqQ5gDXHQ&s"
+                      alt="">
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="slide-content">
+                    <img
+                      src="https://assets.architecturaldigest.in/photos/638724a42533d30b76d3a455/16:9/w_1615,h_908,c_limit/Mumbai-%20This%20Andheri%20home%20packs%20colour%20and%20smart%20design%20in%20under%20700%20sq%20ft.jpg"
+                      alt="">
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="slide-content">
+                    <img
+                      src="https://assets.architecturaldigest.in/photos/64904022505cb5179481b321/16:9/w_1920,c_limit/Untitled%20design%20(24).png"
+                      alt="">
+                  </div>
+                </div>
+              </div>
+              <div id="arrow-right" class="arrow"></div>
+            </div>
+
+
+          </div>
+
+        </div>
+
+        <div class="property-owner-section">
+          <h5 class="page-sub-title">المعلن</h5>
+          <div class="property-owner">
+            <img class="logo" src="https://i.pinimg.com/474x/de/04/9b/de049bf71947406f51000e82bbd85879.jpg" alt="">
+            <div class="userinfo">
+              <h3 class="owner-name">محمد صلاح</h3>
+              <div class="socials">
+                <a href=""><i class="fa-brands fa-square-whatsapp"></i></a>
+                <a href=""><i class="fa-solid fa-envelope"></i></a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="property-information">
+          <h5 class="page-sub-title">وصف العقار</h5>
+          <p class="p-description">
+            (شقه بحوش خاص ومدخل سياره خاص )VIP
+            مدخلين خاصه امامي وجانبي
+            مساحه 280 متر
+            خزان ارضي خاص - خزان علوي خاص -
+            عداد كهرباء خاص
+            عداد ماء
+            حوش خاص مساحة ٩٧ متر
+            مدخل سياره وبوابه الكترونيه
+            ٦ غرف
+            ٣ دورات مياه
+            ١ صاله
+            ١ مطبخ موؤسس جميع الخدمات
+            جميع انواع القزاز دبل والواجهات استركشر
+            مراعاة الافياش في جميع الغرف واحتياجاتها
+            الواجهات حجر الرياض وبروفايل مكسيكي- تشطيب سوبر ديلوكس -السباكة حراري - جميع التركيبات الصحيه والكهربائيه
+            ضمان استبدال شركة اعمار - بوابه الكترونيه شركة انفال ضمان ٥ سنوات..
+          </p>
+
+
+          <table class="table table-sm table-condensed table-bordered">
+            <thead></thead>
+            <tbody>
+              <tr>
+                <th scope="row" class="table-headers">المنطقة</th>
+                <td>الرياض</td>
+                <th scope="row" class="table-headers">الطول (م)</th>
+                <td>12</td>
+              </tr>
+              <tr>
+                <th scope="row" class="table-headers">المدينة</th>
+                <td>الرياض</td>
+                <th scope="row" class="table-headers">العرض (م)</th>
+                <td>12</td>
+              </tr>
+              <tr>
+                <th scope="row" class="table-headers">الحي</th>
+                <td>النرجس</td>
+                <th scope="row" class="table-headers">المساحة (م<sup>2</sup>)</th>
+                <td>24</td>
+              </tr>
+              <tr>
+                <th scope="row" class="table-headers">عدد الغرف</th>
+                <td>5</td>
+                <th scope="row" class="table-headers">عدد دورات المياة</th>
+                <td>4</td>
+              </tr>
+              <tr>
+                <th scope="row" class="table-headers">عدد الواجهات</th>
+                <td>2</td>
+                <th scope="row" class="table-headers">عدد المواقف</th>
+                <td>5</td>
+              </tr>
+              <tr>
+                <th scope="row" class="table-headers">عمر العقار (سنوات)</th>
+                <td>2</td>
+                <th scope="row" class="table-headers">مؤثثة</th>
+                <td>نعم</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+
+        <div class="property-location">
+          <h5 class="page-sub-title pb-2">الموقع</h5>
+          <div id="map"></div>
+        </div>
+
+        <div class="property-image360 image-container">
+          <h5 class="page-sub-title pb-2">الصور البانورامية</h5>
+
+          <div class="image360-container"
+            data-panorama-image="https://www.shutterstock.com/image-illustration/white-home-interior-modern-apartment-260nw-72279010.jpg">
+          </div>
+          <div class="image360-container"
+            data-panorama-image="https://st4.depositphotos.com/20782690/23870/i/450/depositphotos_238705674-stock-photo-panorama-360-view-modern-white.jpg">
+          </div>
+          <div class="image360-container"
+            data-panorama-image="https://www.shutterstock.com/image-illustration/spherical-360-panorama-projection-scandinavian-260nw-1106252930.jpg">
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+<script src="{% static 'js/property-info-map.js' %}"></script>
+<script src="{% static 'js/property-slider.js' %}"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"
+  integrity="sha512-uWKImujbh9CwNa8Eey5s8vlHDB4o1HhrVszkympkm5ciYTnUEQv3t4QHU02CUqPtdKTg62FsHo12x63q6u0wmg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/panolens.min.js' %}"></script>
+<script src="{% static 'js/property360-slider.js' %}"></script>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+  integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+  integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+{% endblock %}
