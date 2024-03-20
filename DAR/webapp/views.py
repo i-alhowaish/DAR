@@ -328,3 +328,7 @@ def settings(request):
     }
     return render(request, 'webapp/settings.html', context)
 
+
+def property_information(request):
+    return render(request, 'webapp/property_information.html')
+
