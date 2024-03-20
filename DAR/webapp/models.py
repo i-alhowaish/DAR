@@ -68,6 +68,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=10, blank=True, null=True)
     color = models.CharField(max_length=15, blank=True, null=True)
+    userimage = models.ImageField(upload_to='static/user_images/' ,blank=True, null=True)
 
 class Property(models.Model):
     pid = models.AutoField(primary_key=True)
@@ -147,6 +148,6 @@ class PropertyImages360(models.Model):
     property360 = models.ForeignKey(Property, related_name='images360', on_delete=models.CASCADE)
     image360 = models.ImageField(upload_to='static/property_images360/')
 
-class userImages(models.Model):
-    uid = models.ForeignKey(Profile, related_name='userimages', on_delete=models.CASCADE)
-    userimage = models.ImageField(upload_to='static/user_images/')
+# class userImages(models.Model):
+#     uid = models.ForeignKey(Profile, related_name='userimages', on_delete=models.CASCADE)
+#     userimage = models.ImageField(upload_to='static/user_images/')

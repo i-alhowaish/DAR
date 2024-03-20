@@ -145,7 +145,8 @@ def add_property(request):
         if property_form.is_valid():
             print('form is post')
             new_property = property_form.save(commit=False)
-            new_property.uid = request.user  # Assign the logged in user
+            u=Profile.objects.get_or_create(user=request.user)
+            new_property.uid = u  # Assign the logged in user
             new_property.save()
             
             images_files = request.FILES.getlist('images')
@@ -304,6 +305,9 @@ def settings(request):
             profile, created = Profile.objects.get_or_create(user=request.user)
             profile.phone_number = user_form.cleaned_data['phone_number']
             profile.color = user_form.cleaned_data['color_of_account']
+            image_file = request.FILES.get('image')
+            if image_file:  # Check if file uploaded
+                profile.userimage = image_file
             profile.save()
             messages.success(request, 'Your settings have been updated.')
 
@@ -321,10 +325,15 @@ def settings(request):
     else:
         user_form = UserSettingsForm(instance=request.user)
         password_form = PasswordChangeForm(user=request.user)
-    
+        p=Profile.objects.get(user=request.user)
+    if not p.userimage.name :
+        img='https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg'
+    else:
+        img = p.userimage.url
     context = {
         'user_form': user_form,
         'password_form': password_form,
+        'image':img
     }
     return render(request, 'webapp/settings.html', context)
 

@@ -15,17 +15,18 @@
   <div class="center-container">
     <div class="form-container">
 
-      <form  class="form-dar" action="" method="post" autocomplete="off">
+      <form  class="form-dar" action="" method="post" autocomplete="off" enctype="multipart/form-data">
            {% csrf_token %}
         <div class="container">
           <h1>التعديل على ملفك الشخصي</h1>
           <div class="avatar-upload">
               <div class="avatar-edit">
-                  <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                  <input type='file' name ="image" id="imageUpload" accept=".png, .jpg, .jpeg" />
                   <label for="imageUpload"></label>
               </div>
               <div class="avatar-preview">
-                  <div id="imagePreview" style="background-image: url(https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg);">
+                  <div id="imagePreview" style="background-image: url({{ image }});">
+                  
                   </div>
               </div>
           </div>

@@ -181,11 +181,11 @@ class UserSettingsForm(UserChangeForm):
 
 
 
-class userImages(forms.ModelForm):
-    class Meta:
-        model = userImages
-        fields = ['userimage']
-        #'multiple': True,
-        widgets = {
-            'userimage': forms.FileInput(attrs={ 'accept': 'image/jpeg,image/png,image/jpg'}),
-        }
+# class userImages(forms.ModelForm):
+#     class Meta:
+#         model = userImages
+#         fields = ['userimage']
+#         #'multiple': True,
+#         widgets = {
+#             'userimage': forms.FileInput(attrs={ 'accept': 'image/jpeg,image/png,image/jpg'}),
+#         }
