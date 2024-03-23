@@ -368,3 +368,16 @@ def property_information(request, pid):
     except (ValueError, TypeError):
         area = "Invalid input"  
     return render(request, 'webapp/property_information.html', {'property': property_instance, 'p': profile, 'images': images ,'images360': images360, 'area': area})
+
+def add_to_favorite(request, pid):
+    u=Profile.objects.get(user=request.user)
+    p=get_object_or_404(Property, pid=pid)
+    Favorite.objects.create(uid=u,property=p)
+
+# def report(request, pid):
+#     u=Profile.objects.get(user=request.user)
+#     p=get_object_or_404(Property, pid=pid)
+#     Favorite.objects.create()
+
+
+

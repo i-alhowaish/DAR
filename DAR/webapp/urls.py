@@ -11,6 +11,8 @@ urlpatterns = [
   path('update_property/<int:property_id>', views.update_property, name="update_property"),
   path('settings', views.settings, name="settings"),
   # path('property_information', views.property_information, name="property_information"),
-  path('property/<int:pid>/', views.property_information, name='property_information'),
+  path('property_information/<int:pid>', views.property_information, name='property_information'),
+  path('add_to_favorite/<int:pid>', views.add_to_favorite, name='add_to_favorite'),
+
   
 ]

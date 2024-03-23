@@ -38,7 +38,16 @@
             <div class="wrap">
               <div id="arrow-left" class="arrow"></div>
               <div id="slider">
+                {% for image in images %}
                 <div class="slide">
+                  <div class="slide-content">
+                    <img src="{{ image.image.url }}" alt="">
+                  </div>
+                </div>
+                    
+               
+                {% endfor %}
+                <!-- <div class="slide">
                   <div class="slide-content">
                     <img
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9OusbTAzhrIEpjootHCVVS_lU9AVWnD0PrRqQ5gDXHQ&s"
@@ -58,7 +67,7 @@
                       src="https://assets.architecturaldigest.in/photos/64904022505cb5179481b321/16:9/w_1920,c_limit/Untitled%20design%20(24).png"
                       alt="">
                   </div>
-                </div>
+                </div> -->
               </div>
               <div id="arrow-right" class="arrow"></div>
             </div>
@@ -74,13 +83,13 @@
             {% if p.userimage %}
             <img class="logo" src="{{ p.userimage.url }}" alt="">
             {% else %}
-               <p>No image available.</p>
+            <img class="logo" src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" alt="">
             {% endif %}
             <div class="userinfo">
               <h3 class="owner-name">{{ p.user.username }}</h3>
               <div class="socials">
-                <a href="https://wa.me/{{p.phone_number}}"><i class="fa-brands fa-square-whatsapp"></i></a>
-                <a href="mailto:{{p.email}}"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://wa.me/{{ p.phone_number }}"><i class="fa-brands fa-square-whatsapp"></i></a>
+                <a href="mailto: {{ p.user.email }}"><i class="fa-solid fa-envelope"></i></a>
               </div>
             </div>
 
@@ -166,8 +175,14 @@
 
         <div class="property-image360 image-container">
           <h5 class="page-sub-title pb-2">الصور البانورامية</h5>
-
+          {% for image360 in images360 %}
           <div class="image360-container"
+            data-panorama-image="{{ image360.image360.url }}">
+          </div>
+          {% endfor %}
+
+
+          <!-- <div class="image360-container"
             data-panorama-image="https://www.shutterstock.com/image-illustration/white-home-interior-modern-apartment-260nw-72279010.jpg">
           </div>
           <div class="image360-container"
@@ -177,7 +192,7 @@
             data-panorama-image="https://www.shutterstock.com/image-illustration/spherical-360-panorama-projection-scandinavian-260nw-1106252930.jpg">
           </div>
         </div>
-
+ -->
 
       </div>
 
