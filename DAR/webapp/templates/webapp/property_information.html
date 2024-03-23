@@ -71,12 +71,16 @@
         <div class="property-owner-section">
           <h5 class="page-sub-title">المعلن</h5>
           <div class="property-owner">
-            <img class="logo" src="https://i.pinimg.com/474x/de/04/9b/de049bf71947406f51000e82bbd85879.jpg" alt="">
+            {% if p.userimage %}
+            <img class="logo" src="{{ p.userimage.url }}" alt="">
+            {% else %}
+               <p>No image available.</p>
+            {% endif %}
             <div class="userinfo">
-              <h3 class="owner-name">محمد صلاح</h3>
+              <h3 class="owner-name">{{ p.user.username }}</h3>
               <div class="socials">
-                <a href=""><i class="fa-brands fa-square-whatsapp"></i></a>
-                <a href=""><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://wa.me/{{p.phone_number}}"><i class="fa-brands fa-square-whatsapp"></i></a>
+                <a href="mailto:{{p.email}}"><i class="fa-solid fa-envelope"></i></a>
               </div>
             </div>
 
@@ -89,7 +93,8 @@
         <div class="property-information">
           <h5 class="page-sub-title">وصف العقار</h5>
           <p class="p-description">
-            (شقه بحوش خاص ومدخل سياره خاص )VIP
+            {{ property.description }}
+            <!-- (شقه بحوش خاص ومدخل سياره خاص )VIP
             مدخلين خاصه امامي وجانبي
             مساحه 280 متر
             خزان ارضي خاص - خزان علوي خاص -
@@ -104,7 +109,8 @@
             جميع انواع القزاز دبل والواجهات استركشر
             مراعاة الافياش في جميع الغرف واحتياجاتها
             الواجهات حجر الرياض وبروفايل مكسيكي- تشطيب سوبر ديلوكس -السباكة حراري - جميع التركيبات الصحيه والكهربائيه
-            ضمان استبدال شركة اعمار - بوابه الكترونيه شركة انفال ضمان ٥ سنوات..
+            ضمان استبدال شركة اعمار - بوابه الكترونيه شركة انفال ضمان ٥ سنوات.. -->
+
           </p>
 
 
@@ -113,39 +119,39 @@
             <tbody>
               <tr>
                 <th scope="row" class="table-headers">المنطقة</th>
-                <td>الرياض</td>
+                <td>{{ property.region }}</td>
                 <th scope="row" class="table-headers">الطول (م)</th>
-                <td>12</td>
+                <td>{{ property.length }}</td>
               </tr>
               <tr>
                 <th scope="row" class="table-headers">المدينة</th>
-                <td>الرياض</td>
+                <td>{{ property.city }}</td>
                 <th scope="row" class="table-headers">العرض (م)</th>
-                <td>12</td>
+                <td>{{ property.width }}</td>
               </tr>
               <tr>
                 <th scope="row" class="table-headers">الحي</th>
-                <td>النرجس</td>
+                <td>{{ property.neighborhood }}</td>
                 <th scope="row" class="table-headers">المساحة (م<sup>2</sup>)</th>
-                <td>24</td>
+                <td>{{ area }}</td>
               </tr>
               <tr>
                 <th scope="row" class="table-headers">عدد الغرف</th>
-                <td>5</td>
+                <td>{{ property.number_of_rooms }}</td>
                 <th scope="row" class="table-headers">عدد دورات المياة</th>
-                <td>4</td>
+                <td>{{ property.number_of_bathrooms }}</td>
               </tr>
               <tr>
                 <th scope="row" class="table-headers">عدد الواجهات</th>
-                <td>2</td>
+                <td>{{ property.number_of_sides }}</td>
                 <th scope="row" class="table-headers">عدد المواقف</th>
-                <td>5</td>
+                <td>{{ property.number_of_parkings }}</td>
               </tr>
               <tr>
                 <th scope="row" class="table-headers">عمر العقار (سنوات)</th>
-                <td>2</td>
+                <td>{{ property.year_built }}</td>
                 <th scope="row" class="table-headers">مؤثثة</th>
-                <td>نعم</td>
+                <td>{{ property.furnished }}</td>
               </tr>
             </tbody>
           </table>
