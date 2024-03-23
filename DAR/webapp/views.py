@@ -35,6 +35,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import os
 
+from django.shortcuts import render, get_object_or_404
+from .models import Property
+
 
 def jdata(request):
     file_path = 'locationsJSON/location1.json'
@@ -145,7 +148,7 @@ def add_property(request):
         if property_form.is_valid():
             print('form is post')
             new_property = property_form.save(commit=False)
-            u=Profile.objects.get_or_create(user=request.user)
+            u=Profile.objects.get(user=request.user)
             new_property.uid = u  # Assign the logged in user
             new_property.save()
             
@@ -343,6 +346,25 @@ def settings(request):
     return render(request, 'webapp/settings.html', context)
 
 
-def property_information(request):
-    return render(request, 'webapp/property_information.html')
+# def property_information(request):
+#     return render(request, 'webapp/property_information.html')
 
+
+
+# def property_information(request, pid):
+#     property = get_object_or_404(Property, pid=pid)
+#     p =  get_object_or_404(Profile, user_id=property.uid)
+#     u =  get_object_or_404(User, id=p.id)
+#     return render(request, 'webapp/property_information.html', {'property': property , 'p':p })
+
+        
+def property_information(request, pid):
+    property_instance = get_object_or_404(Property, pid=pid)
+    profile = get_object_or_404(Profile, id=property_instance.uid.id)
+    images = property_instance.images.all()
+    images360 = property_instance.images360.all()
+    try:
+        area = float(property_instance.length) * float(property_instance.width)
+    except (ValueError, TypeError):
+        area = "Invalid input"  
+    return render(request, 'webapp/property_information.html', {'property': property_instance, 'p': profile, 'images': images ,'images360': images360, 'area': area})
