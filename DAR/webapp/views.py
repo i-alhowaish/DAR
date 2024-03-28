@@ -373,6 +373,7 @@ def add_to_favorite(request, pid):
     u=Profile.objects.get(user=request.user)
     p=get_object_or_404(Property, pid=pid)
     Favorite.objects.create(uid=u,property=p)
+    return render(request, 'webapp/index.html')
 
 # def report(request, pid):
 #     u=Profile.objects.get(user=request.user)

@@ -14,7 +14,7 @@
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/report_popup.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/property-360-imgs.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/property-slider.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/property-information.css' %}">
@@ -30,6 +30,10 @@
     <div class="center-container">
       <div class="form-container" style="width: 50em;">
         <h1 class="page-title">معلومات العقار</h1>
+
+        
+       
+
         <div class="property-header row center-element">
 
           <div class="property-images">
@@ -77,26 +81,68 @@
 
         </div>
 
-        <div class="property-owner-section">
-          <h5 class="page-sub-title">المعلن</h5>
-          <div class="property-owner">
-            {% if p.userimage %}
-            <img class="logo" src="{{ p.userimage.url }}" alt="">
-            {% else %}
-            <img class="logo" src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" alt="">
-            {% endif %}
-            <div class="userinfo">
-              <h3 class="owner-name">{{ p.user.username }}</h3>
-              <div class="socials">
-                <a href="https://wa.me/{{ p.phone_number }}"><i class="fa-brands fa-square-whatsapp"></i></a>
-                <a href="mailto: {{ p.user.email }}"><i class="fa-solid fa-envelope"></i></a>
+
+
+        <div class="row">
+          <div class="property-owner-section col">
+            <h5 class="page-sub-title">المعلن</h5>
+            <div class="property-owner">
+              {% if p.userimage %}
+              <img class="logo" src="{{ p.userimage.url }}" alt="">
+              {% else %}
+              <img class="logo" src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" alt="">
+              {% endif %}
+              <div class="userinfo">
+                <h3 class="owner-name">{{ p.user.username }}</h3>
+                <div class="socials">
+                  <a href="https://wa.me/{{ p.phone_number }}"><i class="fa-brands fa-square-whatsapp"></i></a>
+                  <a href="mailto: {{ p.user.email }}"><i class="fa-solid fa-envelope"></i></a>
+                </div>
               </div>
+  
             </div>
-
+  
           </div>
-
+          <div class="col">
+            <h5 class="page-sub-title">السعر</h5>
+            <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+              <h5 class="" style="padding-bottom: 50px; font-weight: 500;"><span id="property-price">{{ property.price }}</span> <span style="">&#xFDFC;	</span></h5>
+            </div>
+          </div>
         </div>
+        <div class="property icons d-flex" style="margin-bottom: 20px;">
+          
+        <a type="button" class="btn btn-outline-danger d-flex align-items-center justify-content-center" 
+          style="margin-left: 10px;" href="{% url 'add_to_favorite' pid=property.pid %}">
+            <i class="fa fa-heart" ></i>
+        </a>
+        <a  type="button" class="btn btn-outline-warning d-flex align-items-center justify-content-center" onclick="show()">
+           <i id="report-icon" class="fa fa-flag"></i>
+        </a>
+      </div>
 
+      <div id="popup">
+        <div class="center-container">
+          <div class="form-container">
+            <form method="post" id="form">
+              {% csrf_token %}
+              <br>
+              <button type="button" class="btn btn-danger d-flex align-items-center justify-content-center" id="close" onclick="hide()"
+              
+              ><i class="fa-solid fa-xmark"></i></button>
+              <br>
+              <label>وصف البلاغ:</label>
+              <br>
+              <input id="name" class="form-control text-area" name="name" type="text"/>
+              <div class="center-container">
+                <button type="btn btn-danger" id="submit" onclick="add()" class="form-btn-dar"
+              style="margin-top: 0; font-weight: 100px; font-size: 14px;"
+              >إبلاغ</button>
+              </div>
+             </form>
+          </div>
+        </div>
+      </div>
 
 
         <div class="property-information">
@@ -204,6 +250,44 @@
 
 
 {% block script %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let p_price = document.querySelector('#property-price');
+    let number = p_price.innerHTML
+    p_price.innerHTML =  number.toLocaleString('us-US');
+});
+
+function show(){
+  document.getElementById("popup").style.display = "block";
+}
+function hide() {
+  document.getElementById("popup").style.display = "none";
+  
+  document.getElementById("name").value = "";
+  document.getElementById("age").value = "";
+  document.getElementById("country").value = "";
+}
+
+function add() {
+  var name = document.getElementById("name").value;
+  var age = document.getElementById("age").value;
+  var country = document.getElementById("country").value;
+  
+  if (name == "" || age == "" || country == "") {
+    alert("Please fill all fields.")
+  } else {
+    document.getElementById("popup").style.display = "none";
+    var newdiv = document.createElement("div");
+    newdiv.className += "cont";
+    newdiv.innerHTML = "Name: "+ name + "<br>Age: " + age + "<br>Country: " + country;
+    document.getElementById("results").appendChild(newdiv);
+    
+    document.getElementById("name").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("country").value = "";
+  }
+}
+</script>
 <script src="{% static 'js/property-info-map.js' %}"></script>
 <script src="{% static 'js/property-slider.js' %}"></script>
 
