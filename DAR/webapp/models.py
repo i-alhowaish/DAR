@@ -117,8 +117,8 @@ class Report(models.Model):
     description = models.TextField()
 
 class Favorite(models.Model):
-    uid = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    uid = models.ForeignKey(Profile, related_name='favorites',on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, related_name='likedby',on_delete=models.CASCADE)
 
 class Contact(models.Model):
     fid = models.AutoField(primary_key=True)

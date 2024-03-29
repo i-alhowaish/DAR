@@ -37,6 +37,7 @@ import os
 
 from django.shortcuts import render, get_object_or_404
 from .models import Property
+from datetime import date
 
 
 def jdata(request):
@@ -361,6 +362,15 @@ def settings(request):
 def property_information(request, pid):
     property_instance = get_object_or_404(Property, pid=pid)
     profile = get_object_or_404(Profile, id=property_instance.uid.id)
+    if request.method == 'POST':
+        description= request.POST.get('name')
+        r =  Report.objects.create(description=description,date=date.today(),uid=profile,property=property_instance)
+        r.save()
+
+
+        
+         
+
     images = property_instance.images.all()
     images360 = property_instance.images360.all()
     try:
@@ -372,8 +382,9 @@ def property_information(request, pid):
 def add_to_favorite(request, pid):
     u=Profile.objects.get(user=request.user)
     p=get_object_or_404(Property, pid=pid)
-    Favorite.objects.create(uid=u,property=p)
-    return render(request, 'webapp/index.html')
+    Favorite.objects.get_or_create(uid=u,property=p)
+    # Favorite.objects.create(uid=u,property=p)
+    return redirect('property_information',pid)
 
 # def report(request, pid):
 #     u=Profile.objects.get(user=request.user)
