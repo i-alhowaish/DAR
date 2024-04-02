@@ -1,19 +1,42 @@
 var markerCoordinates = [24.686708, 46.572200];
 var lat = markerCoordinates[0];
 var lng = markerCoordinates[1];
+var marker;
+var map ;
+document.addEventListener('DOMContentLoaded',function(){
 
-var map = L.map('map').setView(markerCoordinates, 13);
+  let lt= document.getElementById('latInput');
+  let lg = document.getElementById('lngInput');
+  markerCoordinates[0]=lt.value;
+  markerCoordinates[1]=lg.value;
+  console.log(markerCoordinates)
+  map = L.map('map').setView(markerCoordinates, 13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">DAR</a>'
 }).addTo(map);
-
-
-
-var marker = L.marker(markerCoordinates).addTo(map)
-
-
+marker = L.marker(markerCoordinates).addTo(map);
 L.control.locate().addTo(map);
+map.on('click', onMapClick);
+
+
+  
+});
+
+// var map = L.map('map').setView(markerCoordinates, 13);
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">DAR</a>'
+// }).addTo(map);
+
+
+
+// var marker = L.marker(markerCoordinates).addTo(map)
+
+
+// L.control.locate().addTo(map);
+
+
 // marker.on('click',function(event){
 //    marker = event.target;
 //    console.log(marker.lat)})
@@ -31,7 +54,7 @@ L.control.locate().addTo(map);
     
     console.log(lt.value); // You can use this position to save it or perform any action
 }
-map.on('click', onMapClick);
+// map.on('click', onMapClick);
 
 
 function openGoogleMaps() {

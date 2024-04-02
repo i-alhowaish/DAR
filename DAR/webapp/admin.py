@@ -5,8 +5,8 @@ from .models import *
 #     list_display=()
 class PropertyAdmin(admin.ModelAdmin):
     list_display=('description', 'type', 'price', 'furnished', 'number_of_bathrooms', 'region', 'city', 'street', 
-                  'neighborhood', 'coordinate', 'length', 'width', 'number_of_sides', 'number_of_rooms', 
-                  'sell_or_rent', 'number_of_parkings', 'number_of_bedrooms', 'year_built')
+                  'neighborhood', 'length', 'width', 'number_of_sides', 'number_of_rooms', 
+                  'sell_or_rent', 'number_of_parkings', 'number_of_bedrooms', 'year_built','lng','lat')
 class PropertyImagesAdmin(admin.ModelAdmin):
     list_display=('image','property')
 class PropertyImages360Admin(admin.ModelAdmin):

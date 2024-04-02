@@ -147,7 +147,7 @@ def add_property(request):
         print('form is post')
         property_form = PropertyForm(request.POST)
         if property_form.is_valid():
-            print('form is post')
+            print('form is valid')
             new_property = property_form.save(commit=False)
             u=Profile.objects.get(user=request.user)
             new_property.uid = u  # Assign the logged in user

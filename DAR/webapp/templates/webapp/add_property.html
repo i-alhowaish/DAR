@@ -177,9 +177,10 @@
               <div class="form-group mb-3">
                 <label for="mapLinkInput mb-2">حدد موقع العقار</label>
                 <!-- <input type="url" class="form-control" id="mapLinkInput" name="mapLink"> -->
-                {% render_field property_form.coordinate class+="form-control" id="mapLinkInput" name="mapLink" %}
+                {% render_field property_form.lat class+="form-control" id="latInput" name="lat" type="hidden" %}
+                {% render_field property_form.lng class+="form-control" id="lngInput" name="lng" type="hidden" %}
                 <div class="center-container">
-                  <div id="map">x</div>
+                  <div id="map"></div>
                 </div>
               </div>
               
