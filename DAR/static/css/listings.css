@@ -1,0 +1,52 @@
+
+#map { 
+  height: 50vh;
+ }
+
+ .leaflet-tooltip.my-labels {
+  background-color: transparent;
+  border: transparent;
+  box-shadow: none;
+  font-weight: bold;
+  font-size: 30px;
+  }
+
+
+.main-map-container{
+  margin-top: 9.3vh;
+}
+
+.search-section{
+  margin-top: 2em;
+}
+
+.section-title{
+  font-size: 24px;
+  font-weight: 700;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+}
+
+
+.listing-div{
+  width: 65px;
+  height: 65px; display: flex;
+  align-items: center; 
+  justify-content: center;
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+  word-wrap: break-word;
+}
+
+.listing-div span {
+  color: white;
+  font-size: 12px; 
+  padding-bottom: 2.75em;
+  font-weight: 500
+}
+

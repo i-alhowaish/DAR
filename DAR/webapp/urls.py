@@ -13,6 +13,6 @@ urlpatterns = [
   # path('property_information', views.property_information, name="property_information"),
   path('property_information/<int:pid>', views.property_information, name='property_information'),
   path('add_to_favorite/<int:pid>', views.add_to_favorite, name='add_to_favorite'),
-
+  path('search', views.search, name='search'),
   
 ]
