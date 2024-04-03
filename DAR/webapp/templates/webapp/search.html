@@ -44,6 +44,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
       <div class="form-container" style="width: 80em; ">
 
         <form action="" method="post">
+          {% csrf_token %}
           <h1 class="section-title text-center">البحث</h1>
 
         
@@ -51,8 +52,9 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
           <div class="row mb-2">
             <div class="col">
               <div class="form-group">
-                <label for="" class="form-label">المدينة</label>
-                <select class="form-control" name="" id="citySelector" onchange="changeCity()">
+                <label for="" class="form-label">المنطقة</label>
+                <div id="regdiv"> 
+                <select class="form-control" name="" id="citySelector" >
                   <option value="riyadh" selected>الرياض</option>
                   <option value="jeddah">جدة</option>
                   <option value="sharqia">الشرقية</option>
@@ -69,31 +71,40 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                   <option value="najran">نجران</option>
                 </select>
               </div>
+              </div>
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="" class="form-label">المنطقة</label>
+                <label for="" class="form-label">المدينة</label>
+                <div id="citydiv">
                 <select class="form-control" name="" id="">
                   <option>الرياض</option>
                   <option>جدة</option>
                 </select>
+              </div>
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="" class="form-label">الحي</label>
+                <div id="distdiv">
                 <select class="form-control" name="" id="">
                   <option>الرياض</option>
                   <option>جدة</option>
                 </select>
               </div>
+              </div>
             </div>
             <div class="col">
               <div class="form-group" >
                 <label for="" class="form-label">النوع</label>
-                <select class="form-control" name="" id="">
-                  <option>بيت</option>
-                  <option>شقة</option>
+                <select class="form-control" name="type" id="">
+                  <option value="House">بيت</option>
+                  <option value="Apartment">شقة</option>
+                  <option value="Farm">مزرعة</option>
+                  <option value="Floor">دور</option>
+                  <option value="Istrahah">استراحة</option>
+                  <option value="Land">ارض</option>
                 </select>
               </div>
             </div> 
@@ -111,7 +122,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
               >
                 المزيد من خيارات البحث
               </a>
-              <a 
+              <!-- <a 
               name=""
               id="" 
               type="submit"
@@ -119,7 +130,8 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
               href="#" 
               role="button" 
               style="font-weight: 700;"
-              ''>إبحث</a>
+              ''>إبحث</a> -->
+              <button class="btn form-btn-dar mt-0"  style="font-weight: 700;">إبحث</button>
               
             </div>
             
@@ -129,9 +141,9 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                   
                   <div class="form-group">
                     <label for="" class="form-label">نوع العرض</label>
-                    <select class="form-control" name="" id="">
+                    <select class="form-control" name="sell_or_rent" id="">
                       <option value="sell">بيع</option>
-                      <option value="rent">شراء</option>
+                      <option value="rent">اجار</option>
                     </select>
                   </div>
 
@@ -144,12 +156,12 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                     <label for="floatingInput" class="form-label">السعر</label>
                     <div class="col d-flex justify-content-center align-items-center">
                       <label for="price-from" class="form-label">من&nbsp;&nbsp;</label>
-                      <input type="text" class="form-control" id="price-from" placeholder="السعر الأدنى" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="8">
+                      <input type="text" class="form-control" id="price-from" name="min_price" placeholder="السعر الأدنى" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="8">
                     </div>
                     
                     <div class="col d-flex justify-content-center align-items-center">
                       <label for="price-to">إلى&nbsp;&nbsp;</label>
-                      <input type="text" class="form-control" id="price-to" placeholder="السعر الأدنى" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="8">
+                      <input type="text" class="form-control" name="max_price" id="price-to" placeholder="السعر الأعلى" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="8">
                     </div>
 
                   </div>
@@ -161,16 +173,17 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                       <label for="" class="form-label">الغرف</label>
                       <select
                         class="form-select"
-                        name=""
+                        name="min_rooms"
                         id=""
                       >
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
-                        <option value="">4</option>
-                        <option value="">5</option>
-                        <option value="">6</option>
-                        <option value="" selected>7+</option>
+                      <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7+</option>
                       </select>
                     </div>
                   </div>  
@@ -182,16 +195,17 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                       <label for="" class="form-label">دورات المياة</label>
                       <select
                         class="form-select"
-                        name=""
+                        name="min_bathrooms"
                         id=""
                       >
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
-                        <option value="">4</option>
-                        <option value="">5</option>
-                        <option value="">6</option>
-                        <option value="" selected>7+</option>
+                      <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7+</option>
                       </select>
                     </div>
                   </div>        
@@ -207,12 +221,12 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                     <label for="floatingInput" class="form-label">المساحة (م<sup>2</sup>)</label>
                     <div class="col d-flex justify-content-center align-items-center">
                       <label for="size-from" class="form-label">من&nbsp;&nbsp;</label>
-                      <input type="text" class="form-control" id="size-from" placeholder="أقل مساحة" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="5">
+                      <input type="text" class="form-control" name="min_size" id="size-from" placeholder="أقل مساحة" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="5">
                     </div>
                     
                     <div class="col d-flex justify-content-center align-items-center">
                       <label for="size-to">إلى&nbsp;&nbsp;</label>
-                      <input type="text" class="form-control" id="size-to" placeholder="أعلى مساحة" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="5">
+                      <input type="text" class="form-control" name="max_size" id="size-to" placeholder="أعلى مساحة" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="5">
                     </div>
 
                   </div>
@@ -223,7 +237,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                     <input
                       type="number"
                       class="form-control"
-                      name=""
+                      name="length"
                       id=""
                       min="1"
                       max="999"
@@ -239,7 +253,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                     <input
                       type="number"
                       class="form-control"
-                      name=""
+                      name="width"
                       id=""
                       min="1"
                       max="999"
@@ -696,6 +710,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
 
 
 {% block script %}
+<script src="{% static 'js/dropdownsearch.js' %}"></script>
 <script src="{% static 'js/listing-map.js'%}"></script>
 <script src="{% static 'js/number-format.js' %}"></script>
 

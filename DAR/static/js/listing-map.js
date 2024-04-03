@@ -1,4 +1,8 @@
 // Creating the map
+document.addEventListener('DOMContentLoaded',function(){
+  var citySelector = document.getElementById('citySelector');
+  citySelector.onchange=changeCity;
+})
 var map = L.map('map').setView([24.710087, 46.716614], 10);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 1,

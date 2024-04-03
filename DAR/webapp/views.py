@@ -17,6 +17,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Property, PropertyImages, PropertyImages360
 from .forms import updatePropertyForm, PropertyImagesForm, PropertyImages360Form
 
+from django.db.models import Q
+from django.db.models import F, ExpressionWrapper, DecimalField
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -386,10 +388,79 @@ def add_to_favorite(request, pid):
     # Favorite.objects.create(uid=u,property=p)
     return redirect('property_information',pid)
 
-# def report(request, pid):
-#     u=Profile.objects.get(user=request.user)
-#     p=get_object_or_404(Property, pid=pid)
-#     Favorite.objects.create()
+
+
+def search(request):
+    properties=Property.objects.all()
+    # Pass request.GET directly to the filter_properties function
+    if request.method == 'POST':
+        print('hello')
+        print(request.POST)
+        print()
+        r = cleandic(request.POST)
+        print(r)
+        properties = filter_properties(r)
+
+    # Pass filtered properties to the template
+    context = {
+        'properties': properties
+    }
+    return render(request, 'webapp/search.html', context)
 
 
 
+
+def filter_properties(di):
+    queryset = Property.objects.all()
+
+    # Filter properties based on criteria
+    for key, value in di.items():
+        if value:
+            if key == 'min_price':
+                print(value)
+                queryset = queryset.filter(price__gte=value)
+            elif key == 'max_price':
+                queryset = queryset.filter(price__lte=value)
+            elif key == 'region':
+                queryset = queryset.filter(region=value)
+            elif key == 'city':
+                queryset = queryset.filter(city=value)
+            elif key == 'neighborhood':
+                queryset = queryset.filter(neighborhood=value)
+            elif key == 'type':
+                print(value)
+                queryset = queryset.filter(type=value)
+            elif key == 'min_size':
+                queryset = queryset.annotate(size=F('length') * F('width'))
+                queryset = queryset.filter(size__gte=value)
+                
+            elif key == 'max_size':
+                queryset = queryset.annotate(size=F('length') * F('width'))
+                queryset = queryset.filter(size__lte=value)
+            elif key == 'length':
+                queryset = queryset.filter(length=value)
+            elif key == 'width':
+                queryset = queryset.filter(width=value)
+            elif key == 'min_rooms':
+                if value == 7:
+                    queryset = queryset.filter(number_of_rooms__gte=value)
+                else :
+                     queryset = queryset.filter(number_of_rooms = value)
+
+            elif key == 'min_bathrooms':
+                if value == 7:
+                     queryset = queryset.filter(number_of_bathrooms__gte=value)
+                else :
+                     queryset = queryset.filter(number_of_bathrooms = value)
+               
+
+    return queryset
+
+def cleandic(di):
+    new={}
+    for li in di:
+        if di[li] != '':
+            new[li]=di[li]
+    return new
+
+        
