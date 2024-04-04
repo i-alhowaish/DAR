@@ -91,7 +91,9 @@ class Property(models.Model):
     city = models.CharField(max_length=100, choices=CITY_CHOICES)
     street = models.CharField(max_length=100)
     neighborhood = models.CharField(max_length=100, choices=NEIGHBORHOOD_CHOICES,null=True, blank=True)
-    coordinate = models.CharField(max_length=100, blank=True, null=True)
+    # coordinate = models.CharField(max_length=100, blank=True, null=True)
+    lat = models.FloatField()
+    lng = models.FloatField()
     length = models.DecimalField(max_digits=10, decimal_places=2)
     width = models.DecimalField(max_digits=10, decimal_places=2)
     number_of_sides = models.IntegerField(null=True, blank=True)
@@ -117,8 +119,8 @@ class Report(models.Model):
     description = models.TextField()
 
 class Favorite(models.Model):
-    uid = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    uid = models.ForeignKey(Profile, related_name='favorites',on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, related_name='likedby',on_delete=models.CASCADE)
 
 class Contact(models.Model):
     fid = models.AutoField(primary_key=True)

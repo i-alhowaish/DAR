@@ -17,6 +17,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Property, PropertyImages, PropertyImages360
 from .forms import updatePropertyForm, PropertyImagesForm, PropertyImages360Form
 
+from django.db.models import Q
+from django.db.models import F, ExpressionWrapper, DecimalField
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -37,6 +39,7 @@ import os
 
 from django.shortcuts import render, get_object_or_404
 from .models import Property
+from datetime import date
 
 
 def jdata(request):
@@ -146,7 +149,7 @@ def add_property(request):
         print('form is post')
         property_form = PropertyForm(request.POST)
         if property_form.is_valid():
-            print('form is post')
+            print('form is valid')
             new_property = property_form.save(commit=False)
             u=Profile.objects.get(user=request.user)
             new_property.uid = u  # Assign the logged in user
@@ -361,6 +364,15 @@ def settings(request):
 def property_information(request, pid):
     property_instance = get_object_or_404(Property, pid=pid)
     profile = get_object_or_404(Profile, id=property_instance.uid.id)
+    if request.method == 'POST':
+        description= request.POST.get('name')
+        r =  Report.objects.create(description=description,date=date.today(),uid=profile,property=property_instance)
+        r.save()
+
+
+        
+         
+
     images = property_instance.images.all()
     images360 = property_instance.images360.all()
     try:
@@ -372,12 +384,83 @@ def property_information(request, pid):
 def add_to_favorite(request, pid):
     u=Profile.objects.get(user=request.user)
     p=get_object_or_404(Property, pid=pid)
-    Favorite.objects.create(uid=u,property=p)
-
-# def report(request, pid):
-#     u=Profile.objects.get(user=request.user)
-#     p=get_object_or_404(Property, pid=pid)
-#     Favorite.objects.create()
+    Favorite.objects.get_or_create(uid=u,property=p)
+    # Favorite.objects.create(uid=u,property=p)
+    return redirect('property_information',pid)
 
 
 
+def search(request):
+    properties=Property.objects.all()
+    # Pass request.GET directly to the filter_properties function
+    if request.method == 'POST':
+        print('hello')
+        print(request.POST)
+        print()
+        r = cleandic(request.POST)
+        print(r)
+        properties = filter_properties(r)
+
+    # Pass filtered properties to the template
+    context = {
+        'properties': properties
+    }
+    return render(request, 'webapp/search.html', context)
+
+
+
+
+def filter_properties(di):
+    queryset = Property.objects.all()
+
+    # Filter properties based on criteria
+    for key, value in di.items():
+        if value:
+            if key == 'min_price':
+                print(value)
+                queryset = queryset.filter(price__gte=value)
+            elif key == 'max_price':
+                queryset = queryset.filter(price__lte=value)
+            elif key == 'region':
+                queryset = queryset.filter(region=value)
+            elif key == 'city':
+                queryset = queryset.filter(city=value)
+            elif key == 'neighborhood':
+                queryset = queryset.filter(neighborhood=value)
+            elif key == 'type':
+                print(value)
+                queryset = queryset.filter(type=value)
+            elif key == 'min_size':
+                queryset = queryset.annotate(size=F('length') * F('width'))
+                queryset = queryset.filter(size__gte=value)
+                
+            elif key == 'max_size':
+                queryset = queryset.annotate(size=F('length') * F('width'))
+                queryset = queryset.filter(size__lte=value)
+            elif key == 'length':
+                queryset = queryset.filter(length=value)
+            elif key == 'width':
+                queryset = queryset.filter(width=value)
+            elif key == 'min_rooms':
+                if value == 7:
+                    queryset = queryset.filter(number_of_rooms__gte=value)
+                else :
+                     queryset = queryset.filter(number_of_rooms = value)
+
+            elif key == 'min_bathrooms':
+                if value == 7:
+                     queryset = queryset.filter(number_of_bathrooms__gte=value)
+                else :
+                     queryset = queryset.filter(number_of_bathrooms = value)
+               
+
+    return queryset
+
+def cleandic(di):
+    new={}
+    for li in di:
+        if di[li] != '':
+            new[li]=di[li]
+    return new
+
+        

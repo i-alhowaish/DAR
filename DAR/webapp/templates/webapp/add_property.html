@@ -3,6 +3,21 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block css %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- ========== Start Gelocation Leaflet Plugin ========== -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+  <!-- ========== End Gelocation Leaflet Plugin ========== -->
+
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/add_property.css' %}">
 
 {% endblock %}
@@ -79,19 +94,19 @@
               <div class="form-group mb-3">
                 <label for="priceInput mb-2">السعر</label>
                 <!-- <input type="number" step="0.01" class="form-control" id="priceInput" name="price"> -->
-                {% render_field property_form.price class+="form-control" step="0.1" id="priceInput" name="price" min="0"%}
+                {% render_field property_form.price class+="form-control" step="1000" id="priceInput" name="price" min="0"%}
 
               </div>
               <div class="form-group mb-3">
                 <label for="lengthInput mb-2">الطول (م)</label>
                 <!-- <input type="number" step="0.01" class="form-control" id="lengthInput" name="length"> -->
-                {% render_field property_form.length step="0.1" class+="form-control" id="lengthInput" name="length" min="1"%}
+                {% render_field property_form.length step="1" class+="form-control" id="lengthInput" name="length" min="1"%}
               </div>
   
               <div class="form-group mb-3">
                 <label for="widthInput mb-2">العرض (م)</label>
                 <!-- <input type="number" step="0.01" class="form-control" id="widthInput" name="width"> -->
-                {% render_field property_form.width step="0.1" class+="form-control" id="widthInput" name="length" min="1"%}
+                {% render_field property_form.width step="1" class+="form-control" id="widthInput" name="length" min="1"%}
 
               </div>
               
@@ -160,10 +175,16 @@
   
               <!-- Google Map Link -->
               <div class="form-group mb-3">
-                <label for="mapLinkInput mb-2">رابط قوقل ماب</label>
+                <label for="mapLinkInput mb-2">حدد موقع العقار</label>
                 <!-- <input type="url" class="form-control" id="mapLinkInput" name="mapLink"> -->
-                {% render_field property_form.coordinate class+="form-control" id="mapLinkInput" name="mapLink" %}
+                {% render_field property_form.lat class+="form-control" id="latInput" name="lat" type="hidden" %}
+                {% render_field property_form.lng class+="form-control" id="lngInput" name="lng" type="hidden" %}
+                <div class="center-container">
+                  <div id="map"></div>
+                </div>
               </div>
+              
+              
   
               <!-- NUmber of Sides -->
               <div class="form-group">
@@ -217,6 +238,7 @@
 
 {% block script %}
 
+<script src="{% static 'js/add-property-map.js' %}"></script>
 <script src="{% static 'js/dropdown.js' %}"></script>
 <script src="{% static 'js/add_property.js' %}"></script>
 
