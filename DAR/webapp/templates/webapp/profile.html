@@ -1,0 +1,402 @@
+{% extends 'webapp/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/spinner.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
+
+<!--Ibrahim if statment, if user choice color or not -->
+<style>
+  :root {
+    /* Ibrahim: here you put User Custom Color */  
+    --black-color: #583e7e;
+    --black-color-50: #583e7e50; /* COLOR 50% => #583e7e50  50 at the end!!*/
+    
+  }
+  .spinner > div{ 
+    background-color: var(--black-color-50); 
+    border-color: var(--black-color);
+  }
+  .badge-color{
+    background-color: var(--black-color);
+  }
+  .badge-number{
+    border: var(--black-color) 2px solid;
+  }
+  .profile-img{
+    border: 2px var(--black-color) solid;
+  }
+  .user-section-container{
+    background-color: var(--black-color-50);
+  }
+</style>
+<!--endif here-->
+
+{% endblock %}
+{% block content %}
+<div id="page-container" class="main-map-container" style="margin-top: 120px;">
+
+    
+  <section id="user-section mb-5" class="">
+
+    <div class="container py-5 user-section-container"
+    >
+    
+      <div class="row">
+
+          <div class="col-lg-4 mb-3 d-flex justify-content-center">
+              <!-- Profile Image -->
+
+              <img class="profile-img" src="https://arabic.arabianbusiness.com/cloud/2023/07/11/ZqxMUC3D-2.jpg" class="rounded-circle mx-auto d-block" alt="profile image">
+          </div>
+          <div class="col-lg-8">
+              <!-- Profile Details -->
+              <h6><span class="badge badge-color">المعلن</span></h6>
+              <div class="row">
+                <div class="col">
+                  <h3 class="mb-2">صالح العمري</h3>
+                </div>
+                <div class="col-2">
+                  <div class="" style="width: 25px; height: 25px;">
+                    <div class="spinner">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              
+              <p class="text-muted mb-4">SalehAlamri</p>
+              <p class="mb-5 sale-and-rent">
+                <span><span id="properties-for-sale" class="badge badge-number">5</span> عقارات معروضة للإيجار</span> 
+                <br>
+                <span><span id="properties-for-rent" class="badge badge-number">9</span> عقارات معروضة للبيع</span></p>
+                
+              <div class="row">
+                <div class="col-10">
+                  <a href="#" class="btn btn-outline-success w-25 mt-2" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+                  <a href="#" class="btn btn-outline-primary w-25 mt-2" target="_blank"><i class="fa-regular fa-envelope"></i> إيميل</a>
+
+                </div>
+                <div class="col-2">
+                  <div id="copySuccessMessage">
+                    <button id="closeMessage" onclick="closeMessage()">×</button>
+                    تم نسخ الرابط
+                </div>
+                                       
+                  <a class="btn share-icon" href="#" onclick="copyContent()"
+                  data-toggle="tooltip" data-placement="top" title="نسخ رابط صفحة المعلن"
+                  ><i class="fas fa-link"></i></a>
+              </div>
+              
+              </div>
+                
+                 
+          </div>
+      </div>
+  </div>
+
+  </section>
+
+  <section class="property-cards mt-5">
+
+    
+    <h1 class="section-title display-4 text-center">عقاراتي</h1>
+
+    <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4 m-4">
+
+      <div class="col">
+        <div class="card">
+          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                <span>250 م<sup>2</sup></span> 
+
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+  
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="#"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="https://img.staticmb.com/mbcontent/images/crop/uploads/2022/5/modern-kerala-house-design_0_1200.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                <span>250 م<sup>2</sup></span> 
+
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+  
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="#"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                <span>250 م<sup>2</sup></span> 
+
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+  
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="#"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                <span>250 م<sup>2</sup></span> 
+
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+  
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="#"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwPKT6mvUoXrn3Z_Gk1QzHh4k7pbAsKZTso63KjQqIzQ&s" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                <span>250 م<sup>2</sup></span> 
+
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+  
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="#"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                <span>250 م<sup>2</sup></span> 
+
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+  
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="#"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                <span>250 م<sup>2</sup></span> 
+
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+  
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="#"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                <span>250 م<sup>2</sup></span> 
+
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+  
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="#"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+      </div>
+
+
+    </div>   
+
+  </section>
+
+
+
+
+</div>
+{% endblock %}
+
+
+{% block script %}
+
+<script src="{% static 'js/profile.js' %}"></script>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% endblock %}

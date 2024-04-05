@@ -1,0 +1,118 @@
+.user-section-container{
+  border-radius: 5px;
+}
+
+.badge-color{
+  background-color: #e79106;
+}
+
+.badge-number{
+  border: #e79106 2px solid;
+}
+.spinner > div{ 
+  background-color: #e7910650; 
+  border-color: #e79106;
+}
+
+  .user-section-container{
+    background-color: #e5e5e5;
+  }
+
+.profile-img{
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px #fff solid;
+}
+
+
+.share-icon{
+  font-size: 24px;
+  text-align: center;
+}
+
+#copySuccessMessage {
+  display: none; /* Initially hidden, will be displayed when the content is copied */
+  position: fixed;
+  z-index: 1050;
+  top: 100px; /* Set top as per your requirement */
+  right: 20px;
+  background-color: #0f5132; /* Message background color */
+  color: white; /* Message text color */
+  padding: 8px 4px 8px 16px; /* Padding around the text */
+  border-radius: 5px; /* Rounded corners for the container */
+  align-items: center;
+  justify-content: space-evenly; /* Space between text and close button */
+  min-width: 120px; /* Minimum width for the message container */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+#closeMessage {
+  background-color: transparent; /* Transparent background for a subtler close button */
+  color: white; /* Close button color */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 24px; /* Size of the close button text */
+  padding: 0 8px; /* Padding around the close button text */
+  line-height: 24px; /* Line height to vertically center the 'X' text */
+  display: flex; /* Display flex to center the content */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Center content horizontally */
+}
+
+#closeMessage:hover {
+  color: #cccccc; /* Lighter color on hover for feedback */
+}
+
+.section-title{
+  font-weight: 500;
+}
+
+
+
+
+.card-img-top {
+  height: 250px; /* Set a fixed height for all images */
+  object-fit: cover; /* This will make sure that the images cover the area without stretching */
+  width: 100%; /* Ensure the width is 100% to maintain aspect ratio */
+}
+
+.no-image {
+  background-color: #f0f0f0; /* Example background color, change as desired */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px; /* Set this height to match the height of your property images */
+  font-size: 24px; /* Example font size for "لا يوجد صورة" text, change as desired */
+  color: #666; /* Example text color, change as desired */
+}
+
+.priceInput {
+  white-space: nowrap; /* Prevent the text from wrapping */
+  font-size: 1.4em; /* Adjust the font size as needed */
+}
+
+
+
+
+.sale-and-rent{
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.badge-number{
+  color: black;
+  margin-left: 0.8em;
+  margin-bottom: 0.2em;
+}
+
+
+
+
+
+
+
+
+

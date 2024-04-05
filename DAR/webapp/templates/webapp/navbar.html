@@ -17,7 +17,7 @@
         <ul class="nav__list">
            <li><a href="{% url '' %}" class="nav__link">الرئيسية</a></li>
 
-           <li><a href="#" class="nav__link">البحث</a></li>
+           <li><a href="{% url 'search'%}" class="nav__link">البحث</a></li>
 
            <li><a href="#" class="nav__link">المؤشرات</a></li>
 
@@ -33,10 +33,16 @@
 
               <ul class="dropdown__menu">
                  <li>
-                    <a href="#settings" class="dropdown__link">
+                    <a href="{% url 'settings'%}" class="dropdown__link">
                        <i class="ri-user-line"></i> إعداداتي
                     </a>                          
                  </li>
+
+                 <li>
+                  <a href="{% url ''%}" class="dropdown__link">
+                     <i class="fa-solid fa-address-card"></i> صفحتي
+                  </a>                          
+               </li>
 
                  <li>
                     <a href="{% url 'add_property'%}" class="dropdown__link">
@@ -44,17 +50,22 @@
                     </a>
                  </li>
                  <li>
-                  <a href="{% url 'userlogout' %}" class="dropdown__link">
-                     <i class="ri-lock-line"></i> تسجيل خروج
+                  <a href="{% url ''%}" class="dropdown__link">
+                     <i class="fa-regular fa-heart"></i> المفضلة
                   </a>
                </li>
 
               </ul>
+              <li>
+               <a href="{% url 'userlogout' %}" class="nav__link">
+                  تسجيل خروج
+               </a>
+            </li>
               {% else %}
 
-              <li><a href="{% url 'register' %}" class="nav__link">تسجيل الدخول</a></li>
+              <li><a href="{% url 'login' %}" class="nav__link">تسجيل الدخول</a></li>
 
-              <li><a href="{% url 'login' %}" class="nav__link">التسجيل</a></li>
+              <li><a href="{% url 'register' %}" class="nav__link">التسجيل</a></li>
 
               {% endif %}
 

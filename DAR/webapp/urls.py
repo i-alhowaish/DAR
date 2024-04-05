@@ -14,5 +14,6 @@ urlpatterns = [
   path('property_information/<int:pid>', views.property_information, name='property_information'),
   path('add_to_favorite/<int:pid>', views.add_to_favorite, name='add_to_favorite'),
   path('search', views.search, name='search'),
-  
+  path('profile', views.profile, name='profile'),  # just for testing(if the page work or not) you can change it
+  path('favorate', views.favorate, name='favorate'),  # just for testing(if the page work or not) you can change it
 ]

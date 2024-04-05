@@ -474,4 +474,10 @@ def cleandic(di):
             new[li]=di[li]
     return new
 
-        
+# Ibrahim: Just for testing you can change abo abo omha 
+def profile(request):
+     return render(request, 'webapp/profile.html')      
+
+# Ibrahim: Just for testing you can change abo abo omha 
+def favorate(request):
+     return render(request, 'webapp/favorate.html')   

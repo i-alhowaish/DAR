@@ -1,0 +1,51 @@
+.remove-favorite {
+  cursor: pointer;
+  position: absolute;
+  top: 12px; /* Adjust this value to move the button up or down */
+  right: 12px; /* Adjust this value to move the button left or right */
+  color: #fff;
+  background-color: #ff0000; /* Bright red color */
+  border-radius: 50%;
+  width: 24px; /* Size of the button */
+  height: 24px; /* Size of the button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff; /* White border */
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); /* Soft shadow for depth */
+  z-index: 2; /* Ensure it's above the image */
+}
+
+.remove-favorite:before {
+  content: "\00d7"; /* Unicode multiplication sign (×) */
+  font-size: 16px; /* Size of the "X" */
+  line-height: 1;
+}
+
+.tooltip-inner {
+  background-color: red;
+}
+
+.main-textt{
+  font-weight: 500;
+}
+.card-img-top {
+  height: 250px; /* Set a fixed height for all images */
+  object-fit: cover; /* This will make sure that the images cover the area without stretching */
+  width: 100%; /* Ensure the width is 100% to maintain aspect ratio */
+}
+
+.no-image {
+  background-color: #f0f0f0; /* Example background color, change as desired */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px; /* Set this height to match the height of your property images */
+  font-size: 24px; /* Example font size for "لا يوجد صورة" text, change as desired */
+  color: #666; /* Example text color, change as desired */
+}
+
+.priceInput {
+  white-space: nowrap; /* Prevent the text from wrapping */
+  font-size: 1.4em; /* Adjust the font size as needed */
+}

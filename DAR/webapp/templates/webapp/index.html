@@ -12,7 +12,12 @@ style=" background-image: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.
   <div class="container">
       <div class="masthead-subheading">اهلا بكم في</div>
       <div class="masthead-heading ">منصة دار العقارية</div>
+      {% if user.is_authenticated %}
+      <a class="btn-dar" href="{% url 'search' %}">إبدأ</a>
+      {% else %}
       <a class="btn-dar" href="{% url 'login' %}">إبدأ</a>
+      {% endif %}
+      
   </div>
 </header>
 
