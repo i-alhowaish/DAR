@@ -52,12 +52,19 @@ function populatecity() {
 
 readjson().then( data => {
 var selected = document.getElementById('regionSelect').value;
-var cities = Object.keys(data[selected]);
+var cities;
+if (selected == ''){
+   cities=[];
+}
+else{
+    cities = Object.keys(data[selected]);
+}
 // console.error(cities);
 var citydropwon =document.getElementById('citySelect');
 citydropwon.innerHTML="";
 var option = document.createElement("option");
-option.text = 'الرجاءاختيار المدينة';
+option.text = 'الرجاء اختيار المدينة';
+option.value = "";
 citydropwon.add(option);
 cities.forEach(function(city) {
     var option = document.createElement("option");
@@ -66,15 +73,22 @@ cities.forEach(function(city) {
 
     citydropwon.add(option);
 });
-var cit = document.getElementById('citySelect');
-cit.disabled=false;
+if (citydropwon.length == 1){
+    citydropwon.innerHTML="";
+    citydropwon.disabled=true;
+}
+else{
+    citydropwon.disabled=false;
+}
+// var cit = document.getElementById('citySelect');
+// cit.disabled=false;
 var distdropwon =document.getElementById('neighborhoodSelect');
 distdropwon.innerHTML="";
 distdropwon.disabled=true;
 
 }).catch(error => console.error('Error loading cities:', error));
 
-} 
+}         
 
 
 function populatedist() {
@@ -82,14 +96,21 @@ function populatedist() {
         var selectedr = document.getElementById('regionSelect').value;
         var selectedc = document.getElementById('citySelect').value;
 
-        var dist =data[selectedr][selectedc];
+        let dist;
+        if (selectedc ==''){
+            console.log(`dist is ${selectedc}`);
+           dist=[]; 
+        }
+        else {
+            dist =data[selectedr][selectedc];
+        }
         console.log(`${selectedr} and ${selectedc}`)
         var distdropwon =document.getElementById('neighborhoodSelect');
         
         distdropwon.innerHTML="";
         
         var option = document.createElement("option");
-            option.text = 'الرجاءاختيار الحي';
+            option.text = 'الرجاء اختيار الحي';
             distdropwon.add(option);
         dist.forEach(function(distrect) {
             var option = document.createElement("option");
@@ -104,11 +125,18 @@ function populatedist() {
         }
 
         else {
-         distdropwon.innerHTML="";
-        var option = document.createElement("option");
-            option.text = 'لا يوجد احياء في هذه المدينة ';
-            distdropwon.add(option);
-            distdropwon.disabled=true;}
+            if (selectedc !=''){
+                distdropwon.innerHTML="";
+                var option = document.createElement("option");
+                option.text = 'لا يوجد احياء في هذه المدينة ';
+                distdropwon.add(option);
+                distdropwon.disabled=true;
+                }
+            else {
+                distdropwon.innerHTML="";
+                distdropwon.disabled=true;
+            }
+         }
             
     }
     

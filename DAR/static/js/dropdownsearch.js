@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded',function(){
     // var x = document.getElementById('regionSelect').value;
     // console.log(x)
     populateregion();
-    document.getElementById('citySelector').onchange = populatecity;
+    // document.getElementById('citySelector').onchange = populatecity;
     document.getElementById('citySelect').onchange = populatedist;
 
     
@@ -61,7 +61,7 @@ function populateregion(){
         var regions = Object.keys(data);
         var regoininput = document.getElementById('citySelector') ;
         var option = document.createElement("option");
-        option.text = 'الرجاءاختيار المنطقة';
+        option.text = 'الرجاء اختيار المنطقة';
         option.value = "";
         regoininput.add(option);
         regions.forEach(function(reg) {
@@ -92,7 +92,7 @@ else{
 var citydropwon =document.getElementById('citySelect');
 citydropwon.innerHTML="";
 var option = document.createElement("option");
-option.text = 'الرجاءاختيار المدينة';
+option.text = 'الرجاء اختيار المدينة';
 option.value = "";
 citydropwon.add(option);
 cities.forEach(function(city) {
@@ -141,7 +141,8 @@ function populatedist() {
         distdropwon.innerHTML="";
         
         var option = document.createElement("option");
-            option.text = 'الرجاءاختيار الحي';
+            option.text = 'الرجاء اختيار الحي';
+            option.value ='';
             distdropwon.add(option);
         dist.forEach(function(distrect) {
             var option = document.createElement("option");
@@ -152,16 +153,23 @@ function populatedist() {
         });
 
         if (distdropwon.length != 1) {
-        distdropwon.disabled=false;
-        }
-
-        else {
-         distdropwon.innerHTML="";
-        // var option = document.createElement("option");
-        //     option.text = 'لا يوجد احياء';
-        //     distdropwon.add(option);
-            distdropwon.disabled=true;}
-            console.log(distdropwon[0].innerHTML);
+            distdropwon.disabled=false;
+            }
+    
+            else {
+                if (selectedc !=''){
+                    distdropwon.innerHTML="";
+                    var option = document.createElement("option");
+                    option.text = 'لا يوجد احياء';
+                    option.value ='';
+                    distdropwon.add(option);
+                    distdropwon.disabled=true;
+                    }
+                else {
+                    distdropwon.innerHTML="";
+                    distdropwon.disabled=true;
+                }
+             }
             
     }
     

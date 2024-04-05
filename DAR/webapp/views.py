@@ -417,13 +417,16 @@ def filter_properties(di):
     for key, value in di.items():
         if value:
             if key == 'min_price':
-                print(value)
-                queryset = queryset.filter(price__gte=value)
+                x=value.replace(',','')
+                print(x)
+                queryset = queryset.filter(price__gte=x)
             elif key == 'max_price':
-                queryset = queryset.filter(price__lte=value)
+                x=value.replace(',','')
+                queryset = queryset.filter(price__lte=x)
             elif key == 'region':
                 queryset = queryset.filter(region=value)
             elif key == 'city':
+                print(value)
                 queryset = queryset.filter(city=value)
             elif key == 'neighborhood':
                 queryset = queryset.filter(neighborhood=value)
@@ -431,24 +434,32 @@ def filter_properties(di):
                 print(value)
                 queryset = queryset.filter(type=value)
             elif key == 'min_size':
+                x=value.replace(',','')
                 queryset = queryset.annotate(size=F('length') * F('width'))
-                queryset = queryset.filter(size__gte=value)
+                queryset = queryset.filter(size__gte=x)
                 
             elif key == 'max_size':
+                x=value.replace(',','')
                 queryset = queryset.annotate(size=F('length') * F('width'))
-                queryset = queryset.filter(size__lte=value)
+                queryset = queryset.filter(size__lte=x)
             elif key == 'length':
-                queryset = queryset.filter(length=value)
+                x=value.replace(',','')
+                queryset = queryset.filter(length=x)
             elif key == 'width':
-                queryset = queryset.filter(width=value)
+                x=value.replace(',','')
+                queryset = queryset.filter(width=x)
+            elif key == 'sell_or_rent':
+                queryset = queryset.filter(sell_or_rent=value)
             elif key == 'min_rooms':
-                if value == 7:
+                
+                if value == '7':
+                    print(value)
                     queryset = queryset.filter(number_of_rooms__gte=value)
                 else :
                      queryset = queryset.filter(number_of_rooms = value)
 
             elif key == 'min_bathrooms':
-                if value == 7:
+                if value == '7':
                      queryset = queryset.filter(number_of_bathrooms__gte=value)
                 else :
                      queryset = queryset.filter(number_of_bathrooms = value)
