@@ -242,7 +242,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                       name="length"
                       id=""
                       min="1"
-                      max="999"
+                      max="9999"
                       onkeypress="return isNumeric(event)"
                       oninput="maxLengthCheck(this)"
                     />
@@ -258,7 +258,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                       name="width"
                       id=""
                       min="1"
-                      max="999"
+                      max="9999"
                       onkeypress="return isNumeric(event)"
                       oninput="maxLengthCheck(this)"
 
@@ -336,8 +336,9 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
       <div class="col">
         <div class="card">
           {% if property.images.all %}
-            <img src="{{ property.images.first.image.url }}" class="card-img-top" alt="...">
-         
+            <img src="{{ property.images.first.image.url }}" class="card-img-top" alt="Image of the property">
+          {% else %}
+            <div class="no-image">لا يوجد صور</div>
           {% endif %}
           <div class="card-body">
             <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
@@ -349,9 +350,12 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                 
                 <span>{% widthratio property.length 1 property.width %} م<sup>2</sup></span> 
 
+                {% if property.number_of_bedrooms and property.number_of_bedrooms != 0 %}
                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> {{ property.number_of_bedrooms }}</span>
+                {% endif %}
+                {% if property.number_of_bathrooms and property.number_of_bathrooms != 0 %}
                  &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> {{ property.number_of_bathrooms }}</span>
-  
+                 {% endif %}
                 </p>
               </div>
               <div class="col">

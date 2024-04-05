@@ -50,3 +50,24 @@ input::-webkit-inner-spin-button {
   font-weight: 500
 }
 
+
+.card-img-top {
+  height: 250px; /* Set a fixed height for all images */
+  object-fit: cover; /* This will make sure that the images cover the area without stretching */
+  width: 100%; /* Ensure the width is 100% to maintain aspect ratio */
+}
+
+.no-image {
+  background-color: #f0f0f0; /* Example background color, change as desired */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px; /* Set this height to match the height of your property images */
+  font-size: 24px; /* Example font size for "لا يوجد صورة" text, change as desired */
+  color: #666; /* Example text color, change as desired */
+}
+
+.priceInput {
+  white-space: nowrap; /* Prevent the text from wrapping */
+  font-size: 1.4em; /* Adjust the font size as needed */
+}
