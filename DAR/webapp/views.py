@@ -481,3 +481,7 @@ def profile(request):
 # Ibrahim: Just for testing you can change abo abo omha 
 def favorate(request):
      return render(request, 'webapp/favorate.html')   
+
+# Ibrahim: Just for testing you can change abo abo omha 
+def dashboard(request):
+     return render(request, 'webapp/dashboard.html')   

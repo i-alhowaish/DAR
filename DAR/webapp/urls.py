@@ -16,4 +16,5 @@ urlpatterns = [
   path('search', views.search, name='search'),
   path('profile', views.profile, name='profile'),  # just for testing(if the page work or not) you can change it
   path('favorate', views.favorate, name='favorate'),  # just for testing(if the page work or not) you can change it
+    path('dashboard', views.dashboard, name='dashboard'),  # just for testing(if the page work or not) you can change it
 ]
