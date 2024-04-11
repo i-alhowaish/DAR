@@ -41,6 +41,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Property
 from datetime import date
 
+from django.db.models import Count, Q
+from django.shortcuts import get_object_or_404, render
+from .models import Profile
 
 def jdata(request):
     file_path = 'locationsJSON/location1.json'
@@ -475,9 +478,15 @@ def cleandic(di):
     return new
 
 # Ibrahim: Just for testing you can change abo abo omha 
-def profile(request):
-     return render(request, 'webapp/profile.html')      
-
+# def profile(request):
+#      return render(request, 'webapp/profile.html')      
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(Profile, user=user)
+    properties=Property.objects.filter(uid=profile)
+    rent_count = Property.objects.filter(uid=profile,sell_or_rent= "rent").count()
+    sell_count = Property.objects.filter(uid=profile,sell_or_rent= "sell").count()
+    return render(request, 'webapp/profile.html', {'user': user, 'Profile': Profile, 'properties': properties,'rent_count': rent_count,'sell_count': sell_count,})
 # Ibrahim: Just for testing you can change abo abo omha 
 def favorate(request):
      return render(request, 'webapp/favorate.html')   

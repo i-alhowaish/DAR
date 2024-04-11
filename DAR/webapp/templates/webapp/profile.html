@@ -8,8 +8,8 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
 
-<!--Ibrahim if statment, if user choice color or not -->
-<style>
+<!-- Ibrahim if statment, if user choice color or not -->
+<!-- <style>
   :root {
     /* Ibrahim: here you put User Custom Color */  
     --black-color: #583e7e;
@@ -32,8 +32,44 @@
   .user-section-container{
     background-color: var(--black-color-50);
   }
+</style> -->
+<!--endif here -->
+{% if profile.color %}
+<style>
+  :root {
+    /* User custom color */
+    --user-custom-color: {{ profile.color }};
+    --user-custom-color-50: {{ profile.color }}50; /* Append 50 for 50% opacity */
+  }
 </style>
-<!--endif here-->
+{% else %}
+<style>
+  :root {
+    /* Default color if user hasn't chosen one */
+    --user-custom-color: #583e7e; /* Example default color */
+    --user-custom-color-50: #583e7e50; /* 50% opacity */
+  }
+</style>
+{% endif %}
+
+<style>
+  .spinner > div { 
+    background-color: var(--user-custom-color-50); 
+    border-color: var(--user-custom-color);
+  }
+  .badge-color {
+    background-color: var(--user-custom-color);
+  }
+  .badge-number {
+    border: 2px solid var(--user-custom-color);
+  }
+  .profile-img {
+    border: 2px solid var(--user-custom-color);
+  }
+  .user-section-container {
+    background-color: var(--user-custom-color-50);
+  }
+</style>
 
 {% endblock %}
 {% block content %}
@@ -49,8 +85,11 @@
 
           <div class="col-lg-4 mb-3 d-flex justify-content-center">
               <!-- Profile Image -->
-
-              <img class="profile-img" src="https://arabic.arabianbusiness.com/cloud/2023/07/11/ZqxMUC3D-2.jpg" class="rounded-circle mx-auto d-block" alt="profile image">
+              {% if Profile.userimage %}
+              <img class="profile-img" src="{{Profile.userimage.url}}"class="rounded-circle mx-auto d-block" alt="profile image">
+              {% else %}
+              <img class="profile-img" src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" alt="">
+              {% endif %}
           </div>
           <div class="col-lg-8">
               <!-- Profile Details -->
@@ -75,14 +114,14 @@
               
               <p class="text-muted mb-4">SalehAlamri</p>
               <p class="mb-5 sale-and-rent">
-                <span><span id="properties-for-sale" class="badge badge-number">5</span> عقارات معروضة للإيجار</span> 
+                <span><span id="properties-for-sale" class="badge badge-number">{{rent_count}}</span> عقارات معروضة للإيجار</span> 
                 <br>
-                <span><span id="properties-for-rent" class="badge badge-number">9</span> عقارات معروضة للبيع</span></p>
+                <span><span id="properties-for-rent" class="badge badge-number">{{sell_count}}</span> عقارات معروضة للبيع</span></p>
                 
               <div class="row">
                 <div class="col-10">
-                  <a href="#" class="btn btn-outline-success w-25 mt-2" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
-                  <a href="#" class="btn btn-outline-primary w-25 mt-2" target="_blank"><i class="fa-regular fa-envelope"></i> إيميل</a>
+                  <a href="https://wa.me/{{ Profile.phone_number }}" class="btn btn-outline-success w-25 mt-2" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+                  <a href="mailto: {{ Profile.user.email }}" class="btn btn-outline-primary w-25 mt-2" target="_blank"><i class="fa-regular fa-envelope"></i> إيميل</a>
 
                 </div>
                 <div class="col-2">
@@ -111,21 +150,31 @@
     <h1 class="section-title display-4 text-center">عقاراتي</h1>
 
     <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4 m-4">
-
+      
+      {% for property in properties %}
       <div class="col">
         <div class="card">
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
+          {% if property.images.all %}
+            <img src="{{ property.images.first.image.url }}" class="card-img-top" alt="Image of the property">
+          {% else %}
+            <div class="no-image">لا يوجد صور</div>
+          {% endif %}
           <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            <h3 class="card-title pb-2" style="font-weight: 500;">{{ property.get_type_display }} مدينة  {{ property.city }} {{ property.neighborhood }}</h5>
             <div class="row">
               <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">{{ property.price }} &#65020;</p>
                 <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
+                
+                
+                <span>{% widthratio property.length 1 property.width %} م<sup>2</sup></span> 
 
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-  
+                {% if property.number_of_bedrooms and property.number_of_bedrooms != 0 %}
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> {{ property.number_of_bedrooms }}</span>
+                {% endif %}
+                {% if property.number_of_bathrooms and property.number_of_bathrooms != 0 %}
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> {{ property.number_of_bathrooms }}</span>
+                 {% endif %}
                 </p>
               </div>
               <div class="col">
@@ -134,7 +183,7 @@
                   name=""
                   id=""
                   class="btn form-btn-dar"
-                  href="#"
+                  href="{% url 'property_information' pid=property.pid %}"
                   role="button"
                   style="font-weight: 500;"
                   >المزيد</a>
@@ -144,231 +193,15 @@
             
           </div>
           </div>
+          <p class="latInput" style="display: none;">{{ property.lat }}</p>
+      <p class="lngInput" style="display: none;">{{ property.lng }}</p>
+      <p class="idInput" style="display: none;">{{ property.pid }}</p>
       </div>
-      <div class="col">
-        <div class="card">
-          <img src="https://img.staticmb.com/mbcontent/images/crop/uploads/2022/5/modern-kerala-house-design_0_1200.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
+      
+          
+          {% endfor %}
 
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-  
-                </p>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a
-                  name=""
-                  id=""
-                  class="btn form-btn-dar"
-                  href="#"
-                  role="button"
-                  style="font-weight: 500;"
-                  >المزيد</a>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          </div>
-      </div>
-      <div class="col">
-        <div class="card">
-          <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-  
-                </p>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a
-                  name=""
-                  id=""
-                  class="btn form-btn-dar"
-                  href="#"
-                  role="button"
-                  style="font-weight: 500;"
-                  >المزيد</a>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          </div>
-      </div>
-      <div class="col">
-        <div class="card">
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-  
-                </p>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a
-                  name=""
-                  id=""
-                  class="btn form-btn-dar"
-                  href="#"
-                  role="button"
-                  style="font-weight: 500;"
-                  >المزيد</a>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          </div>
-      </div>
-      <div class="col">
-        <div class="card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwPKT6mvUoXrn3Z_Gk1QzHh4k7pbAsKZTso63KjQqIzQ&s" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-  
-                </p>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a
-                  name=""
-                  id=""
-                  class="btn form-btn-dar"
-                  href="#"
-                  role="button"
-                  style="font-weight: 500;"
-                  >المزيد</a>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          </div>
-      </div>
-      <div class="col">
-        <div class="card">
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-  
-                </p>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a
-                  name=""
-                  id=""
-                  class="btn form-btn-dar"
-                  href="#"
-                  role="button"
-                  style="font-weight: 500;"
-                  >المزيد</a>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          </div>
-      </div>
-      <div class="col">
-        <div class="card">
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-  
-                </p>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a
-                  name=""
-                  id=""
-                  class="btn form-btn-dar"
-                  href="#"
-                  role="button"
-                  style="font-weight: 500;"
-                  >المزيد</a>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          </div>
-      </div>
-      <div class="col">
-        <div class="card">
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-  
-                </p>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a
-                  name=""
-                  id=""
-                  class="btn form-btn-dar"
-                  href="#"
-                  role="button"
-                  style="font-weight: 500;"
-                  >المزيد</a>
+      
                 </div>
               </div>
             </div>
