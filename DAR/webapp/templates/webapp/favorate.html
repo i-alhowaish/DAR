@@ -18,139 +18,60 @@
     <h1 class="main-textt display-4 text-center">قائمة المفضلة</h1>
     <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4 m-4">
       
+      {% for favorite in favorites %}
       <div class="col">
         <div class="card position-relative">
           <!--Ibrahim: here is a button to remove property from favorate, you can change onclick to send to a server and refresh page-->
           <a href="#" class=""><i class="fa fa-times remove-favorite" onclick="removeFavorite(this)" title="إزالة العقار من المفضلة" data-bs-toggle="tooltip"></i></a>
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
+          {% if favorite.property.images.all %}
+            <img src="{{ favorite.property.images.first.image.url }}" class="card-img-top" alt="Image of the property">
+          {% else %}
+            <div class="no-image">لا يوجد صور</div>
+          {% endif %}
+      
+    
+          
           <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h3>
+            <h3 class="card-title pb-2" style="font-weight: 500;">{{ favorite.property.get_type_display }} مدينة  {{ favorite.property.city }} {{ favorite.property.neighborhood }}</h5>
             <div class="row">
               <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">{{ favorite.property.price }} &#65020;</p>
                 <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
+                
+                
+                <span>{% widthratio favorite.property.length 1 favorite.property.width %} م<sup>2</sup></span> 
+
+                {% if favorite.property.number_of_bedrooms and favorite.property.number_of_bedrooms != 0 %}
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> {{ favorite.property.number_of_bedrooms }}</span>
+                {% endif %}
+                {% if favorite.property.number_of_bathrooms and favorite.property.number_of_bathrooms != 0 %}
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> {{ favorite.property.number_of_bathrooms }}</span>
+                 {% endif %}
+                </p>
               </div>
               <div class="col">
                 <div class="d-flex flex-row-reverse">
-                  <a class="btn form-btn-dar" href="#" role="button" style="font-weight: 500;">المزيد</a>
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="{% url 'property_information' pid=favorite.property.pid %}"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
                 </div>
               </div>
             </div>
+            
           </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card position-relative">
-          <a href="#" class=""><i class="fa fa-times remove-favorite" onclick="removeFavorite(this)" title="إزالة العقار من المفضلة" data-bs-toggle="tooltip"></i></a>
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h3>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a class="btn form-btn-dar" href="#" role="button" style="font-weight: 500;">المزيد</a>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
+          <p class="latInput" style="display: none;">{{ favorite.property.lat }}</p>
+      <p class="lngInput" style="display: none;">{{ favorite.property.lng }}</p>
+      <p class="idInput" style="display: none;">{{ favorite.property.pid }}</p>
       </div>
-      <div class="col">
-        <div class="card position-relative">
-          <a href="#" class=""><i class="fa fa-times remove-favorite" onclick="removeFavorite(this)" title="إزالة العقار من المفضلة" data-bs-toggle="tooltip"></i></a>
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h3>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a class="btn form-btn-dar" href="#" role="button" style="font-weight: 500;">المزيد</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card position-relative">
-          <a href="#" class=""><i class="fa fa-times remove-favorite" onclick="removeFavorite(this)" title="إزالة العقار من المفضلة" data-bs-toggle="tooltip"></i></a>
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h3>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a class="btn form-btn-dar" href="#" role="button" style="font-weight: 500;">المزيد</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card position-relative">
-          <a href="#" class=""><i class="fa fa-times remove-favorite" onclick="removeFavorite(this)" title="إزالة العقار من المفضلة" data-bs-toggle="tooltip"></i></a>
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h3>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a class="btn form-btn-dar" href="#" role="button" style="font-weight: 500;">المزيد</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card position-relative">
-          <a href="#" class=""><i class="fa fa-times remove-favorite" onclick="removeFavorite(this)" title="إزالة العقار من المفضلة" data-bs-toggle="tooltip"></i></a>
-          <img src="https://media.istockphoto.com/id/1319269543/photo/new-homes-on-a-quiet-street-in-raleigh-nc.jpg?s=612x612&w=0&k=20&c=qaRMP-xgYqFAXR9aTpiG0dtkyqPhJiTAovvxyG1AxvM=" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h3>
-            <div class="row">
-              <div class="col">
-                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">5,000,000 &#65020;</p>
-                <p class="card-text h6" style="font-weight: 400;"></p>
-                <span>250 م<sup>2</sup></span> 
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> 5</span>
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> 4</span>
-              </div>
-              <div class="col">
-                <div class="d-flex flex-row-reverse">
-                  <a class="btn form-btn-dar" href="#" role="button" style="font-weight: 500;">المزيد</a>
+      
+          
+          {% endfor %}
                 </div>
               </div>
             </div>

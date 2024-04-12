@@ -45,6 +45,10 @@ from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, render
 from .models import Profile
 
+from django.shortcuts import render, get_object_or_404
+from .models import Profile, Favorite
+
+
 def jdata(request):
     file_path = 'locationsJSON/location1.json'
     with open(file_path, 'r', encoding="utf-8") as json_file:
@@ -488,8 +492,15 @@ def profile(request, username):
     sell_count = Property.objects.filter(uid=profile,sell_or_rent= "sell").count()
     return render(request, 'webapp/profile.html', {'user': user, 'Profile': Profile, 'properties': properties,'rent_count': rent_count,'sell_count': sell_count,})
 # Ibrahim: Just for testing you can change abo abo omha 
-def favorate(request):
-     return render(request, 'webapp/favorate.html')   
+# def favorate(request):
+#      return render(request, 'webapp/favorate.html')   
+
+def favorites(request, uid):
+    profile = get_object_or_404(Profile, pk=uid)
+    favorites = Favorite.objects.filter(uid=profile)
+    favorite_properties = profile.favorites.all()
+    
+    return render(request, 'webapp/favorate.html', {'favorites': favorite_properties, 'profile': profile})
 
 # Ibrahim: Just for testing you can change abo abo omha 
 def dashboard(request):
