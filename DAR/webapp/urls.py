@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 
+from django.urls import path
+from .views import add_to_favorite, remove_from_favorite
+
 urlpatterns = [
   path('', views.index, name=""),
   path('login', views.login, name="login"),
@@ -19,4 +22,6 @@ urlpatterns = [
   # path('favorate', views.favorate, name='favorate'),  # just for testing(if the page work or not) you can change it
   path('favorite/<int:uid>/', views.favorites, name='favorite'),
   path('dashboard', views.dashboard, name='dashboard'),  # just for testing(if the page work or not) you can change it
+  path('remove-from-favorite/<int:pid>/', views.remove_from_favorite, name='remove-from-favorite'),
+
 ]

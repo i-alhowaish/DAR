@@ -48,6 +48,9 @@ from .models import Profile
 from django.shortcuts import render, get_object_or_404
 from .models import Profile, Favorite
 
+from django.shortcuts import redirect, get_object_or_404
+from .models import Profile, Property, Favorite
+
 
 def jdata(request):
     file_path = 'locationsJSON/location1.json'
@@ -505,3 +508,13 @@ def favorites(request, uid):
 # Ibrahim: Just for testing you can change abo abo omha 
 def dashboard(request):
      return render(request, 'webapp/dashboard.html')   
+
+
+def remove_from_favorite(request, pid):
+    profile = Profile.objects.get(user=request.user)
+    property = get_object_or_404(Property, pid=pid)
+    favorite = Favorite.objects.filter(uid=profile, property=property)
+    if favorite.exists():
+        favorite.delete()
+    # return redirect(favorites, uid )
+    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))

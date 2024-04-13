@@ -22,7 +22,7 @@
       <div class="col">
         <div class="card position-relative">
           <!--Ibrahim: here is a button to remove property from favorate, you can change onclick to send to a server and refresh page-->
-          <a href="#" class=""><i class="fa fa-times remove-favorite" onclick="removeFavorite(this)" title="إزالة العقار من المفضلة" data-bs-toggle="tooltip"></i></a>
+          <a href="{% url 'remove-from-favorite' pid=favorite.property.pid %}" class=""><i class="fa fa-times remove-favorite" onclick="removeFavorite(this)" title="إزالة العقار من المفضلة" data-bs-toggle="tooltip"></i></a>
           {% if favorite.property.images.all %}
             <img src="{{ favorite.property.images.first.image.url }}" class="card-img-top" alt="Image of the property">
           {% else %}
