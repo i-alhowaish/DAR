@@ -28,8 +28,8 @@
 <div id="page-container" class="main-container" style="margin-bottom: 5em;">
   <section class="register-section">
     <div class="center-container">
-      <div class="form-container" style="width: 50em;">
-        <h1 class="page-title">معلومات العقار</h1>
+      <div class="" style="width: 85%;">
+        <h1 class="fw-bold mb-4">معلومات العقار</h1>
 
         
        
@@ -85,7 +85,7 @@
 
         <div class="row">
           <div class="property-owner-section col">
-            <h5 class="page-sub-title">المعلن</h5>
+            <h3 class="page-sub-title">المعلن</h3>
             <div class="property-owner">
               {% if p.userimage %}
               <img class="logo" src="{{ p.userimage.url }}" alt="">
@@ -104,9 +104,9 @@
   
           </div>
           <div class="col">
-            <h5 class="page-sub-title">السعر</h5>
+            <h3 class="page-sub-title">السعر</h3>
             <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-              <h5 class="" style="padding-bottom: 50px; font-weight: 500;"><span id="property-price">{{ property.price }}</span> <span style="">&#xFDFC;	</span></h5>
+              <h5 class="" style="padding-bottom: 50px; font-weight: 500;"><span id="property-price">{{ property.price }}</span> <span style="color: green;">&#xFDFC;	</span></h5>
             </div>
           </div>
         </div>
@@ -145,8 +145,8 @@
       </div>
 
 
-        <div class="property-information">
-          <h5 class="page-sub-title">وصف العقار</h5>
+        <div class="property-information mt-5">
+          <h3 class="page-sub-title">وصف العقار</h3>
           <p class="p-description">
             {{ property.description }}
             <!-- (شقه بحوش خاص ومدخل سياره خاص )VIP
@@ -214,16 +214,16 @@
 
         </div>
 
-        <div class="property-location">
-          <h5 class="page-sub-title pb-2">الموقع</h5>
+        <div class="property-location mt-5">
+          <h3 class="page-sub-title pb-2">الموقع</h3>
           <div id="map"></div>
           <p hidden id="latInput">{{ property.lat }}</p>
           <p hidden id="lngInput">{{ property.lng }}</p>
 
         </div>
 
-        <div class="property-image360 image-container">
-          <h5 class="page-sub-title pb-2">الصور البانورامية</h5>
+        <div class="property-image360 image-container mt-5">
+          <h3 class="page-sub-title pb-2">الصور البانورامية</h3>
           {% for image360 in images360 %}
           <div class="image360-container"
             data-panorama-image="{{ image360.image360.url }}">

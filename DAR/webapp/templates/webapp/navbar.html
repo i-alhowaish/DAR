@@ -19,7 +19,7 @@
 
            <li><a href="{% url 'search'%}" class="nav__link">البحث</a></li>
 
-           <li><a href="#" class="nav__link">المؤشرات</a></li>
+           <li><a href="{% url 'dashboard'%}" class="nav__link">المؤشرات</a></li>
 
            <!-- <li><a href="#" class="nav__link">تواصل معنا</a></li> -->
 
@@ -46,7 +46,7 @@
 
                  <li>
                     <a href="{% url 'add_property'%}" class="dropdown__link">
-                       <i class="ri-lock-line"></i> إضافة عقار
+                     <i class="fa-solid fa-plus"></i> إضافة عقار
                     </a>
                  </li>
                  <li>

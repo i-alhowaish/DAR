@@ -13,12 +13,12 @@
 <div id="page-container" class="main-container" style="padding-bottom: 5em;">
   <section class="register-section">
   <div class="center-container">
-    <div class="form-container">
+    <div class="form-container w-50" >
 
       <form   id="form" class="form-dar" action="" method="post" autocomplete="off" enctype="multipart/form-data">
            {% csrf_token %}
         <div class="container">
-          <h1>التعديل على ملفك الشخصي</h1>
+          <h1 class="text-center">التعديل على الملف الشخصي</h1>
           <div class="avatar-upload">
               <div class="avatar-edit">
                   <input type='file' name ="image" id="imageUpload" accept=".png, .jpg, .jpeg" />
@@ -28,7 +28,7 @@
                   <div id="imagePreview" style="background-image: url({{ image }});">
                   
                   </div>
-                  <button type="button" onclick="removeimage()"></button>
+                  <button type="button" class="btn mt-2" onclick="removeimage()" style="margin-right: 4.25em; color: red;"><i class="fa-solid fa-trash"></i></button>
               </div>
           </div>
       </div>
@@ -36,14 +36,22 @@
       <!-- <input type="color" class="form-control form-control-color w-100" id="ColorInput" value="#563d7c" title="Choose your color"> -->
       {% render_field user_form.color_of_account class+="form-control form-control-color w-100" id="ColorInput" value="#563d7c" title="Choose your color" %}
 
+      <div class="row">
+        <div class="col">
+          <label>إسمك الأول</label>
+          <!-- <input type="text" class="input-field-dar"> -->
+          {% render_field user_form.first_name class+="input-field-dar" %}
+        </div>
+        <div class="col">
+          <label>إسم العائلة</label>
+          <!-- <input type="text" class="input-field-dar"> -->
+          {% render_field user_form.last_name class+="input-field-dar" %}
+        </div>
+      </div>
 
-        <label>إسمك الأول</label>
-        <!-- <input type="text" class="input-field-dar"> -->
-        {% render_field user_form.first_name class+="input-field-dar" %}
-        <label>إسمك العائلة</label>
-        <!-- <input type="text" class="input-field-dar"> -->
-        {% render_field user_form.last_name class+="input-field-dar" %}
-        <label>إسمك المستخدم</label>
+
+
+        <label>إسم المستخدم</label>
         <!-- <input type="text" class="input-field-dar"> -->
         {% render_field user_form.username class+="input-field-dar" %}
         <label>رقم الجوال</label>

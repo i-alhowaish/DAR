@@ -3,7 +3,7 @@
 .slide-content, .slide-content-360 {
   margin: 0;
   padding: 0;
-  height: 30em;
+  height: 40em;
   width: 100%;
   overflow-x: hidden;
 }
@@ -37,7 +37,7 @@
 .slide-content img, .slide-content-360 img{
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .arrow, .arrow-360 {

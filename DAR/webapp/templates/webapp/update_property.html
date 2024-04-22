@@ -103,18 +103,39 @@
           
             </div>
   
-  
-              <div class="form-group mb-3">
-                <label for="typeSelect">نوع العقار</label>
-                <!-- <select class="form-control" id="typeSelect" name="type">
-                  <option value="villa">فلة</option>
-                  <option value="apartment">شقة</option>
-                  <option value="floor">دور</option>
-                  <option value="land">أرض</option>
-                </select> -->
-                {% render_field property_form.type class+="form-control" id="typeSelect" name="type" %}
 
+            <div class="row">
+
+              <div class="col">
+  
+                <div class="form-group mb-3">
+                  <label for="typeSelect">نوع العقار</label>
+                  <!-- <select class="form-control" id="typeSelect" name="type">
+                    <option value="villa">فلة</option>
+                    <option value="apartment">شقة</option>
+                    <option value="floor">دور</option>
+                    <option value="land">أرض</option>
+                  </select> -->
+                  {% render_field property_form.type class+="form-control" id="typeSelect" name="type" %}
+  
+                </div>
               </div>
+              <div class="col">
+                <div class="form-group mb-3">
+                  <label for="sellOrRent">نوع العرض</label>
+                  <!-- <select class="form-control" id="typeSelect" name="type">
+                    <option value="villa">فلة</option>
+                    <option value="apartment">شقة</option>
+                    <option value="floor">دور</option>
+                    <option value="land">أرض</option>
+                  </select> -->
+                  {% render_field property_form.sell_or_rent class+="form-control" id="sellOrRent" name="type" %}
+  
+                </div>
+              </div>
+
+            </div>
+
   
               <div class="form-group mb-3">
                 <label for="priceInput mb-2">السعر</label>
@@ -122,52 +143,65 @@
                 {% render_field property_form.price class+="form-control" step="0.1" id="priceInput" name="price" min="0"%}
 
               </div>
-              <div class="form-group mb-3">
-                <label for="lengthInput mb-2">الطول (م)</label>
-                <!-- <input type="number" step="0.01" class="form-control" id="lengthInput" name="length"> -->
-                {% render_field property_form.length step="0.1" class+="form-control" id="lengthInput" name="length" min="1"%}
+              <div class="row">
+                <div class="col">
+                  <div class="form-group mb-3">
+                    <label for="lengthInput mb-2">الطول (م)</label>
+                    <!-- <input type="number" step="0.01" class="form-control" id="lengthInput" name="length"> -->
+                    {% render_field property_form.length step="0.1" class+="form-control" id="lengthInput" name="length" min="1"%}
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group mb-3">
+                    <label for="widthInput mb-2">العرض (م)</label>
+                    <!-- <input type="number" step="0.01" class="form-control" id="widthInput" name="width"> -->
+                    {% render_field property_form.width step="0.1" class+="form-control" id="widthInput" name="length" min="1"%}
+    
+                  </div>
+                </div>
               </div>
   
-              <div class="form-group mb-3">
-                <label for="widthInput mb-2">العرض (م)</label>
-                <!-- <input type="number" step="0.01" class="form-control" id="widthInput" name="width"> -->
-                {% render_field property_form.width step="0.1" class+="form-control" id="widthInput" name="length" min="1"%}
+  
 
-              </div>
               
               <!-- <div class="form-group mb-3">
                 <label for="totalInput mb-2">المساحة (م&#178;)</label>
                 <input type="number" step="0.01" class="form-control" id="totalInput" name="total">
               </div> -->
-  
-              <div class="form-group mb-3">
-                <label for="bedroomInput mb-2">عدد الغرف</label>
-                <!-- <input type="number" class="form-control" id="bedroomInput" name="bedroom"> -->
-                {% render_field property_form.number_of_rooms class+="form-control" id="bedroomInput" name="bedroom" min="0"%}
+              
+              <div class="row">
+                <div class="col">
+                  <div class="form-group mb-3">
+                    <label for="bedroomInput mb-2">عدد الغرف</label>
+                    <!-- <input type="number" class="form-control" id="bedroomInput" name="bedroom"> -->
+                    {% render_field property_form.number_of_rooms class+="form-control" id="bedroomInput" name="bedroom" min="0"%}
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group mb-3">
+                    <label for="bathroomsInput mb-2">عدد دورات المياة</label>
+                    <!-- <input type="number" class="form-control" id="bathroomsInput" name="bathrooms"> -->
+                    {% render_field property_form.number_of_bedrooms class+="form-control" id="bathroomsInput" name="bathrooms" min="0"%}
+                  </div>
+                </div>
               </div>
-  
-              <div class="form-group mb-3">
-                <label for="bathroomsInput mb-2">عدد دورات المياة</label>
-                <!-- <input type="number" class="form-control" id="bathroomsInput" name="bathrooms"> -->
-                {% render_field property_form.number_of_bedrooms class+="form-control" id="bathroomsInput" name="bathrooms" min="0"%}
-              </div>
-  
-  
-              <div class="checkbox mb-3">
-                <!-- <input type="checkbox" id="furnishedCheckbox" name="furnished"> -->
-                {% render_field property_form.furnished id="furnishedCheckbox" name="furnished" %}
-                <label for="furnishedCheckbox">مؤثثة</label>
-                
-              </div>
-  
-              <div class="form-group mb-3">
-                <label for="regionSelect mb-2">المنطقة</label>
-                <!-- <select class="form-control" id="regionSelect" name="region">
-                </select> -->
-                {% render_field property_form.region class+="form-control" id="regionSelect" name="region" %}
 
-              </div>
   
+
+  
+
+              
+              <div class="row">
+                <div class="col">
+                  <div class="form-group mb-3">
+                    <label for="regionSelect mb-2">المنطقة</label>
+                    <!-- <select class="form-control" id="regionSelect" name="region">
+                    </select> -->
+                    {% render_field property_form.region class+="form-control" id="regionSelect" name="region" %}
+    
+                  </div>
+                </div>
+                <div class="col">
               <!-- Cities -->
               <div class="form-group mb-3">
                 <label for="citySelect mb-2">المدينة</label>
@@ -182,7 +216,12 @@
                 
 
               </div>
+                </div>
+              </div>
+
   
+              <div class="row">
+                <div class="col">
               <!-- NEIGHBORHOOD -->
               <div class="form-group mb-3">
                 <label for="neighborhoodSelect mb-2">الحي</label>
@@ -194,13 +233,32 @@
                
 
               </div>
-              <div class="form-group mb-3">
-                <label for="neighborhoodSelect mb-2">الشارع</label>
-                <!-- <input type="text" class="form-control" id="streetInput" name="street"> -->
-                {% render_field property_form.street class+="form-control" id="streetInput" name="street" %}
+                </div>
+                <div class="col">
 
-              </div>              
-  
+                  <div class="form-group mb-3">
+                    <label for="neighborhoodSelect mb-2">الشارع</label>
+                    <!-- <input type="text" class="form-control" id="streetInput" name="street"> -->
+                    {% render_field property_form.street class+="form-control" id="streetInput" name="street" %}
+    
+                  </div>              
+      
+                </div>
+              </div>
+                <!-- NUmber of Sides -->
+                <div class="form-group">
+                  <label for="sidesInput">عدد الواجهات</label>
+                  <!-- <input type="number" class="form-control" id="sidesInput" name="sides" min="1" max="4"> -->
+                  {% render_field property_form.number_of_sides type="number" class+="form-control" id="sidesInput" name="sides" min="1" max="4" %}
+                </div>
+
+                                
+              <div class="checkbox mb-3">
+                <!-- <input type="checkbox" id="furnishedCheckbox" name="furnished"> -->
+                {% render_field property_form.furnished id="furnishedCheckbox" name="furnished" %}
+                <label for="furnishedCheckbox">مؤثثة</label>
+                
+              </div>
               <!-- Google Map Link -->
               <div class="form-group mb-3">
                 <label for="mapLinkInput mb-2">حدد موقع العقار</label>
@@ -211,13 +269,9 @@
                   <div id="map"></div>
                 </div>
               </div>
+
   
-              <!-- NUmber of Sides -->
-              <div class="form-group">
-                <label for="sidesInput">عدد الواجهات</label>
-                <!-- <input type="number" class="form-control" id="sidesInput" name="sides" min="1" max="4"> -->
-                {% render_field property_form.number_of_sides type="number" class+="form-control" id="sidesInput" name="sides" min="1" max="4" %}
-              </div>
+
               
   
               <!-- Sell or Rent -->
@@ -231,17 +285,7 @@
                   <label class="form-check-label" for="rentOption">اجار</label>
                 </div>
               </div> -->
-              <div class="form-group mb-3">
-                <label for="sellOrRent">نوع العرض</label>
-                <!-- <select class="form-control" id="typeSelect" name="type">
-                  <option value="villa">فلة</option>
-                  <option value="apartment">شقة</option>
-                  <option value="floor">دور</option>
-                  <option value="land">أرض</option>
-                </select> -->
-                {% render_field property_form.sell_or_rent class+="form-control" id="sellOrRent" name="type" %}
 
-              </div>
               <div class="form-group mb-3">
                 <label for="widthInput mb-2">عمر العقار (بالسنوات)</label>
                 <!-- <input type="number"  class="form-control" id="widthInput" name="width"> -->
@@ -250,8 +294,17 @@
               </div>
               
               
-  
-              <button class="form-btn-dar">إضافة</button>
+              <div class="row">
+                <div class="col">
+                  <button class="form-btn-dar w-100">إضافة</button>
+
+                </div>
+                <div class="col">
+                  <button class="form-btn-dar w-100" style="background-color: red;">حذف العقار</button>
+
+                </div>
+              </div>
+
             </form>
           </div>
         </div>

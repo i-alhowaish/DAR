@@ -4,7 +4,7 @@
 .image360-container {
   /* flex: 1; */
   background-color: white;
-  height: 25em;
+  height: 40em;
   width: 100%;
 }
 .pano-img{
@@ -47,4 +47,5 @@
 .image360-container *{
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }

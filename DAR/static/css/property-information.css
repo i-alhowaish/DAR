@@ -6,13 +6,13 @@
   margin-bottom: 50px;
 }
 .page-sub-title{
-  font-size: 18;
+  font-size: 32;
   font-weight: 500;
 }
 
 .logo{
-  width: 75px;
-  height: 75px;
+  width: 125px;
+  height: 125px;
 }
 .center-element {
   display: flex;
@@ -32,7 +32,7 @@
 }
 .property-header h3, .owner-name {
   width: auto;
-  font-size: 16px;
+  font-size: 24px;
   padding: 0;
   padding-top: 1  10px;
   margin: 0;
@@ -58,15 +58,15 @@
 
 
 .p-description{
-  font-size: 12px;
-  background-color: rgb(245, 245, 245);
+  font-size: 18px;
+  background-color: rgb(255, 255, 255);
   padding: 8px;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 
 table *{
-  font-size: 12px;
+  font-size: 18px;
 }
 
 .table-headers {
@@ -83,4 +83,4 @@ table *{
 
 
 
-#map { height: 250px; }
+#map { height: 40em; }
