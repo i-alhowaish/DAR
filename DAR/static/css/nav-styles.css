@@ -271,6 +271,7 @@
     position: absolute;
     left: 0;
     top: 6rem;
+    right: 1rem;
     opacity: 0;
     pointer-events: none;
     transition: opacity .3s, top .3s;
@@ -278,11 +279,11 @@
 
   .dropdown__link, 
   .dropdown__sublink {
-    padding-inline: 1rem 3.5rem;
+    padding-inline: 1rem 10.5rem;
   }
 
   .dropdown__subitem .dropdown__link {
-    padding-inline: 1rem;
+    padding-inline: 3rem;
   }
 
   .dropdown__submenu {

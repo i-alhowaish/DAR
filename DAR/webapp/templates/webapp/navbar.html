@@ -44,19 +44,36 @@
                   </a>                          
                </li>
 
-                 <li>
-                    <a href="{% url 'add_property'%}" class="dropdown__link">
-                     <i class="fa-solid fa-plus"></i> إضافة عقار
-                    </a>
-                 </li>
-                 <li>
-                  <a href="{% url ''%}" class="dropdown__link">
-                     <i class="fa-regular fa-heart"></i> المفضلة
-                  </a>
-               </li>
 
               </ul>
-              <li>
+            </li>
+            <li class="dropdown__item">
+               <div class="nav__link">
+                  عقاراتي <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+               </div>
+ 
+               <ul class="dropdown__menu">
+ 
+                  <li>
+                     <a href="{% url 'add_property'%}" class="dropdown__link" style="white-space: nowrap;">
+                      <i class="fa-solid fa-plus"></i> إضافة عقار
+                     </a>
+                  </li>
+                  <li>
+                     <a href="{% url 'add_property'%}" class="dropdown__link" style="white-space: nowrap;">
+                        <i class="fa-solid fa-pen-to-square"></i> إعدادات العقار
+                     </a>
+                  </li>
+                  <li>
+                   <a href="{% url '' %}" class="dropdown__link">
+                      <i class="fa-regular fa-heart"></i> المفضلة
+                   </a>
+                </li>
+ 
+               </ul>
+             </li>
+
+            <li>
                <a href="{% url 'userlogout' %}" class="nav__link">
                   تسجيل خروج
                </a>
@@ -69,7 +86,7 @@
 
               {% endif %}
 
-           </li>
+           
 
         </ul>
      </div>

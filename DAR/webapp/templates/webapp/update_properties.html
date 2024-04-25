@@ -1,0 +1,94 @@
+{% extends 'webapp/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/favorate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
+
+
+
+{% endblock %}
+{% block content %}
+
+<div id="page-container" style="margin-top: 120px;">
+  <section class="favorite-properties mt-5">
+    <h1 class="main-textt display-4 text-center">التعديل على عقاراتي</h1>
+    <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4 m-4">
+      
+      {% for property in properties %}
+      <div class="col">
+        <div class="card position-relative">
+          <!--Ibrahim: here is a button to go to the edit page-->
+          <a href="" class=""><i class="fa-solid fa-pen-to-square update-button" title="التعديل على هذا العقار" data-bs-toggle="tooltip"></i></a>
+          {% if property.images.all %}
+            <img src="{{ property.images.first.image.url }}" class="card-img-top" alt="Image of the property">
+          {% else %}
+            <div class="no-image">لا يوجد صور</div>
+          {% endif %}
+      
+    
+          
+          <div class="card-body">
+            <h3 class="card-title pb-2" style="font-weight: 500;">{{ property.get_type_display }} مدينة  {{ property.city }} {{ property.neighborhood }}</h5>
+            <div class="row">
+              <div class="col">
+                <p class="card-text h4 text-success priceInput" style="font-weight: 500;">{{ property.price }} &#65020;</p>
+                <p class="card-text h6" style="font-weight: 400;"></p>
+                
+                
+                <span>{% widthratio property.length 1 property.width %} م<sup>2</sup></span> 
+
+                {% if property.number_of_bedrooms and property.number_of_bedrooms != 0 %}
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> {{ property.number_of_bedrooms }}</span>
+                {% endif %}
+                {% if property.number_of_bathrooms and property.number_of_bathrooms != 0 %}
+                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> {{ property.number_of_bathrooms }}</span>
+                 {% endif %}
+                </p>
+              </div>
+              <div class="col">
+                <div class="d-flex flex-row-reverse">
+                  <a
+                  name=""
+                  id=""
+                  class="btn form-btn-dar"
+                  href="{% url 'property_information' pid=property.pid %}"
+                  role="button"
+                  style="font-weight: 500;"
+                  >المزيد</a>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+          <p class="latInput" style="display: none;">{{ property.lat }}</p>
+      <p class="lngInput" style="display: none;">{{ property.lng }}</p>
+      <p class="idInput" style="display: none;">{{ property.pid }}</p>
+      </div>
+      
+          
+          {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   
+    </div>
+  </section>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+
+<script src="{% static 'js/favorate.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% endblock %}

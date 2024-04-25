@@ -49,3 +49,27 @@
   white-space: nowrap; /* Prevent the text from wrapping */
   font-size: 1.4em; /* Adjust the font size as needed */
 }
+
+
+.update-button {
+  cursor: pointer;
+  position: absolute;
+  top: 12px; /* Adjust this value to move the button up or down */
+  right: 12px; /* Adjust this value to move the button left or right */
+  color: black;
+  background-color: orange; 
+  width: 26px; /* Size of the button */
+  height: 26px; /* Size of the button */
+  border-radius: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black; /* White border */
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); /* Soft shadow for depth */
+  z-index: 2; /* Ensure it's above the image */
+}
+
+.update-button:before {
+  font-size: 16px; /* Size of the "X" */
+  line-height: 1;
+}
