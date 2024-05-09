@@ -140,7 +140,7 @@
               <div class="form-group mb-3">
                 <label for="priceInput mb-2">السعر</label>
                 <!-- <input type="number" step="0.01" class="form-control" id="priceInput" name="price"> -->
-                {% render_field property_form.price class+="form-control" step="0.1" id="priceInput" name="price" min="0"%}
+                {% render_field property_form.price class+="form-control" step="1" id="priceInput" name="price" min="0"%}
 
               </div>
               <div class="row">
@@ -292,18 +292,10 @@
                 {% render_field property_form.width step="1" class+="form-control" id="yearBuilt" name="yearBuilt" min="0" %}
 
               </div>
-              
-              
-              <div class="row">
-                <div class="col">
-                  <button class="form-btn-dar w-100">إضافة</button>
+              <button class="form-btn-dar w-100">تحديث</button>
+              <a class="form-btn-dar w-100" style="background-color: red; text-align: center;" href="{% url 'delete_property' pid=propertyid %}">حذف العقار</a>
 
-                </div>
-                <div class="col">
-                  <button class="form-btn-dar w-100" style="background-color: red;">حذف العقار</button>
-
-                </div>
-              </div>
+             
 
             </form>
           </div>

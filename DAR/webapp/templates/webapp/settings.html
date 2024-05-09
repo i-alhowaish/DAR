@@ -56,7 +56,7 @@
         {% render_field user_form.username class+="input-field-dar" %}
         <label>رقم الجوال</label>
         <!-- <input type="number" class="input-field-dar"> -->
-        {% render_field user_form.phone_number class+="input-field-dar" %}
+        {% render_field user_form.phone_number class+="input-field-dar" id="ph" %}
         
         <label>الإيميل</label>
         <!-- <input type="email" class="input-field-dar"> -->
@@ -120,4 +120,35 @@ crossorigin="anonymous"
 
   }
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  
+  const phoneNumberInput = document.getElementById('ph');
+  
+  form.addEventListener('submit', function(event) {
+      // Validate Phone Number
+      const phoneNumber = phoneNumberInput.value;
+      const phoneRegex = /^05\d{8}$/; // Starts with '05' and followed by exactly 8 digits
+
+      if (!phoneRegex.test(phoneNumber)) {
+          // alert('رقم الجوال يجب أن يبدأ بـ05 ويتكون من 10 أرقام.');
+          Swal.fire({
+            icon: "error",
+            title: "خطأ",
+            text:'رقم الجوال يجب أن يبدأ بـ05 ويتكون من 10 أرقام.',
+          });
+          this.value = '';
+        
+          event.preventDefault(); // Stop form submission
+          phoneNumberInput.focus(); // Focus on phone number input for correction
+          return false;
+      }
+
+      
+  });
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

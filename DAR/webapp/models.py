@@ -72,7 +72,7 @@ class Profile(models.Model):
 
 class Property(models.Model):
     pid = models.AutoField(primary_key=True)
-    uid = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    uid = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True ,related_name='properties')
     description = models.TextField(blank=True, null=True)
     Type_Choices=[
         ('Apartment','شقة'),

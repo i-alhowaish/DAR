@@ -2,7 +2,7 @@
 <header class="header">
   <nav class="nav-dar nav-container">
      <div class="nav__data">
-        <a href="#" class="nav__logo">
+        <a href="" class="nav__logo">
          <img src="{% static 'images/no-background/9.png' %}" alt=""> 
         </a>
         
@@ -39,7 +39,7 @@
                  </li>
 
                  <li>
-                  <a href="{% url ''%}" class="dropdown__link">
+                  <a href="{% url 'profile' username=user.username %}" class="dropdown__link">
                      <i class="fa-solid fa-address-card"></i> صفحتي
                   </a>                          
                </li>
@@ -60,12 +60,12 @@
                      </a>
                   </li>
                   <li>
-                     <a href="{% url 'add_property'%}" class="dropdown__link" style="white-space: nowrap;">
+                     <a href="{% url 'my_properties'%}" class="dropdown__link" style="white-space: nowrap;">
                         <i class="fa-solid fa-pen-to-square"></i> إعدادات العقار
                      </a>
                   </li>
                   <li>
-                   <a href="{% url '' %}" class="dropdown__link">
+                   <a href="{% url 'favorite' %}" class="dropdown__link">
                       <i class="fa-regular fa-heart"></i> المفضلة
                    </a>
                 </li>

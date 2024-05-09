@@ -95,7 +95,7 @@
               <div class="userinfo">
                 <h3 class="owner-name">{{ p.user.username }}</h3>
                 <div class="socials">
-                  <a href="https://wa.me/{{ p.phone_number }}"><i class="fa-brands fa-square-whatsapp"></i></a>
+                  <a href="https://wa.me/+966{{ ph }}"><i class="fa-brands fa-square-whatsapp"></i></a>
                   <a href="mailto: {{ p.user.email }}"><i class="fa-solid fa-envelope"></i></a>
                 </div>
               </div>
@@ -253,6 +253,12 @@
 
 
 {% block script %}
+<script>
+function createWhatsAppLink(phone) {
+  var baseUrl = "http://wa.me/+966";
+  var message = encodeURIComponent("السلام عليكم استفسار عن اعلانك التالي " + window.location.href);
+  return baseUrl + phone + "?text=" + message;
+}</script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     let p_price = document.querySelector('#property-price');

@@ -20,8 +20,10 @@ urlpatterns = [
   # path('profile', views.profile, name='profile'),# just for testing(if the page work or not) you can change it
   path('profile/<str:username>/', views.profile, name='profile'),
   # path('favorate', views.favorate, name='favorate'),  # just for testing(if the page work or not) you can change it
-  path('favorite/<int:uid>/', views.favorites, name='favorite'),
+  path('favorite/', views.favorites, name='favorite'),
   path('dashboard', views.dashboard, name='dashboard'),  # just for testing(if the page work or not) you can change it
   path('remove-from-favorite/<int:pid>/', views.remove_from_favorite, name='remove-from-favorite'),
+  path('delete_property/<int:pid>', views.delete_property, name='delete_property'),
+  path('my_properties/', views.my_properties, name='my_properties')
 
 ]

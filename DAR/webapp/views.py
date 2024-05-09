@@ -120,26 +120,7 @@ def register(request):
 
 
 
-       # messages.success(request, form.errors.as_data())
-    # form=RegisterForm()
-    # if request.method == "POST":
-    #     form = RegisterForm(request, data=request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         username = request.POST.get('username')
-    #         password = request.POST.get('password')
-    #         fname = request.POST.get('fname')
-    #         lname = request.POST.get('lname')
-    #         email = request.POST.get('email')
-    #         phone_number = request.POST.get('phone_number')
-    #         if not User.objects.filter(username=username).exists():
-    #             u = User.objects.create_user(username=username,password=password,first_name=fname , last_name=lname,email=email)
-    #             nu = user(us=u,phone_number=phone_number)
-    #             nu.save()
-    #             login(request,nu)
-
-            #else in this place
-        # else in this place
+    
 
              
 
@@ -177,7 +158,7 @@ def add_property(request):
             for image_file in images360_files:
                 PropertyImages360.objects.create(property360=new_property, image360=image_file)
             
-            return redirect('some_view')  # Redirect to a new URL after successful creation
+            return redirect('property_information',new_property.pid)  # Redirect to a new URL after successful creation
     else:
         property_form = PropertyForm()
         images_form = PropertyImagesForm()  # This form might not be directly used in the template but initialized here if needed
@@ -190,6 +171,12 @@ def add_property(request):
 @login_required(login_url='login')
 def update_property(request, property_id):
     property_instance = get_object_or_404(Property, pk=property_id)
+    if not property_instance.uid == request.user.profile:
+        # If it belongs to the user, delete it
+        return redirect('')
+
+
+    
     
     if request.method == 'POST':
         property_form = updatePropertyForm(request.POST, request.FILES, instance=property_instance)
@@ -213,7 +200,7 @@ def update_property(request, property_id):
             for image_file in images360_files:
                 PropertyImages360.objects.create(property360=updated_property, image360=image_file)
             
-            return redirect('property_detail', pk=updated_property.pk)  # Redirect to the property detail page
+            return redirect('property_information',property_id)  # Redirect to the property detail page
     else:
         property_form = updatePropertyForm(instance=property_instance)
         # Loading existing images is not directly handled here, assuming it's managed through the template or another mechanism
@@ -224,7 +211,8 @@ def update_property(request, property_id):
         'property_form': property_form,
         'property_id': property_id,
         'existing_images':existing_images,
-        'existing_images360':existing_images360
+        'existing_images360':existing_images360,
+        'propertyid':property_id
 
         # Context for existing images can be added if needed for display or management
     }
@@ -232,86 +220,21 @@ def update_property(request, property_id):
     return render(request, 'webapp/update_property.html', context)
 
 
-# @login_required(login_url='login')  # Use the name of your login URL
-# def update_property(request, property_id):
-#     property_instance = get_object_or_404(Property, pk=property_id)
-    
-#     if request.method == 'POST':
-#         property_form = PropertyForm(request.POST, instance=property_instance)
-#         if property_form.is_valid():
-#             updated_property = property_form.save()
-            
-#             images_files = request.FILES.getlist('images')
-#             PropertyImages.objects.filter(property=updated_property).delete()  # Optionally delete existing images to replace them
-#             for image_file in images_files:
-#                 PropertyImages.objects.create(property=updated_property, image=image_file)
-            
-#             images360_files = request.FILES.getlist('images360')
-#             PropertyImages360.objects.filter(property360=updated_property).delete()  # Optionally delete existing 360 images to replace them
-#             for image_file in images360_files:
-#                 PropertyImages360.objects.create(property360=updated_property, image360=image_file)
-            
-#             return redirect('some_view')  # Redirect to a new URL after successful update
-#     else:
-#         property_form = PropertyForm(instance=property_instance)
-#         # images_form and images360_form might not be directly used if you're handling file inputs separately
-#         images_form = PropertyImagesForm()  # Initialize if needed for template
-#         images360_form = PropertyImages360Form()  # Initialize if needed for template
-
-#     # Fetch existing images if you want to display them in the template
-#     existing_images = PropertyImages.objects.filter(property=property_instance)
-#     existing_images360 = PropertyImages360.objects.filter(property360=property_instance)
-
-#     context = {
-#         'property_form': property_form,
-#         'images_form': images_form,
-#         'images360_form': images360_form,
-#         'existing_images': existing_images,
-#         'existing_images360': existing_images360,
-#         'property_id': property_id  # Pass property ID to template for use in form action URL
-#     }
-    
-#     return render(request, 'webapp/update_property.html', context)   
+@login_required(login_url='login')
+def my_properties(request):
+    profile = Profile.objects.get(user=request.user)
+    properties = profile.properties.all()
+    return render(request, 'webapp/my_properties.html',{"properties":properties,"profile":profile})
 
 
 
 
-# @login_required(login_url='login')
-# def settings(request):
-#     if request.method == 'POST':
-#         form = UserSettingsForm(request.POST, instance=request.user, user=request.user)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Your settings have been updated.')
-#             return redirect('settings_url_name')  # Adjust as needed
-#     else:
-#         form = UserSettingsForm(instance=request.user, user=request.user)
-#     return render(request, 'webapp/settings.html', {'form': form})
-
-# @login_required(login_url='login')
-# def settings(request):
-    
-#     return render(request, 'webapp/settings.html')
 
 
 
 @login_required(login_url='login')
 def settings(request):
-    # if request.method == 'POST':
-    #     form = UserSettingsForm(request.POST, instance=request.user)
-    #     if form.is_valid():
-    #         user = form.save()
-    #         # Example: Save "color of account" to the session
-    #         # request.session['color_of_account'] = form.cleaned_data['color_of_account']
-    #         messages.success(request, 'Your settings have been updated.')
-    #         return redirect('settings')  # Redirect to a confirmation or the settings page itself
-    # else:
-    #     form = UserSettingsForm(instance=request.user)
-    #     # Optional: Initialize form with session data
-    #     #if 'color_of_account' in request.session:
-    #         #form.fields['color_of_account'].initial = request.session['color_of_account']
-    
-    # return render(request, 'webapp/settings.html', {'form': form})
+   
     user_form = UserSettingsForm(request.POST or None, instance=request.user)
     password_change_attempted = 'old_password' in request.POST and request.POST['old_password']
 
@@ -359,16 +282,7 @@ def settings(request):
     return render(request, 'webapp/settings.html', context)
 
 
-# def property_information(request):
-#     return render(request, 'webapp/property_information.html')
 
-
-
-# def property_information(request, pid):
-#     property = get_object_or_404(Property, pid=pid)
-#     p =  get_object_or_404(Profile, user_id=property.uid)
-#     u =  get_object_or_404(User, id=p.id)
-#     return render(request, 'webapp/property_information.html', {'property': property , 'p':p })
 
         
 def property_information(request, pid):
@@ -389,8 +303,10 @@ def property_information(request, pid):
         area = float(property_instance.length) * float(property_instance.width)
     except (ValueError, TypeError):
         area = "Invalid input"  
-    return render(request, 'webapp/property_information.html', {'property': property_instance, 'p': profile, 'images': images ,'images360': images360, 'area': area})
+    ph = profile.phone_number[1:]
+    return render(request, 'webapp/property_information.html', { 'ph':ph,'property': property_instance, 'p': profile, 'images': images ,'images360': images360, 'area': area})
 
+@login_required(login_url='login')
 def add_to_favorite(request, pid):
     u=Profile.objects.get(user=request.user)
     p=get_object_or_404(Property, pid=pid)
@@ -493,14 +409,15 @@ def profile(request, username):
     properties=Property.objects.filter(uid=profile)
     rent_count = Property.objects.filter(uid=profile,sell_or_rent= "rent").count()
     sell_count = Property.objects.filter(uid=profile,sell_or_rent= "sell").count()
-    return render(request, 'webapp/profile.html', {'user': user, 'Profile': Profile, 'properties': properties,'rent_count': rent_count,'sell_count': sell_count,})
+    ph = profile.phone_number[1:]
+    return render(request, 'webapp/profile.html', {'ph':ph, 'Profile': profile, 'properties': properties,'rent_count': rent_count,'sell_count': sell_count,})
 # Ibrahim: Just for testing you can change abo abo omha 
 # def favorate(request):
-#      return render(request, 'webapp/favorate.html')   
-
-def favorites(request, uid):
-    profile = get_object_or_404(Profile, pk=uid)
-    favorites = Favorite.objects.filter(uid=profile)
+#      return render(request, 'webapp/favorate.html')  
+ 
+@login_required(login_url='login')
+def favorites(request):
+    profile = Profile.objects.get(user=request.user)
     favorite_properties = profile.favorites.all()
     
     return render(request, 'webapp/favorate.html', {'favorites': favorite_properties, 'profile': profile})
@@ -509,7 +426,7 @@ def favorites(request, uid):
 def dashboard(request):
      return render(request, 'webapp/dashboard.html')   
 
-
+@login_required(login_url='login')
 def remove_from_favorite(request, pid):
     profile = Profile.objects.get(user=request.user)
     property = get_object_or_404(Property, pid=pid)
@@ -518,3 +435,16 @@ def remove_from_favorite(request, pid):
         favorite.delete()
     # return redirect(favorites, uid )
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+@login_required(login_url='login')
+def delete_property(request,pid):
+    #property_instance = get_object_or_404(Property, pk=property_id)
+    property_instance = get_object_or_404(Property, pid=pid)
+    
+    # Check if the property belongs to the current user
+    if property_instance.uid == request.user.profile:
+        # If it belongs to the user, delete it
+        property_instance.delete()
+    
+    return redirect('')
+

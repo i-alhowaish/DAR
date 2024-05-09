@@ -34,12 +34,12 @@
   }
 </style> -->
 <!--endif here -->
-{% if profile.color %}
+{% if Profile.color %}
 <style>
   :root {
     /* User custom color */
-    --user-custom-color: {{ profile.color }};
-    --user-custom-color-50: {{ profile.color }}50; /* Append 50 for 50% opacity */
+    --user-custom-color: {{ Profile.color }};
+    --user-custom-color-50: {{ Profile.color }}50; /* Append 50 for 50% opacity */
   }
 </style>
 {% else %}
@@ -96,7 +96,7 @@
               <h6><span class="badge badge-color">المعلن</span></h6>
               <div class="row">
                 <div class="col">
-                  <h3 class="mb-2">صالح العمري</h3>
+                  <h3 class="mb-2">{{ Profile.user.first_name }} {{ Profile.user.last_name }}</h3>
                 </div>
                 <div class="col-2">
                   <div class="" style="width: 25px; height: 25px;">
@@ -112,7 +112,7 @@
                 </div>
               </div>
               
-              <p class="text-muted mb-4">SalehAlamri</p>
+              <p class="text-muted mb-4">{{ Profile.user.username }}</p>
               <p class="mb-5 sale-and-rent">
                 <span><span id="properties-for-sale" class="badge badge-number">{{rent_count}}</span> عقارات معروضة للإيجار</span> 
                 <br>
@@ -120,7 +120,7 @@
                 
               <div class="row">
                 <div class="col-10">
-                  <a href="https://wa.me/{{ Profile.phone_number }}" class="btn btn-outline-success w-25 mt-2" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+                  <a href="https://wa.me/+966{{ ph }}" class="btn btn-outline-success w-25 mt-2" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
                   <a href="mailto: {{ Profile.user.email }}" class="btn btn-outline-primary w-25 mt-2" target="_blank"><i class="fa-regular fa-envelope"></i> إيميل</a>
 
                 </div>
@@ -130,7 +130,7 @@
                     تم نسخ الرابط
                 </div>
                                        
-                  <a class="btn share-icon" href="#" onclick="copyContent()"
+                  <a class="btn share-icon" href="" onclick="copyContent()"
                   data-toggle="tooltip" data-placement="top" title="نسخ رابط صفحة المعلن"
                   ><i class="fas fa-link"></i></a>
               </div>
@@ -223,8 +223,34 @@
 
 
 {% block script %}
+<script>let timeoutReference; // Declare this outside your function to make it accessible globally
+  
+  const copyContent = async () => {
+    clearTimeout(timeoutReference); // Clear any existing timeout
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      document.getElementById('copySuccessMessage').style.display = 'flex'; // Use 'flex' to show the message
+      // Hide the message after 5 seconds
+      timeoutReference = setTimeout(() => {
+        document.getElementById('copySuccessMessage').style.display = 'none';
+      }, 5000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  }
+  
+  // Function to close the message
+  function closeMessage() {
+    clearTimeout(timeoutReference); // Clear the timeout
+    document.getElementById('copySuccessMessage').style.display = 'none';
+  }
+  
+  // Event listener for the close button
+  document.getElementById('closeMessage').onclick = closeMessage; // Assign the onclick handler
+  
+  </script>
 
-<script src="{% static 'js/profile.js' %}"></script>
+<!-- <script src="{% static 'js/profile.js' %}"></script> -->
 
 
 
