@@ -83,20 +83,20 @@ class Property(models.Model):
         ('Land','أرض')
           ]
     type = models.CharField(max_length=100,choices=Type_Choices)
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     furnished = models.BooleanField()
     number_of_bathrooms = models.IntegerField(null=True, blank=True)
     
     region = models.CharField(max_length=100, choices=REGION_CHOICES)
     city = models.CharField(max_length=100, choices=CITY_CHOICES)
-    street = models.CharField(max_length=100)
+    street = models.CharField(max_length=100, null=True, blank=True)
     neighborhood = models.CharField(max_length=100, choices=NEIGHBORHOOD_CHOICES,null=True, blank=True)
     # coordinate = models.CharField(max_length=100, blank=True, null=True)
     lat = models.FloatField()
     lng = models.FloatField()
     length = models.DecimalField(max_digits=10, decimal_places=2)
     width = models.DecimalField(max_digits=10, decimal_places=2)
-    number_of_sides = models.IntegerField(null=True, blank=True)
+    number_of_sides = models.IntegerField()
     # facade = models.CharField(max_length=100, blank=True, null=True)
     number_of_rooms = models.IntegerField(null=True, blank=True)
     SELL_OR_RENT_CHOICES = [

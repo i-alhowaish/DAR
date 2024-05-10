@@ -446,5 +446,5 @@ def delete_property(request,pid):
         # If it belongs to the user, delete it
         property_instance.delete()
     
-    return redirect('')
+    return redirect('my_properties')
 

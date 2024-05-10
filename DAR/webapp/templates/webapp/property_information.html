@@ -38,44 +38,25 @@
 
           <div class="property-images">
             <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9OusbTAzhrIEpjootHCVVS_lU9AVWnD0PrRqQ5gDXHQ&s" alt=""> -->
-
+            {% if property.images.all %}
             <div class="wrap">
               <div id="arrow-left" class="arrow"></div>
               <div id="slider">
+                
                 {% for image in images %}
+
                 <div class="slide">
                   <div class="slide-content">
                     <img src="{{ image.image.url }}" alt="">
                   </div>
                 </div>
-                    
-               
                 {% endfor %}
-                <!-- <div class="slide">
-                  <div class="slide-content">
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9OusbTAzhrIEpjootHCVVS_lU9AVWnD0PrRqQ5gDXHQ&s"
-                      alt="">
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="slide-content">
-                    <img
-                      src="https://assets.architecturaldigest.in/photos/638724a42533d30b76d3a455/16:9/w_1615,h_908,c_limit/Mumbai-%20This%20Andheri%20home%20packs%20colour%20and%20smart%20design%20in%20under%20700%20sq%20ft.jpg"
-                      alt="">
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="slide-content">
-                    <img
-                      src="https://assets.architecturaldigest.in/photos/64904022505cb5179481b321/16:9/w_1920,c_limit/Untitled%20design%20(24).png"
-                      alt="">
-                  </div>
-                </div> -->
+
+                
               </div>
               <div id="arrow-right" class="arrow"></div>
             </div>
-
+            {% endif %}
 
           </div>
 
@@ -93,7 +74,7 @@
               <img class="logo" src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" alt="">
               {% endif %}
               <div class="userinfo">
-                <h3 class="owner-name">{{ p.user.username }}</h3>
+                <h3 class="owner-name"><a href="{% url 'profile' username=p.user.username %}" style="color: green; " >{{ p.user.username }} </a></h3>
                 <div class="socials">
                   <a href="https://wa.me/+966{{ ph }}"><i class="fa-brands fa-square-whatsapp"></i></a>
                   <a href="mailto: {{ p.user.email }}"><i class="fa-solid fa-envelope"></i></a>
@@ -186,27 +167,48 @@
               </tr>
               <tr>
                 <th scope="row" class="table-headers">الحي</th>
+                {% if property.neighborhood %}
                 <td>{{ property.neighborhood }}</td>
+                {% else %}
+                <td>لا يوجد حي</td>
+                {% endif %}
                 <th scope="row" class="table-headers">المساحة (م<sup>2</sup>)</th>
                 <td>{{ area }}</td>
               </tr>
               <tr>
                 <th scope="row" class="table-headers">عدد الغرف</th>
+                {% if property.number_of_rooms %}
                 <td>{{ property.number_of_rooms }}</td>
+                  {% else %}
+                  <td>لا يوجد غرف</td>
+                  {% endif %}
                 <th scope="row" class="table-headers">عدد دورات المياة</th>
+                {% if property.number_of_bathrooms %}
                 <td>{{ property.number_of_bathrooms }}</td>
+                {% else %}
+                  <td>لا يوجد دورات مياة</td>
+                  {% endif %}
               </tr>
               <tr>
                 <th scope="row" class="table-headers">عدد الواجهات</th>
                 <td>{{ property.number_of_sides }}</td>
-                <th scope="row" class="table-headers">عدد المواقف</th>
-                <td>{{ property.number_of_parkings }}</td>
+                <th scope="row" class="table-headers">عمر العقار (سنوات)</th>
+                {% if property.year_built %}
+                
+                <td>{{ property.year_built }}</td>
+                {% else %}
+                  <td>لم يتم تحديده</td>
+                  {% endif %}
               </tr>
               <tr>
-                <th scope="row" class="table-headers">عمر العقار (سنوات)</th>
-                <td>{{ property.year_built }}</td>
                 <th scope="row" class="table-headers">مؤثثة</th>
-                <td>{{ property.furnished }}</td>
+                {% if property.furnished %}
+                <td>نعم</td>
+              {% else %}
+                <td>غير مؤثثة</td>
+              {% endif %}
+              <td></td>
+              <td></td>
               </tr>
             </tbody>
           </table>
@@ -221,7 +223,7 @@
           <p hidden id="lngInput">{{ property.lng }}</p>
 
         </div>
-
+        {% if property.images360.all %}
         <div class="property-image360 image-container mt-5">
           <h3 class="page-sub-title pb-2">الصور البانورامية</h3>
           {% for image360 in images360 %}
@@ -229,7 +231,7 @@
             data-panorama-image="{{ image360.image360.url }}">
           </div>
           {% endfor %}
-
+          {% endif %}
 
           <!-- <div class="image360-container"
             data-panorama-image="https://www.shutterstock.com/image-illustration/white-home-interior-modern-apartment-260nw-72279010.jpg">

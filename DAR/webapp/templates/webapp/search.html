@@ -341,7 +341,11 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
             <div class="no-image">لا يوجد صور</div>
           {% endif %}
           <div class="card-body">
-            <h3 class="card-title pb-2" style="font-weight: 500;">فيلا مدينة الرياض حي الزهور</h5>
+            {% if property.neighborhood %}
+            <h3 class="card-title pb-2" style="font-weight: 500;">{{ property.get_type_display }} مدينة  {{ property.city }} {{ property.neighborhood }}</h5>
+              {% else %}
+            <h3 class="card-title pb-2" style="font-weight: 500;">{{ property.get_type_display }} مدينة  {{ property.city }} </h5>
+              {% endif %}
             <div class="row">
               <div class="col">
                 <p class="card-text h4 text-success priceInput" style="font-weight: 500;">{{ property.price }} &#65020;</p>
@@ -350,8 +354,8 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                 
                 <span>{% widthratio property.length 1 property.width %} م<sup>2</sup></span> 
 
-                {% if property.number_of_bedrooms and property.number_of_bedrooms != 0 %}
-                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> {{ property.number_of_bedrooms }}</span>
+                {% if property.number_of_rooms and property.number_of_rooms != 0 %}
+                &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> {{ property.number_of_rooms }}</span>
                 {% endif %}
                 {% if property.number_of_bathrooms and property.number_of_bathrooms != 0 %}
                  &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-shower"></i> {{ property.number_of_bathrooms }}</span>

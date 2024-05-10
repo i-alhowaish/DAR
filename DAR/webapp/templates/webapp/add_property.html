@@ -82,7 +82,7 @@
             <div class="row">
               <div class="col">
                 <div class="form-group mb-3">
-                  <label for="typeSelect">نوع العقار</label>
+                  <label for="typeSelect">نوع العقار *</label>
                   <!-- <select class="form-control" id="typeSelect" name="type">
                     <option value="villa">فلة</option>
                     <option value="apartment">شقة</option>
@@ -95,7 +95,7 @@
               </div>
               <div class="col">
                 <div class="form-group mb-3">
-                  <label for="sellOrRent">نوع العرض</label>
+                  <label for="sellOrRent">نوع العرض *</label>
                   <!-- <select class="form-control" id="typeSelect" name="type">
                     <option value="villa">فلة</option>
                     <option value="apartment">شقة</option>
@@ -111,23 +111,23 @@
 
   
               <div class="form-group mb-3">
-                <label for="priceInput mb-2">السعر</label>
+                <label for="priceInput mb-2">السعر *</label>
                 <!-- <input type="number" step="0.01" class="form-control" id="priceInput" name="price"> -->
-                {% render_field property_form.price class+="form-control" step="1" id="priceInput" name="price" min="0"%}
+                {% render_field property_form.price class+="form-control" step="1" id="priceInput" name="price" min="1"%}
 
               </div>
 
               <div class="row">
                 <div class="col">
                   <div class="form-group mb-3">
-                    <label for="lengthInput mb-2">الطول (م)</label>
+                    <label for="lengthInput mb-2">الطول (م) *</label>
                     <!-- <input type="number" step="0.01" class="form-control" id="lengthInput" name="length"> -->
                     {% render_field property_form.length step="0.1" class+="form-control" id="lengthInput" name="length" min="1"%}
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group mb-3">
-                    <label for="widthInput mb-2">العرض (م)</label>
+                    <label for="widthInput mb-2">العرض (م) *</label>
                     <!-- <input type="number" step="0.01" class="form-control" id="widthInput" name="width"> -->
                     {% render_field property_form.width step="0.1" class+="form-control" id="widthInput" name="length" min="1"%}
     
@@ -155,7 +155,7 @@
                   <div class="form-group mb-3">
                     <label for="bathroomsInput mb-2">عدد دورات المياة</label>
                     <!-- <input type="number" class="form-control" id="bathroomsInput" name="bathrooms"> -->
-                    {% render_field property_form.number_of_bedrooms class+="form-control" id="bathroomsInput" name="bathrooms" min="0"%}
+                    {% render_field property_form.number_of_bathrooms class+="form-control" id="bathroomsInput" name="bathrooms" min="0"%}
                   </div>
                 </div>
 
@@ -169,7 +169,7 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group mb-3">
-                    <label for="regionSelect mb-2">المنطقة</label>
+                    <label for="regionSelect mb-2">المنطقة *</label>
                     <!-- <select class="form-control" id="regionSelect" name="region">
                     </select> -->
                     {% render_field property_form.region class+="form-control" id="regionSelect" name="region" %}
@@ -179,7 +179,7 @@
                 <div class="col">
                  <!-- Cities -->
                  <div class="form-group mb-3">
-                  <label for="citySelect mb-2">المدينة</label>
+                  <label for="citySelect mb-2">المدينة *</label>
                   <!-- <select class="form-control" id="citySelect" name="city">
                    
                   </select> -->
@@ -219,14 +219,14 @@
 
 
               <div class="form-group">
-                <label for="sidesInput">عدد الواجهات</label>
+                <label for="sidesInput">عدد الواجهات *</label>
                 <!-- <input type="number" class="form-control" id="sidesInput" name="sides" min="1" max="4"> -->
                 {% render_field property_form.number_of_sides type="number" class+="form-control" id="sidesInput" name="sides" min="1" max="4" %}
               </div>
                   <div class="checkbox mb-3">
                     <!-- <input type="checkbox" id="furnishedCheckbox" name="furnished"> -->
                     {% render_field property_form.furnished id="furnishedCheckbox" name="furnished" %}
-                    <label for="furnishedCheckbox">مؤثثة</label>
+                    <label for="furnishedCheckbox">مؤثثة </label>
                     
                   </div>
               
@@ -235,7 +235,7 @@
   
               <!-- Google Map Link -->
               <div class="form-group mb-3">
-                <label for="mapLinkInput mb-2">حدد موقع العقار</label>
+                <label for="mapLinkInput mb-2">حدد موقع العقار *</label>
                 <!-- <input type="url" class="form-control" id="mapLinkInput" name="mapLink"> -->
                 {% render_field property_form.lat class+="form-control" id="latInput" name="lat" type="hidden" %}
                 {% render_field property_form.lng class+="form-control" id="lngInput" name="lng" type="hidden" %}
@@ -262,9 +262,9 @@
               </div> -->
 
               <div class="form-group mb-3">
-                <label for="widthInput mb-2">عمر العقار (بالسنوات)</label>
+                <label for="widthInput mb-2">عمر العقار (بالسنوات) *</label>
                 <!-- <input type="number"  class="form-control" id="widthInput" name="width"> -->
-                {% render_field property_form.width step="1" class+="form-control" id="yearBuilt" name="yearBuilt" min="0" %}
+                {% render_field property_form.year_built step="1" class+="form-control" id="yearBuilt" name="yearBuilt" min="0" %}
 
               </div>
               

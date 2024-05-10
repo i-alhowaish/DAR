@@ -43,4 +43,30 @@ document.getElementById('sidesInput').addEventListener('input', function() {
     }
   });
 
-  
+  document.addEventListener('DOMContentLoaded', function() {
+
+    let lt= document.getElementById('latInput');
+    let lg = document.getElementById('lngInput');
+
+    form.addEventListener('submit', function(event) {
+        // Validate Phone Number
+        const ltv = lt.value;
+        const lgv = lg.value; // Starts with '05' and followed by exactly 8 digits
+
+        if (ltv == ''||lgv=='') {
+            // alert('رقم الجوال يجب أن يبدأ بـ05 ويتكون من 10 أرقام.');
+            Swal.fire({
+              icon: "error",
+              title: "خطأ",
+              text:'الرجاء اختيار موقع على الخارطة',
+            });
+            this.value = '';
+
+            event.preventDefault(); // Stop form submission
+            phoneNumberInput.focus(); // Focus on phone number input for correction
+            return false;
+        }
+
+    }
+    );
+  });
