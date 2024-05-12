@@ -40,12 +40,12 @@
         <div class="col">
           <label>إسمك الأول</label>
           <!-- <input type="text" class="input-field-dar"> -->
-          {% render_field user_form.first_name class+="input-field-dar" %}
+          {% render_field user_form.first_name class+="input-field-dar" id="first_name" %}
         </div>
         <div class="col">
           <label>إسم العائلة</label>
           <!-- <input type="text" class="input-field-dar"> -->
-          {% render_field user_form.last_name class+="input-field-dar" %}
+          {% render_field user_form.last_name class+="input-field-dar" id="last_name" %}
         </div>
       </div>
 
@@ -60,7 +60,7 @@
         
         <label>الإيميل</label>
         <!-- <input type="email" class="input-field-dar"> -->
-        {% render_field user_form.email class+="input-field-dar" %}
+        {% render_field user_form.email class+="input-field-dar" id="email" %}
         <label>كلمة المرور السابقة</label>
         <!-- <input type="password" class="input-field-dar"> -->
         <input type="password" name="old_password" id="old_password" class="input-field-dar">
@@ -80,6 +80,37 @@
         
 
       </form>
+      {% for message in messages %}
+
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+        <p id="message-timer" class="alert alert-success float-center text-center message-text-black"> 
+
+            <i class="fa fa-check" aria-hidden="true"></i> &nbsp; {{message}}
+
+        </p>
+
+    {% endif %}
+
+{% endfor %}
+
+      {% for message in messages %}
+
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+
+
+          <p id="message-timer" class="alert alert-danger float-center text-center message-text-black"> 
+
+              <i class="fa fa-check" aria-hidden="true"></i> &nbsp; {{message}}
+
+          </p>
+
+
+      {% endif %}
+
+
+  {% endfor %}
+
       
 
       
@@ -147,6 +178,37 @@ crossorigin="anonymous"
       
   });
 });
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('.form-dar');
+
+  let first_name = document.getElementById('first_name');
+  let last_name = document.getElementById('last_name');
+  let email = document.getElementById('email');
+   
+
+  form.addEventListener('submit', function(event) {
+    first_namev = first_name.value
+    last_namev = last_name.value
+    emailv = email.value
+      
+      if (first_namev == '' || last_namev =='' || emailv =='') {
+          // alert('رقم الجوال يجب أن يبدأ بـ05 ويتكون من 10 أرقام.');
+          Swal.fire({
+            icon: "error",
+            title: "خطأ",
+            text:'الرجاء تعبئة جميع الخانات',
+          });
+          this.value = '';
+
+          event.preventDefault(); // Stop form submission
+         
+          return false;
+      }
+
+  }
+  );
+});
+
 
 </script>
 

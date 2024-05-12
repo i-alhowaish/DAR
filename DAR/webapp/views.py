@@ -253,16 +253,18 @@ def settings(request):
                     profile.userimage = image_file
 
             profile.save()
-            messages.success(request, 'Your settings have been updated.')
+            messages.success(request, 'تم تحديث معلوماتك الشخصية بنجاح')
+        else:
+             messages.error(request,"هناك خطأ باسم المستخدم")
 
         if password_change_attempted:
             password_form = PasswordChangeForm(user=request.user, data=request.POST)
             if password_form.is_valid():
                 user = password_form.save()
                 update_session_auth_hash(request, user)
-                messages.success(request, 'Your password was successfully updated.')
+                messages.success(request, 'تم تحديث الرقم السري بنجاح')
             else:
-                messages.error(request, 'There was an error changing your password.')
+                messages.error(request, 'كلمة المرور خاطئة، يجب ان تكون اكثر من ٨ خانات و مكونة من احرف وارقام وغير سهلة التوقع')
 
         return redirect('settings')
        

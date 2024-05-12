@@ -27,12 +27,43 @@ document.addEventListener('DOMContentLoaded', function() {
             text:'رقم الجوال يجب أن يبدأ بـ05 ويتكون من 10 أرقام.',
           });
           this.value = '';
-      }
+      
           event.preventDefault(); // Stop form submission
           phoneNumberInput.focus(); // Focus on phone number input for correction
           return false;
+        }
       }
 
       
+  );
+});
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('.form-dar');
+
+  let first_name = document.getElementById('first_name');
+  let last_name = document.getElementById('last_name');
+  let email = document.getElementById('email');
+   
+
+  form.addEventListener('submit', function(event) {
+    first_namev = first_name.value
+    last_namev = last_name.value
+    emailv = email.value
+      
+      if (first_namev == '' || last_namev =='' || emailv =='') {
+          // alert('رقم الجوال يجب أن يبدأ بـ05 ويتكون من 10 أرقام.');
+          Swal.fire({
+            icon: "error",
+            title: "خطأ",
+            text:'الرجاء تعبئة جميع الخانات',
+          });
+          this.value = '';
+
+          event.preventDefault(); // Stop form submission
+         
+          return false;
+      }
+
+  }
   );
 });
