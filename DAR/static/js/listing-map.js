@@ -42,6 +42,11 @@ marker.addTo(map);
    
 
 });
+
+  document.querySelectorAll('.priceInput').forEach(element => {
+    element.innerText = formatNumber(parseFloat(element.innerText.replace(" ﷼", '').replace(/,/g, ''))) + " ﷼";
+  });
+  sortProperties('أعلى سعر')
 })
 
 // Icon for 1

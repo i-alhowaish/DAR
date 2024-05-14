@@ -286,10 +286,10 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
         الترتيب بحسب
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">أعلى سعر</a></li>
-        <li><a class="dropdown-item" href="#">أقل سعر</a></li>
-        <li><a class="dropdown-item" href="#">أعلى مساحة</a></li>
-        <li><a class="dropdown-item" href="#">أقل مساحة</a></li>
+        <li><a class="dropdown-item" href="#" onclick="sortProperties('أعلى سعر')">أعلى سعر</a></li>
+        <li><a class="dropdown-item" href="#" onclick="sortProperties('أقل سعر')">أقل سعر</a></li>
+        <li><a class="dropdown-item" href="#" onclick="sortProperties('أعلى مساحة')">أعلى مساحة</a></li>
+        <li><a class="dropdown-item" href="#" onclick="sortProperties('أقل مساحة')">أقل مساحة</a></li>
       </ul>
     </div>
   </section>
@@ -333,7 +333,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
       </div> -->
       
       {% for property in properties %}
-      <div class="col">
+      <div class="col col-property">
         <div class="card">
           {% if property.images.all %}
             <img src="{{ property.images.first.image.url }}" class="card-img-top" alt="Image of the property">
@@ -352,7 +352,7 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
                 <p class="card-text h6" style="font-weight: 400;"></p>
                 
                 
-                <span>{% widthratio property.length 1 property.width %} م<sup>2</sup></span> 
+                <span class="sizeInput">{% widthratio property.length 1 property.width %} م<sup>2</sup></span> 
 
                 {% if property.number_of_rooms and property.number_of_rooms != 0 %}
                 &nbsp;|&nbsp;&nbsp;<span><i class="fa-solid fa-bed"></i> {{ property.number_of_rooms }}</span>
@@ -767,6 +767,64 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
 
 
 {% block script %}
+
+<script>
+  function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  function sortProperties(sortBy) {
+    console.log(sortBy);
+    const propertiesContainer = document.getElementById('propertiesdiv');
+    if (!propertiesContainer) {
+      console.error('Properties container not found');
+      return;  // Exit the function if the container is not found
+    }
+
+    let properties = Array.from(propertiesContainer.getElementsByClassName('col-property'));
+    properties.sort(function (a, b) {
+      let aVal = 0, bVal = 0;  // Default values
+      if (sortBy.includes('سعر')) {
+        const aPrice = a.querySelector('.priceInput');
+        const bPrice = b.querySelector('.priceInput');
+        if (aPrice && bPrice) {
+          aVal = parseFloat(aPrice.innerText.replace(" ﷼", '').replace(/,/g, ''));
+          bVal = parseFloat(bPrice.innerText.replace(" ﷼", '').replace(/,/g, ''));
+        }
+      } else if (sortBy.includes('مساحة')) {
+        const aSize = a.querySelector('.sizeInput');
+        const bSize = b.querySelector('.sizeInput');
+        if (aSize && bSize) {
+          aVal = parseFloat(aSize.innerText);
+          bVal = parseFloat(bSize.innerText);
+        }
+      }
+
+      if (sortBy.startsWith('أقل')) {
+        return aVal - bVal;  // For ascending order
+      } else {
+        return bVal - aVal;  // For descending order
+      }
+    });
+
+    // Empty the container and append sorted properties
+    propertiesContainer.innerHTML = '';
+    properties.forEach(property => {
+      // Format the price display here
+      const priceElement = property.querySelector('.priceInput');
+      if (priceElement) {
+        priceElement.innerText = formatNumber(parseFloat(priceElement.innerText.replace(" ﷼", '').replace(/,/g, ''))) + " ﷼";
+      }
+      propertiesContainer.appendChild(property);
+    });
+  }
+
+  // Additionally, when the page loads, format all prices initially displayed
+
+
+</script>
+
+
 <script src="{% static 'js/dropdownsearch.js' %}"></script>
 <script src="{% static 'js/listing-map.js'%}"></script>
 <script src="{% static 'js/number-format.js' %}"></script>
